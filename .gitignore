@@ -1,0 +1,28 @@
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Dependencies and builds
+node_modules/
+.next/
+out/
+coverage/
+
+# Local Supabase
+supabase/.branches/
+supabase/.temp/
+
+# Private reference data — NEVER COMMIT
+private-reference/
+private-data/
+*.private.xlsx
+*.private.pdf
+**/*REAL_DATA*
+**/*DO_NOT_COMMIT*
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
