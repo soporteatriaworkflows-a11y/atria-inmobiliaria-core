@@ -1,0 +1,13 @@
+node_modules
+.next
+coverage
+pnpm-lock.yaml
+fixtures
+prompts
+AGENTS.md
+CLAUDE.md
+README_START_HERE.md
+docs/00_PRODUCT_SCOPE.md
+docs/02_SECURITY_BASELINE.md
+docs/03_LIQUIDATION_GOLDEN_TEST.md
+docs/04_AGENT_ORCHESTRATION.md
