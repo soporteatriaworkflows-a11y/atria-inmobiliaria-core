@@ -1,3 +1,27 @@
-export const appMode = process.env.NEXT_PUBLIC_APP_MODE ?? "demo";
+export type AppMode = "demo" | "dev" | "live";
+
+function normalizePublicEnv(value: string | undefined) {
+  return value?.replace(/^("|')(.*)\1$/, "$2");
+}
+
+const rawAppMode = normalizePublicEnv(process.env.NEXT_PUBLIC_APP_MODE);
+
+export const appMode: AppMode =
+  rawAppMode === "dev" || rawAppMode === "live" ? rawAppMode : "demo";
 
 export const isDemoMode = appMode === "demo";
+export const isDevMode = appMode === "dev";
+export const isLiveMode = appMode === "live";
+
+export function getSupabasePublicConfig() {
+  const url = normalizePublicEnv(process.env.NEXT_PUBLIC_SUPABASE_URL);
+  const publishableKey = normalizePublicEnv(
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+  );
+
+  return {
+    isConfigured: Boolean(url && publishableKey),
+    publishableKey,
+    url,
+  };
+}
