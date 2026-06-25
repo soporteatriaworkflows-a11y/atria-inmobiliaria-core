@@ -59,3 +59,41 @@ pnpm dlx vercel
 ```
 
 If Vercel asks for login, token, team selection, or project authorization, stop and complete that step manually in Vercel. Do not paste tokens into chat or commit `.vercel`.
+
+## Actual production demo deployment
+
+Executed from `D:\ATRIA\ATRIA INMOBILIARIA` on branch `setup/foundation`.
+
+- GitHub default branch changed to `main` with GitHub CLI.
+- Vercel CLI used through `pnpm dlx vercel`; no global install required.
+- Vercel scope: `soporteatriaworkflows-8854s-projects`.
+- Vercel project created: `atria-inmobiliaria-core`.
+- GitHub repository connected by Vercel CLI.
+- Production deployment URL: `https://atria-inmobiliaria-core.vercel.app`.
+- Deployment inspect URL: available in Vercel project dashboard.
+- Production environment variable configured: `NEXT_PUBLIC_APP_MODE=demo`.
+- Preview environment variable configured: `NEXT_PUBLIC_APP_MODE=demo`.
+- No Supabase Cloud variables were configured.
+- No service role, secret key, database URL, Vercel token, or GitHub token was added to Vercel project variables.
+
+## Verification performed
+
+- Local `pnpm lint`: passed.
+- Local `pnpm typecheck`: passed.
+- Local `pnpm test`: passed.
+- Local `pnpm build`: passed.
+- Vercel production deployment status: Ready.
+- HTTP check for production URL: `200`.
+- Production page contains: `Modo demo seguro: datos sanitizados`.
+- `vercel logs` returned no runtime logs for the static demo pages.
+
+## Local files created by Vercel CLI
+
+Vercel CLI created local `.vercel/` metadata and `.env.local`. These are local-only and must not be committed.
+
+## Remaining deployment risks
+
+- The current production demo is sanitized and static/demo-oriented; it is not real financial production.
+- Supabase Cloud DEV is not connected yet.
+- No custom domain is configured.
+- Next.js build emits a warning that its ESLint plugin is not auto-detected because the project uses an explicit flat ESLint config for Windows reliability.
