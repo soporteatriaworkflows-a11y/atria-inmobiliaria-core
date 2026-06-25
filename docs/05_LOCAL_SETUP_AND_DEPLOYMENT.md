@@ -29,6 +29,18 @@ No service role key is required for this foundation.
 4. Push migrations to remote DEV only after local schema, RLS tests and seed are reviewed.
 5. Keep production separate and uncreated until security review.
 
+## Local Supabase ports
+
+This repository avoids the default Supabase local ports because another local project may already be running. Current local ports:
+
+| Service         | Port    |
+| --------------- | ------- |
+| API             | `55321` |
+| Database        | `55322` |
+| Shadow database | `55320` |
+| Studio          | `55323` |
+| Inbucket        | `55324` |
+
 ## Vercel Preview project
 
 1. Create a new Vercel project for this repository.

@@ -250,26 +250,60 @@ create trigger audit_log_append_only
 before update or delete on public.audit_log
 for each row execute function public.block_audit_log_update_delete();
 
-create or replace function public.block_posted_financial_delete()
+create or replace function public.block_posted_financial_update_delete()
 returns trigger
 language plpgsql
 as $$
 begin
-  raise exception 'financial records are append-only; create reversal entries instead';
+  if tg_op = 'DELETE' then
+    raise exception 'financial records are append-only; create reversal entries instead';
+  end if;
+
+  if old.status = 'posted' then
+    raise exception 'posted financial records are immutable; create reversal entries instead';
+  end if;
+
+  return new;
 end;
 $$;
 
-create trigger rent_collections_no_delete
-before delete on public.rent_collections
-for each row execute function public.block_posted_financial_delete();
+create or replace function public.block_ledger_update_delete()
+returns trigger
+language plpgsql
+as $$
+begin
+  raise exception 'ledger_entries are append-only; create reversal entries instead';
+end;
+$$;
 
-create trigger expenses_no_delete
-before delete on public.expenses
-for each row execute function public.block_posted_financial_delete();
+create or replace function public.block_published_closing_update_delete()
+returns trigger
+language plpgsql
+as $$
+begin
+  if old.status = 'published' then
+    raise exception 'published monthly closings are immutable; use explicit reopen workflow';
+  end if;
 
-create trigger ledger_entries_no_delete
-before delete on public.ledger_entries
-for each row execute function public.block_posted_financial_delete();
+  return new;
+end;
+$$;
+
+create trigger rent_collections_no_posted_update_delete
+before update or delete on public.rent_collections
+for each row execute function public.block_posted_financial_update_delete();
+
+create trigger expenses_no_posted_update_delete
+before update or delete on public.expenses
+for each row execute function public.block_posted_financial_update_delete();
+
+create trigger ledger_entries_append_only
+before update or delete on public.ledger_entries
+for each row execute function public.block_ledger_update_delete();
+
+create trigger monthly_closings_published_immutable
+before update or delete on public.monthly_closings
+for each row execute function public.block_published_closing_update_delete();
 
 alter table public.organizations enable row level security;
 alter table public.profiles enable row level security;
@@ -382,3 +416,6 @@ for select using (organization_id is null or public.is_member(organization_id));
 
 create policy "staff can insert audit log" on public.audit_log
 for insert with check (organization_id is null or public.is_staff(organization_id));
+
+grant usage on schema public to authenticated;
+grant select, insert, update, delete on all tables in schema public to authenticated;

@@ -32,8 +32,11 @@ describe("database security schema", () => {
     }
   });
 
-  it("keeps audit_log append-only and blocks owner finance writes", () => {
+  it("keeps audit and posted financial records immutable", () => {
     expect(migration).toContain("block_audit_log_update_delete");
+    expect(migration).toContain("block_posted_financial_update_delete");
+    expect(migration).toContain("block_ledger_update_delete");
+    expect(migration).toContain("block_published_closing_update_delete");
     expect(migration).toContain("owner_readonly");
     expect(migration.toLowerCase()).not.toMatch(
       /owner_readonly[^;]+insert[^;]+rent_collections/,
