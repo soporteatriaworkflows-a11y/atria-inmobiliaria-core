@@ -143,3 +143,69 @@ Despues de hacer push del commit de recuperacion:
 3. Abrir `https://atria-inmobiliaria-core.vercel.app`.
 4. Confirmar banner live y estado de Supabase.
 5. Confirmar que no aparecen datos reales ni valores de claves.
+
+## Resultado posterior al push
+
+Commit de recuperacion creado y subido:
+
+- `f89f593 Fix Vercel production dynamic build`
+
+El push a `origin/main` disparo un nuevo deployment en el proyecto original:
+
+- URL: `https://atria-inmobiliaria-core-hwn1k60lc.vercel.app`
+- Deployment ID: `dpl_7FejhX8qbS1gpYAjiHgwMP7biyR6`
+- Estado: `UNKNOWN`
+- Build: `0ms`
+- Logs: no disponibles por CLI
+
+Tambien se intento deploy directo por CLI al proyecto original:
+
+- URL: `https://atria-inmobiliaria-core-33qhqhbve.vercel.app`
+- Estado: `UNKNOWN`
+- El comando quedo sin respuesta hasta timeout local.
+
+## Proyecto limpio paralelo
+
+Se creo un proyecto paralelo para aislar si el problema era corrupcion/configuracion del proyecto original:
+
+- Proyecto: `atria-inmobiliaria-core-live`
+- Project ID: `prj_TPmd3b6FglAParOLussKJDHrqmmx`
+- Scope: `soporteatriaworkflows-8854s-projects`
+
+Variables Production configuradas solo con valores publicos:
+
+- `NEXT_PUBLIC_APP_MODE=live`
+- `NEXT_PUBLIC_SUPABASE_URL=https://bzoqbjcktoyngvszcwhl.supabase.co`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` configurada
+
+No se agregaron service role, secret key, database password ni database URL.
+
+Primer deploy del proyecto paralelo, antes de corregir framework preset:
+
+- URL: `https://atria-inmobiliaria-core-live-pjhtdcsaz.vercel.app`
+- Resultado: `Error`
+- Causa: proyecto creado con Framework Preset `Other`, Vercel esperaba output `public`.
+- Evidencia positiva: el build remoto si ejecuto `pnpm run build` y Next compilo correctamente.
+
+Se corrigio el proyecto paralelo a Framework Preset `Next.js`.
+
+Deploys posteriores del proyecto paralelo:
+
+- `https://atria-inmobiliaria-core-live-himuisofc.vercel.app` / `dpl_2LHZyNRXdAce7dNPHxVupMTfaTRR`: `UNKNOWN`, build `0ms`, sin logs.
+- `https://atria-inmobiliaria-core-live-39ln04y4c.vercel.app` / `dpl_AwZoBBePEBk2UWz3dPAmj8uR7Woz`: `UNKNOWN`, build `0ms`, sin logs.
+
+La URL del deployment `UNKNOWN` respondio con pagina de Vercel/login, no con la app, por lo que no se considera deployment funcional.
+
+## Conclusion actualizada
+
+El codigo live esta preparado y verificado localmente. La correccion de render dinamico elimina el error local de lambdas faltantes. El bloqueo que queda es del pipeline de Vercel para deployments Next.js en este scope/proyecto: los deployments se crean, reciben alias, pero quedan en `UNKNOWN/build 0ms` sin logs.
+
+La evidencia apunta a revisar en Vercel Dashboard:
+
+- estado interno del deployment `dpl_AwZoBBePEBk2UWz3dPAmj8uR7Woz`;
+- si hay una cola/build pipeline bloqueada para proyectos Next.js;
+- si hay proteccion/acceso que intercepta deployments nuevos;
+- integracion Git y permisos del repo;
+- si el scope tiene algun incidente, limite o configuracion de seguridad que impide finalizar deployments Next.js.
+
+No se recomienda volver a `output: "export"` porque el objetivo es produccion funcional con Auth/SSR/cookies/Supabase.
