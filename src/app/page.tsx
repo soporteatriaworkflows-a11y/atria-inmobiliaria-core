@@ -1,10 +1,15 @@
 import Link from "next/link";
 import { AppShell } from "@/components/app-shell";
 import { SummaryCard } from "@/components/summary-card";
+import { isDevMode } from "@/lib/app-config";
 import { demoLiquidation } from "@/lib/demo-data";
 import { formatCop } from "@/lib/money";
 
 export default function HomePage() {
+  const nextAction = isDevMode
+    ? "Preview DEV conectado a variables publicas de Supabase DEV. La interfaz sigue usando datos sanitizados hasta implementar Auth y lectura real controlada."
+    : "Conectar manualmente Supabase DEV y Vercel Preview cuando lint, tests y build pasen. Las claves reales van en `.env.local` o variables de Vercel, nunca en Git.";
+
   return (
     <AppShell
       title="Fundacion tecnica demo"
@@ -30,9 +35,7 @@ export default function HomePage() {
       <section className="rounded-lg border border-atria-line bg-white p-6 shadow-soft">
         <h2 className="text-2xl font-bold">Siguiente accion segura</h2>
         <p className="mt-3 text-xl leading-relaxed text-slate-700">
-          Conectar manualmente Supabase DEV y Vercel Preview cuando lint, tests
-          y build pasen. Las claves reales van en `.env.local` o variables de
-          Vercel, nunca en Git.
+          {nextAction}
         </p>
         <Link
           className="focus-ring mt-5 inline-flex rounded-md bg-atria-forest px-6 py-4 text-lg font-bold text-white hover:bg-atria-ink"
