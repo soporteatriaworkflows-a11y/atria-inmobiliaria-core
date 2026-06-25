@@ -12,6 +12,25 @@ Create a separate Supabase Cloud DEV project for previews and QA. Do not connect
 4. Do not import real financial documents or personal data.
 5. Do not paste service role keys into frontend code or Vercel public variables.
 
+## Current DEV project
+
+The Cloud DEV project for this MVP was created manually with this visible name:
+
+```text
+atria-inmobiliaria
+```
+
+Project ref:
+
+```text
+bzoqbjcktoyngvszcwhl
+```
+
+Even though the visible name is not `atria-inmobiliaria-dev`, this project is treated as DEV-only for the MVP. It is not the Construction Ops project and must not be mixed with:
+
+- `construction-ops-prod` / `jabddbccmhrxztfzpdii`
+- `just-padel-digital` / `riwlwactbxcgttfagwzn`
+
 ## Variables to obtain
 
 | Variable                               | Where to get it               | Where to paste it               | Public/secret |
@@ -34,22 +53,30 @@ If a backend-only operation later needs one of these, document the exact variabl
 
 ## Controlled migration plan
 
-Do not run these until explicitly authorized:
+These commands were authorized for Cloud DEV only on 2026-06-25:
 
 ```powershell
-pnpm exec supabase link
+pnpm exec supabase link --project-ref bzoqbjcktoyngvszcwhl
 pnpm exec supabase db push
 ```
 
-Recommended controlled sequence after authorization:
+Controlled sequence:
 
-1. Confirm the Supabase DEV project is empty or disposable.
-2. Confirm `.env.local` contains only DEV values.
-3. Run local `pnpm exec supabase db reset`.
-4. Run local `pnpm exec supabase test db`.
-5. Link the project with `pnpm exec supabase link`.
+1. Confirm the DEV project ref with the owner.
+2. Confirm it is not Construction Ops.
+3. Run local checks before remote work.
+4. Link the project with `pnpm exec supabase link --project-ref bzoqbjcktoyngvszcwhl`.
+5. Confirm migration status with `pnpm exec supabase migration list`.
 6. Apply migrations to DEV with `pnpm exec supabase db push`.
-7. Run a smoke test with sanitized data only.
+7. Confirm migration status again.
+8. Run RLS validation against DEV when Docker Desktop is available for pgTAP.
+
+Current migration status:
+
+- `202606240001_initial_schema.sql` applied to Cloud DEV.
+- `pnpm exec supabase migration list` shows local and remote versions aligned.
+- `pnpm exec supabase db query --linked --file .\supabase\tests\database\rls.sql --output json` executed the RLS SQL against Cloud DEV inside a transaction and completed successfully.
+- `pnpm exec supabase test db --linked` still fails in the CLI pgTAP harness because `plan()` is not resolved there; keep using the documented query-based validation until the harness is corrected.
 
 ## Separation rule
 

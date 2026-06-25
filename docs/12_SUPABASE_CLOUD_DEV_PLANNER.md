@@ -179,3 +179,37 @@ Act�a como agente Supabase Cloud DEV Connector del proyecto atria-inmobiliaria
 
 El proyecto Supabase Cloud DEV separado ya fue creado con nombre atria-inmobiliaria-dev. No uses Construction Ops. No uses datos reales. Puedes pedirme autorizaci�n para supabase login, supabase link y supabase db push. Primero verifica Git limpio, rama setup/foundation, checks locales, y que el proyecto remoto correcto sea atria-inmobiliaria-dev. Luego linkea, aplica migraciones a DEV, valida schema/RLS de forma segura con datos demo sanitizados, configura �nicamente variables p�blicas en Vercel Preview si te autorizo, y no toques Production Demo ni service role keys.
 ```
+
+## Connector phase update - 2026-06-25
+
+The Cloud DEV connection phase was authorized after project creation. The visible Supabase project name is `atria-inmobiliaria`, and it is treated as DEV-only for this MVP. The confirmed project ref is `bzoqbjcktoyngvszcwhl`.
+
+Explicitly excluded projects:
+
+- `construction-ops-prod` / `jabddbccmhrxztfzpdii`
+- `just-padel-digital` / `riwlwactbxcgttfagwzn`
+
+Executed Cloud DEV commands:
+
+```powershell
+pnpm exec supabase link --project-ref bzoqbjcktoyngvszcwhl
+pnpm exec supabase migration list
+pnpm exec supabase db push
+pnpm exec supabase migration list
+```
+
+Result:
+
+- Link completed without requesting a database password.
+- Migration `202606240001_initial_schema.sql` applied to Cloud DEV.
+- Local and remote migration versions are aligned.
+- No seed data, real data, service role key, secret key, direct database URL, or Vercel Production variable was used.
+- Docker Desktop was reopened and local `pnpm exec supabase test db` passed 12/12.
+- `pnpm exec supabase db query --linked --file .\supabase\tests\database\rls.sql --output json` executed the RLS SQL against Cloud DEV and completed successfully inside a rollback transaction.
+- `pnpm exec supabase test db --linked` remains blocked by the CLI pgTAP harness resolving `plan()` incorrectly on Cloud DEV; this is tracked as a tooling issue, not a migration failure.
+
+Next safe validation command when Docker Desktop is available:
+
+```powershell
+pnpm exec supabase db query --linked --file .\supabase\tests\database\rls.sql --output json
+```

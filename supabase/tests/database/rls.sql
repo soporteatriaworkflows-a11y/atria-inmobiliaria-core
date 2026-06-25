@@ -1,5 +1,8 @@
 begin;
 
+create extension if not exists pgtap;
+set search_path to public, extensions;
+
 select plan(12);
 
 insert into auth.users (id, aud, role, email, encrypted_password, email_confirmed_at, created_at, updated_at)
