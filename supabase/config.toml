@@ -30,3 +30,6 @@ file_size_limit = "25MiB"
 [inbucket]
 enabled = true
 port = 55324
+
+[analytics]
+enabled = false
