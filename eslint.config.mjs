@@ -5,6 +5,8 @@ const eslintConfig = tseslint.config(
   {
     ignores: [
       ".next/**",
+      ".vercel/**",
+      "out/**",
       "node_modules/**",
       "coverage/**",
       "next-env.d.ts",

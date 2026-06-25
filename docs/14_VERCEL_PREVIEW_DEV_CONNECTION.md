@@ -98,3 +98,12 @@ All passed locally before attempting Preview deployment.
 3. Trigger a new Preview deployment from the Vercel dashboard or GitHub branch after confirming the variables are scoped to Preview/branch only.
 4. Verify the Preview renders `Modo DEV seguro: Supabase DEV, datos sanitizados`.
 5. Keep Production on `NEXT_PUBLIC_APP_MODE=demo` until a separate production data plan is approved.
+
+## Debug update - 2026-06-25
+
+- Preview branch variables were recreated with `--no-sensitive` because they are public `NEXT_PUBLIC_*` values.
+- `next.config.ts` now uses `output: "export"` for this static MVP Preview path, fixing `vercel build --target preview` errors about missing lambdas for static routes.
+- `vercel deploy --prebuilt --target preview --yes --no-wait` returned `https://atria-inmobiliaria-core-2usq78koa.vercel.app`.
+- The prebuilt output contains `Modo DEV seguro: Supabase DEV, datos sanitizados`.
+- Vercel still reports the remote Preview deployment as `UNKNOWN` with build `0ms`; dashboard inspection is recommended.
+- Production remains `https://atria-inmobiliaria-core.vercel.app` with `Modo demo seguro: datos sanitizados`.
