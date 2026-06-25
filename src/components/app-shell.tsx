@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { isDemoMode } from "@/lib/app-config";
 import { mainNavigation } from "@/lib/navigation";
 
 export function AppShell({
@@ -17,6 +18,11 @@ export function AppShell({
           <p className="text-base font-semibold uppercase tracking-wide text-atria-forest">
             ATRIA Inmobiliaria Core
           </p>
+          {isDemoMode ? (
+            <p className="w-fit rounded-md bg-atria-mint px-3 py-2 text-base font-bold text-atria-forest">
+              Modo demo seguro: datos sanitizados
+            </p>
+          ) : null}
           <h1 className="text-3xl font-bold leading-tight sm:text-5xl">
             {title}
           </h1>
