@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   description: "MVP demo para administracion segura de propiedades heredadas.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default function RootLayout({
   children,
 }: Readonly<{
