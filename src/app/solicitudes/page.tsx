@@ -14,15 +14,15 @@ export default function RequestsPage() {
       description="Los cambios de propietarios, herederos o permisos entran por una solicitud que queda registrada."
       icon="solicitudes"
     >
-      <section className="overflow-hidden rounded-xl border border-atria-line/80 bg-white shadow-card">
+      <section className="overflow-hidden rounded-xl border border-white/10 bg-atria-graphite shadow-card">
         {requests.map((request) => (
           <article
-            className="flex items-center justify-between gap-3 border-b border-atria-line/60 px-4 py-3 last:border-b-0"
+            className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3 last:border-b-0"
             key={request.title}
           >
             <div className="min-w-0">
-              <p className="truncate text-sm font-medium text-atria-ink">{request.title}</p>
-              <p className="mt-0.5 text-2xs uppercase tracking-wide text-atria-muted">{request.meta}</p>
+              <p className="truncate text-sm font-medium text-atria-fog">{request.title}</p>
+              <p className="mt-0.5 text-2xs uppercase tracking-wide text-atria-mist">{request.meta}</p>
             </div>
             <StatusPill tone={request.tone}>{request.state}</StatusPill>
           </article>

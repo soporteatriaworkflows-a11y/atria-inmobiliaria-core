@@ -15,8 +15,8 @@ export default function AdminDashboardPage() {
         <MetricCard label="Estado de datos" value="De prueba" helper="Sin informacion real en esta etapa." tone="success" badge="Protegido" icon="propietario" />
       </section>
 
-      <div className="rounded-xl border border-atria-line/80 bg-white p-4 shadow-card">
-        <h3 className="mb-3 text-sm font-semibold text-atria-ink">Pasos para el cierre</h3>
+      <div className="rounded-xl border border-white/10 bg-atria-graphite p-4 shadow-card">
+        <h3 className="mb-3 text-sm font-semibold text-atria-fog">Pasos para el cierre</h3>
         <ActionList
           variant="step"
           items={[

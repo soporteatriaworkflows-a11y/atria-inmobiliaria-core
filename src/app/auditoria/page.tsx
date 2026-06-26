@@ -14,9 +14,9 @@ export default function AuditPage() {
       description="Historial que guarda cada cambio, cierre y solicitud. La informacion no se modifica ni se borra."
       icon="auditoria"
     >
-      <section className="rounded-xl border border-atria-line/80 bg-white p-4 shadow-card sm:p-5">
-        <div className="flex items-center justify-between border-b border-atria-line/70 pb-3">
-          <h2 className="text-sm font-semibold text-atria-ink">Historial de cambios</h2>
+      <section className="rounded-xl border border-white/10 bg-atria-graphite p-4 shadow-card sm:p-5">
+        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+          <h2 className="text-sm font-semibold text-atria-fog">Historial de cambios</h2>
           <StatusPill tone="success">Solo se agrega</StatusPill>
         </div>
 
@@ -24,14 +24,14 @@ export default function AuditPage() {
           {events.map((event, index) => (
             <li className="relative flex gap-3 pb-5 last:pb-0" key={event.text}>
               <div className="flex flex-col items-center">
-                <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-atria-forest ring-4 ring-atria-mint/50" />
+                <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-atria-violet ring-4 ring-atria-violet/25" />
                 {index < events.length - 1 ? (
-                  <span aria-hidden="true" className="mt-1 w-px flex-1 bg-atria-line" />
+                  <span aria-hidden="true" className="mt-1 w-px flex-1 bg-white/10" />
                 ) : null}
               </div>
               <div className="pb-1">
-                <p className="text-2xs font-semibold uppercase tracking-wide text-atria-muted">{event.date}</p>
-                <p className="mt-0.5 text-sm text-atria-ink">{event.text}</p>
+                <p className="text-2xs font-semibold uppercase tracking-wide text-atria-mist">{event.date}</p>
+                <p className="mt-0.5 text-sm text-atria-fog">{event.text}</p>
               </div>
             </li>
           ))}

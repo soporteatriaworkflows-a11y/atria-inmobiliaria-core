@@ -38,10 +38,10 @@ export default function HomePage() {
       </section>
 
       <section className="grid gap-3 lg:grid-cols-3">
-        <div className="rounded-xl border border-atria-line/80 bg-white p-4 shadow-card lg:col-span-2">
+        <div className="rounded-xl border border-white/10 bg-atria-graphite p-4 shadow-card lg:col-span-2">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-atria-ink">Accesos rapidos</h3>
-            <span className="text-2xs font-medium uppercase tracking-wide text-atria-muted">
+            <h3 className="text-sm font-semibold text-atria-fog">Accesos rapidos</h3>
+            <span className="text-2xs font-medium uppercase tracking-wide text-atria-mist">
               Por rol
             </span>
           </div>
@@ -73,18 +73,18 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 rounded-xl border border-atria-line/80 bg-gradient-to-br from-atria-mint/50 to-atria-surface p-4 shadow-card">
+        <div className="flex flex-col gap-3 rounded-xl border border-white/10 bg-gradient-to-br from-atria-violet/15 to-atria-graphite p-4 shadow-card">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-atria-ink">Proximo paso</h3>
+            <h3 className="text-sm font-semibold text-atria-fog">Proximo paso</h3>
             <StatusPill tone="warning">Pendiente</StatusPill>
           </div>
-          <p className="text-sm leading-relaxed text-atria-muted">
+          <p className="text-sm leading-relaxed text-atria-mist">
             Antes de cargar informacion real, ATRIA habilitara el ingreso, los
             permisos por rol y el registro de cada cambio.
           </p>
-          <div className="mt-auto rounded-lg border border-atria-line/70 bg-white/70 p-3">
-            <p className="text-xs font-semibold text-atria-ink">Informacion protegida</p>
-            <p className="mt-0.5 text-xs leading-relaxed text-atria-muted">
+          <div className="mt-auto rounded-lg border border-white/10 bg-white/5 p-3">
+            <p className="text-xs font-semibold text-atria-fog">Informacion protegida</p>
+            <p className="mt-0.5 text-xs leading-relaxed text-atria-mist">
               Conectado y operativo, sin datos financieros o personales reales.
             </p>
           </div>

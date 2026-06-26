@@ -12,9 +12,10 @@ type Status =
   | { kind: "error"; message: string };
 
 const dotByTone: Record<Tone, string> = {
+  primary: "bg-atria-violet",
   danger: "bg-atria-rose",
-  neutral: "bg-atria-leaf",
-  success: "bg-atria-forest",
+  neutral: "bg-atria-lavender",
+  success: "bg-atria-emerald",
   warning: "bg-atria-amber",
 };
 
@@ -109,7 +110,7 @@ export function SupabaseLiveStatus() {
   const tone = toneByStatus[status.kind];
 
   return (
-    <section className="flex items-center gap-3 rounded-xl border border-atria-line/80 bg-white px-4 py-3 shadow-card">
+    <section className="flex items-center gap-3 rounded-xl border border-white/10 bg-atria-graphite px-4 py-3 shadow-card">
       <span className="relative flex h-2.5 w-2.5 shrink-0">
         {status.kind === "ok" ? (
           <span className={`absolute inline-flex h-full w-full animate-ping rounded-full ${dotByTone[tone]} opacity-60`} />
@@ -117,22 +118,22 @@ export function SupabaseLiveStatus() {
         <span className={`relative inline-flex h-2.5 w-2.5 rounded-full ${dotByTone[tone]}`} />
       </span>
       <div className="min-w-0 flex-1">
-        <p className="text-2xs font-semibold uppercase tracking-[0.12em] text-atria-muted">
+        <p className="text-2xs font-semibold uppercase tracking-[0.12em] text-atria-mist">
           Estado del sistema
         </p>
-        <p className="mt-0.5 truncate text-sm font-medium text-atria-ink">
+        <p className="mt-0.5 truncate text-sm font-medium text-atria-fog">
           {status.message}
         </p>
       </div>
       <span
         className={`hidden shrink-0 rounded-full border px-2.5 py-0.5 text-2xs font-semibold uppercase tracking-wide sm:inline-flex ${
           tone === "success"
-            ? "border-atria-mint bg-atria-mint/70 text-atria-forest"
+            ? "border-atria-emerald/30 bg-atria-emerald/10 text-atria-emerald"
             : tone === "warning"
-              ? "border-amber-200 bg-amber-50 text-atria-amber"
+              ? "border-atria-amber/30 bg-atria-amber/10 text-atria-amber"
               : tone === "danger"
-                ? "border-red-200 bg-red-50 text-atria-rose"
-                : "border-atria-line bg-atria-surface text-atria-muted"
+                ? "border-atria-rose/30 bg-atria-rose/10 text-atria-rose"
+                : "border-white/10 bg-white/5 text-atria-mist"
         }`}
       >
         {labelByKind[status.kind]}

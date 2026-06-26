@@ -30,11 +30,11 @@ export default function OwnerDashboardPage() {
         />
       </section>
 
-      <SectionPanel className="bg-gradient-to-br from-atria-mint/40 to-atria-surface">
+      <SectionPanel className="bg-gradient-to-br from-atria-violet/15 to-atria-graphite">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <h2 className="text-sm font-semibold text-atria-ink">Tu informacion esta protegida</h2>
-            <p className="mt-1.5 text-sm leading-relaxed text-atria-muted">
+            <h2 className="text-sm font-semibold text-atria-fog">Tu informacion esta protegida</h2>
+            <p className="mt-1.5 text-sm leading-relaxed text-atria-mist">
               Si algo no coincide, puedes pedir una revision. Las cifras no se
               modifican desde esta vista.
             </p>

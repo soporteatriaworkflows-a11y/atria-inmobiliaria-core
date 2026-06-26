@@ -16,8 +16,8 @@ export default function AccountantDashboardPage() {
         <MetricCard label="Liquidacion" value="Borrador" helper="No publicar sin validacion." badge="Pendiente" icon="liquidacion" />
       </section>
 
-      <div className="rounded-xl border border-atria-line/80 bg-white p-4 shadow-card">
-        <h3 className="mb-3 text-sm font-semibold text-atria-ink">Pasos sugeridos</h3>
+      <div className="rounded-xl border border-white/10 bg-atria-graphite p-4 shadow-card">
+        <h3 className="mb-3 text-sm font-semibold text-atria-fog">Pasos sugeridos</h3>
         <ActionList
           variant="step"
           items={[

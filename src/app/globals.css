@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
-  background: #eef1ea;
-  color: #16231f;
+  color-scheme: dark;
+  background: #0a0a0f;
+  color: #f2f2f7;
 }
 
 * {
@@ -19,13 +19,14 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  /* Fondo neutro sofisticado: nada de blanco puro, profundidad muy sutil. */
+  /* Fondo dark tech ATRIA: carbon con glows violeta/indigo sutiles. */
   background:
-    radial-gradient(900px circle at 12% -8%, rgba(223, 242, 232, 0.55), transparent 60%),
-    radial-gradient(800px circle at 100% 0%, rgba(255, 250, 241, 0.6), transparent 55%),
-    linear-gradient(180deg, #eef1ea 0%, #f4f2ec 60%, #eff1ea 100%);
+    radial-gradient(1000px circle at 8% -10%, rgba(124, 58, 237, 0.16), transparent 55%),
+    radial-gradient(900px circle at 100% 0%, rgba(27, 18, 64, 0.55), transparent 55%),
+    radial-gradient(700px circle at 50% 120%, rgba(182, 140, 255, 0.08), transparent 60%),
+    linear-gradient(180deg, #0a0a0f 0%, #0c0c14 60%, #0a0a0f 100%);
   background-attachment: fixed;
-  color: #16231f;
+  color: #f2f2f7;
   font-size: 15px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
@@ -45,13 +46,13 @@ textarea {
 }
 
 ::selection {
-  background: #dff2e8;
-  color: #16231f;
+  background: rgba(124, 58, 237, 0.4);
+  color: #f2f2f7;
 }
 
-/* Foco visible pero fino y elegante. */
+/* Foco visible violeta, fino y elegante. */
 .focus-ring {
-  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-atria-forest;
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-atria-violet;
 }
 
 .font-display {
@@ -59,15 +60,15 @@ textarea {
   letter-spacing: -0.015em;
 }
 
-/* Scrollbar discreto para la sidebar oscura. */
+/* Scrollbar discreto para superficies oscuras. */
 .scroll-slim {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+  scrollbar-color: rgba(182, 140, 255, 0.22) transparent;
 }
 .scroll-slim::-webkit-scrollbar {
   width: 6px;
 }
 .scroll-slim::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(182, 140, 255, 0.22);
   border-radius: 9999px;
 }
