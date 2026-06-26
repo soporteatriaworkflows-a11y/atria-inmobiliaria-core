@@ -114,7 +114,7 @@ export function SupabaseLiveStatus() {
   const tone = toneByStatus[status.kind];
 
   return (
-    <section className="flex items-center gap-3 rounded-xl border border-white/10 bg-atria-graphite px-4 py-3 shadow-card">
+    <section className="flex items-center gap-3 rounded-xl border border-atria-edge bg-atria-graphite px-4 py-3 shadow-card">
       <span className="relative flex h-2.5 w-2.5 shrink-0">
         {status.kind === "ok" ? (
           <span
@@ -141,7 +141,7 @@ export function SupabaseLiveStatus() {
               ? "border-atria-amber/30 bg-atria-amber/10 text-atria-amber"
               : tone === "danger"
                 ? "border-atria-rose/30 bg-atria-rose/10 text-atria-rose"
-                : "border-white/10 bg-white/5 text-atria-mist"
+                : "border-atria-edge bg-atria-elevated text-atria-mist"
         }`}
       >
         {labelByKind[status.kind]}

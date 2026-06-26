@@ -2,10 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== Tema CLARO (default) ===== */
 :root {
+  color-scheme: light;
+
+  /* Tripletes RGB para tokens theme-aware (usados por Tailwind con /opacidad). */
+  --c-carbon: 244 240 255; /* base sidebar clara (#F4F0FF) */
+  --c-graphite: 255 255 255; /* superficies / cards */
+  --c-indigo: 239 231 255; /* capa de acento clara (#EFE7FF) */
+  --c-elevated: 244 240 255; /* superficie elevada / tracks (#F4F0FF) */
+  --c-edge: 229 221 248; /* bordes (#E5DDF8) */
+  --c-fog: 21 18 31; /* texto principal (#15121F) */
+  --c-mist: 110 102 130; /* texto secundario (#6E6682) */
+  --c-lavender: 124 58 237; /* acento texto (violeta para contraste en claro) */
+  --c-emerald: 4 120 87; /* success discreto (#047857) */
+  --c-amber: 180 83 9; /* warning discreto (#B45309) */
+  --c-rose: 190 24 60; /* danger discreto (#BE123C) */
+
+  /* Gráficos (Donut/Timeline): acentos legibles sobre claro. */
+  --viz-primary: #7c3aed;
+  --viz-lavender: #7c3aed;
+  --viz-success: #047857;
+  --viz-warning: #b45309;
+  --viz-danger: #be123c;
+  --viz-neutral: #6e6682;
+
+  /* Sombras suaves para superficies claras. */
+  --shadow-soft:
+    0 1px 2px rgba(21, 18, 31, 0.04), 0 4px 12px rgba(21, 18, 31, 0.06);
+  --shadow-card:
+    0 1px 2px rgba(21, 18, 31, 0.05), 0 10px 24px rgba(21, 18, 31, 0.07);
+  --shadow-panel:
+    0 2px 8px rgba(21, 18, 31, 0.06), 0 22px 48px rgba(21, 18, 31, 0.1);
+  --shadow-sidebar: 0 12px 40px rgba(91, 33, 182, 0.1);
+}
+
+/* ===== Tema OSCURO ===== */
+html.dark {
   color-scheme: dark;
-  background: #0a0a0f;
-  color: #f2f2f7;
+
+  --c-carbon: 10 10 15; /* #0A0A0F */
+  --c-graphite: 19 19 27; /* #13131B */
+  --c-indigo: 27 18 64; /* #1B1240 */
+  --c-elevated: 24 24 38; /* #181826 */
+  --c-edge: 42 39 64; /* #2A2740 */
+  --c-fog: 242 242 247; /* #F2F2F7 */
+  --c-mist: 157 155 184; /* #9D9BB8 */
+  --c-lavender: 182 140 255; /* #B68CFF */
+  --c-emerald: 52 211 154; /* #34D39A */
+  --c-amber: 245 181 74; /* #F5B54A */
+  --c-rose: 240 120 143; /* #F0788F */
+
+  --viz-primary: #7c3aed;
+  --viz-lavender: #b68cff;
+  --viz-success: #34d39a;
+  --viz-warning: #f5b54a;
+  --viz-danger: #f0788f;
+  --viz-neutral: #9d9bb8;
+
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.28);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.35), 0 10px 24px rgba(0, 0, 0, 0.34);
+  --shadow-panel: 0 2px 8px rgba(0, 0, 0, 0.4), 0 22px 48px rgba(0, 0, 0, 0.45);
+  --shadow-sidebar: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -19,7 +77,29 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  /* Fondo dark tech ATRIA: carbon con glows violeta/indigo sutiles. */
+  color: rgb(var(--c-fog));
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Fondo CLARO: blanco cálido con glow lavanda muy sutil. */
+  background:
+    radial-gradient(
+      1000px circle at 8% -10%,
+      rgba(124, 58, 237, 0.06),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px circle at 100% 0%,
+      rgba(182, 140, 255, 0.08),
+      transparent 55%
+    ),
+    linear-gradient(180deg, #f8f6ff 0%, #fbfaff 60%, #f6f3ff 100%);
+  background-attachment: fixed;
+}
+
+html.dark body {
+  /* Fondo OSCURO: carbon con glows violeta/indigo. */
   background:
     radial-gradient(
       1000px circle at 8% -10%,
@@ -38,11 +118,6 @@ body {
     ),
     linear-gradient(180deg, #0a0a0f 0%, #0c0c14 60%, #0a0a0f 100%);
   background-attachment: fixed;
-  color: #f2f2f7;
-  font-size: 15px;
-  line-height: 1.55;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -58,13 +133,13 @@ textarea {
 }
 
 ::selection {
-  background: rgba(124, 58, 237, 0.4);
-  color: #f2f2f7;
+  background: rgba(124, 58, 237, 0.35);
+  color: rgb(var(--c-fog));
 }
 
-/* Foco visible violeta, fino y elegante. */
+/* Foco visible violeta en ambos temas. */
 .focus-ring {
-  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-atria-lavender;
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-atria-violet;
 }
 
 .font-display {
@@ -72,15 +147,14 @@ textarea {
   letter-spacing: -0.015em;
 }
 
-/* Scrollbar discreto para superficies oscuras. */
 .scroll-slim {
   scrollbar-width: thin;
-  scrollbar-color: rgba(182, 140, 255, 0.22) transparent;
+  scrollbar-color: rgba(124, 58, 237, 0.25) transparent;
 }
 .scroll-slim::-webkit-scrollbar {
   width: 6px;
 }
 .scroll-slim::-webkit-scrollbar-thumb {
-  background: rgba(182, 140, 255, 0.22);
+  background: rgba(124, 58, 237, 0.25);
   border-radius: 9999px;
 }

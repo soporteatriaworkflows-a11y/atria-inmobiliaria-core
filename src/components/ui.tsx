@@ -5,7 +5,7 @@ import { type ModuleIconName, ModuleIcon } from "@/components/icons";
 const toneClasses = {
   primary: "border-atria-violet/40 bg-atria-violet/15 text-atria-lavender",
   danger: "border-atria-rose/30 bg-atria-rose/10 text-atria-rose",
-  neutral: "border-white/10 bg-white/5 text-atria-mist",
+  neutral: "border-atria-edge bg-atria-elevated text-atria-mist",
   success: "border-atria-emerald/30 bg-atria-emerald/10 text-atria-emerald",
   warning: "border-atria-amber/30 bg-atria-amber/10 text-atria-amber",
 } as const;
@@ -74,7 +74,7 @@ export function SectionPanel({
 }) {
   return (
     <section
-      className={`rounded-xl border border-white/10 bg-atria-graphite p-4 shadow-card sm:p-5 ${className}`}
+      className={`rounded-xl border border-atria-edge bg-atria-graphite p-4 shadow-card sm:p-5 ${className}`}
     >
       {children}
     </section>
@@ -95,7 +95,7 @@ export function ModuleHeader({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-3 rounded-xl border border-white/10 bg-gradient-to-br from-atria-indigo/50 to-atria-graphite p-4 shadow-soft sm:p-5 lg:flex-row lg:items-center lg:justify-between">
+    <div className="flex flex-col gap-3 rounded-xl border border-atria-edge bg-gradient-to-br from-atria-indigo/50 to-atria-graphite p-4 shadow-soft sm:p-5 lg:flex-row lg:items-center lg:justify-between">
       <div className="flex max-w-3xl items-start gap-3">
         {icon ? (
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-atria-violet/15 text-atria-lavender ring-1 ring-atria-violet/30">
@@ -137,7 +137,7 @@ export function MetricCard({
   icon?: ModuleIconName;
 }) {
   return (
-    <section className="group rounded-xl border border-white/10 bg-atria-graphite p-4 shadow-card transition hover:border-atria-violet/40 hover:shadow-glow">
+    <section className="group rounded-xl border border-atria-edge bg-atria-graphite p-4 shadow-card transition hover:border-atria-violet/40 hover:shadow-glow">
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
           {icon ? (
@@ -176,7 +176,7 @@ export function EmptyState({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="rounded-xl border border-dashed border-white/15 bg-white/[0.02] p-6 text-center">
+    <div className="rounded-xl border border-dashed border-atria-edge bg-atria-elevated p-6 text-center">
       <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-lg bg-atria-violet/15 text-atria-lavender ring-1 ring-atria-violet/25">
         <svg
           aria-hidden="true"
@@ -215,7 +215,7 @@ export function QuickAction({
 }) {
   return (
     <Link
-      className="focus-ring group flex items-center gap-3 rounded-xl border border-white/10 bg-atria-graphite p-3.5 shadow-card transition hover:-translate-y-0.5 hover:border-atria-violet/50 hover:shadow-glow"
+      className="focus-ring group flex items-center gap-3 rounded-xl border border-atria-edge bg-atria-graphite p-3.5 shadow-card transition hover:-translate-y-0.5 hover:border-atria-violet/50 hover:shadow-glow"
       href={href}
     >
       {icon ? (

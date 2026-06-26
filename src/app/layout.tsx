@@ -24,13 +24,24 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
+// Aplica el tema guardado antes de pintar para evitar parpadeo (FOUC).
+// Default: tema claro (no se agrega la clase "dark").
+const themeInitScript = `(function(){try{var t=localStorage.getItem('atria-theme');if(t==='dark'){document.documentElement.classList.add('dark');}}catch(e){}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html className={`${inter.variable} ${fraunces.variable}`} lang="es">
+    <html
+      className={`${inter.variable} ${fraunces.variable}`}
+      lang="es"
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   );

@@ -12,7 +12,7 @@ export function ActionList({
     <ul className="grid gap-2">
       {items.map((item, index) => (
         <li
-          className="flex items-center gap-3 rounded-lg border border-white/10 bg-atria-graphite px-3.5 py-2.5 text-sm leading-relaxed text-atria-fog shadow-soft"
+          className="flex items-center gap-3 rounded-lg border border-atria-edge bg-atria-graphite px-3.5 py-2.5 text-sm leading-relaxed text-atria-fog shadow-soft"
           key={item}
         >
           <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-atria-violet/15 text-xs font-semibold text-atria-lavender ring-1 ring-atria-violet/25">

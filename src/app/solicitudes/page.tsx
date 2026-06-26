@@ -34,10 +34,10 @@ export default function RequestsPage() {
       description="Los cambios de propietarios o permisos entran por una solicitud que queda registrada."
       icon="solicitudes"
     >
-      <section className="overflow-hidden rounded-xl border border-white/10 bg-atria-graphite shadow-card">
+      <section className="overflow-hidden rounded-xl border border-atria-edge bg-atria-graphite shadow-card">
         {requests.map((request) => (
           <article
-            className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3 last:border-b-0"
+            className="flex items-center justify-between gap-3 border-b border-atria-edge px-4 py-3 last:border-b-0"
             key={request.title}
           >
             <div className="min-w-0">

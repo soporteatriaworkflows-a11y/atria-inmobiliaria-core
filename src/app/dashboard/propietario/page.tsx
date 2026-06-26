@@ -42,7 +42,7 @@ export default function OwnerDashboardPage() {
             icon="recaudos"
           />
         </div>
-        <div className="flex flex-col items-center justify-center gap-2 rounded-xl border border-white/10 bg-gradient-to-br from-atria-indigo/50 to-atria-graphite p-4 shadow-card">
+        <div className="flex flex-col items-center justify-center gap-2 rounded-xl border border-atria-edge bg-gradient-to-br from-atria-indigo/50 to-atria-graphite p-4 shadow-card">
           <h3 className="self-start text-sm font-semibold text-atria-fog">
             Mi participación
           </h3>
