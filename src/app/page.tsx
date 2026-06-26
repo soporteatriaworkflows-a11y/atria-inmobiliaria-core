@@ -1,7 +1,6 @@
-import Link from "next/link";
-import { AppShell } from "@/components/app-shell";
-import { SummaryCard } from "@/components/summary-card";
+﻿import { AppShell } from "@/components/app-shell";
 import { SupabaseLiveStatus } from "@/components/supabase-live-status";
+import { MetricCard, ModuleHeader, QuickAction, SectionPanel, StatusPill } from "@/components/ui";
 import { isLiveMode } from "@/lib/app-config";
 import { demoLiquidation } from "@/lib/demo-data";
 import { formatCop } from "@/lib/money";
@@ -11,44 +10,69 @@ export default function HomePage() {
     ? "Produccion conectada"
     : "Fundacion tecnica demo";
   const description = isLiveMode
-    ? "Base funcional conectada a Supabase. Aun no se cargan datos reales financieros ni personales."
+    ? "ATRIA ya tiene una base funcional conectada a Supabase. Seguimos sin cargar datos reales hasta completar Auth, permisos y operacion segura."
     : "Base segura para revisar avance visual con datos sanitizados. No hay conexion a produccion ni datos reales.";
-  const nextAction = isLiveMode
-    ? "Siguiente paso: habilitar Auth y flujos de lectura/escritura por rol antes de cargar cualquier dato real."
-    : "Conectar manualmente Supabase DEV y Vercel Preview cuando lint, tests y build pasen. Las claves reales van en `.env.local` o variables de Vercel, nunca en Git.";
 
   return (
-    <AppShell title={title} description={description}>
+    <AppShell title={title} description={description} icon="home">
       <SupabaseLiveStatus />
+
       <section className="grid gap-4 md:grid-cols-3">
-        <SummaryCard
-          label="Recaudos demo"
+        <MetricCard
+          label="Recaudos del mes"
           value={formatCop(demoLiquidation.totalCollectionsCop)}
-          helper="Valores enteros COP. Datos sanitizados."
+          helper="Montos demo en COP enteros. Sin informacion real."
+          tone="success"
         />
-        <SummaryCard
+        <MetricCard
           label="Gastos globales"
           value={formatCop(demoLiquidation.totalGlobalExpensesCop)}
-          helper="Incluye administracion y contador demo."
+          helper="Administracion y contador del ejercicio sanitizado."
         />
-        <SummaryCard
+        <MetricCard
           label="Participantes"
           value="3 demo"
-          helper="Separados de usuarios autenticados."
+          helper="Personas demo separadas de usuarios autenticados."
         />
       </section>
-      <section className="rounded-lg border border-atria-line bg-white p-6 shadow-soft">
-        <h2 className="text-2xl font-bold">Siguiente accion segura</h2>
-        <p className="mt-3 text-xl leading-relaxed text-slate-700">
-          {nextAction}
-        </p>
-        <Link
-          className="focus-ring mt-5 inline-flex rounded-md bg-atria-forest px-6 py-4 text-lg font-bold text-white hover:bg-atria-ink"
-          href="/liquidacion"
-        >
-          Ver liquidacion demo
-        </Link>
+
+      <ModuleHeader
+        eyebrow="Siguiente paso"
+        title="Preparar la operacion real sin exponer datos"
+        description="Antes de cargar informacion privada, ATRIA necesita Auth, permisos por rol, auditoria visible y un proceso claro de revision."
+        icon="auditoria"
+        action={<StatusPill tone="warning">Pendiente de seguridad</StatusPill>}
+      />
+
+      <section className="grid gap-4 md:grid-cols-3">
+        <QuickAction
+          href="/dashboard/admin"
+          label="Administrar cierre"
+          helper="Ver pendientes, solicitudes y accesos del mes."
+        />
+        <QuickAction
+          href="/dashboard/contador"
+          label="Revisar cifras"
+          helper="Entrar a recaudos, gastos y liquidacion demo."
+        />
+        <QuickAction
+          href="/dashboard/propietario"
+          label="Vista de heredero"
+          helper="Comprobar la experiencia solo lectura."
+        />
       </section>
+
+      <SectionPanel>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="text-xl font-bold text-atria-ink">Regla de cuidado</p>
+            <p className="mt-2 text-lg leading-relaxed text-atria-muted">
+              Esta produccion tecnica esta conectada, pero permanece sin datos financieros o personales reales.
+            </p>
+          </div>
+          <StatusPill tone="success">Seguro para revision</StatusPill>
+        </div>
+      </SectionPanel>
     </AppShell>
   );
 }

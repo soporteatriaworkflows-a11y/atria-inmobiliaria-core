@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
+  variable: "--font-inter",
+});
+
+// Serif calida para titulos y marca: aporta un tono mas humano y menos tecnico.
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["500", "600", "700"],
+  variable: "--font-display",
 });
 
 export const metadata: Metadata = {
@@ -20,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html className={`${inter.variable} ${fraunces.variable}`} lang="es">
       <body className={inter.className}>{children}</body>
     </html>
   );
