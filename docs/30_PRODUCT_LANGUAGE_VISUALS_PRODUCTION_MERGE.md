@@ -35,13 +35,13 @@ URL producción: https://atria-inmobiliaria-core.vercel.app
 
 ## Verificaciones
 
-| Verificación | En rama (QA) | Post-merge en main |
-| --- | --- | --- |
-| `pnpm lint` | PASS | PASS |
-| `pnpm typecheck` | PASS | PASS |
-| `pnpm test` | PASS (6/6) | PASS (6/6) |
-| `pnpm build` | PASS | PASS |
-| Smoke local Playwright (desktop+móvil) | PASS (24 vistas) | PASS (24 vistas) |
+| Verificación                           | En rama (QA)     | Post-merge en main |
+| -------------------------------------- | ---------------- | ------------------ |
+| `pnpm lint`                            | PASS             | PASS               |
+| `pnpm typecheck`                       | PASS             | PASS               |
+| `pnpm test`                            | PASS (6/6)       | PASS (6/6)         |
+| `pnpm build`                           | PASS             | PASS               |
+| Smoke local Playwright (desktop+móvil) | PASS (24 vistas) | PASS (24 vistas)   |
 
 Verificación de lenguaje (nav en main): presentes Dashboard, Propietarios,
 Ingresos, Cierre mensual, Historial, Solicitudes de ajuste; ausentes Herederos,

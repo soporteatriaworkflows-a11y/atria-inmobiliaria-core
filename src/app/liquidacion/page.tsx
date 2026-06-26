@@ -98,6 +98,7 @@ export default function LiquidationPage() {
                   </span>
                 </div>
                 <ProgressBar
+                  ariaLabel={`Valor a pagar de ${participant.displayName}: ${formatCop(participant.amountToPayCop)}`}
                   value={participant.amountToPayCop}
                   max={maxPay}
                   tone="primary"

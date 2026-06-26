@@ -15,7 +15,10 @@ function reviewState(category: string): { label: string; tone: Tone } {
 }
 
 export default function ExpensesPage() {
-  const total = demoLiquidationInput.expenses.reduce((s, e) => s + e.amountCop, 0);
+  const total = demoLiquidationInput.expenses.reduce(
+    (s, e) => s + e.amountCop,
+    0,
+  );
   const globales = demoLiquidationInput.expenses
     .filter((e) => e.category === "global")
     .reduce((s, e) => s + e.amountCop, 0);
@@ -28,9 +31,27 @@ export default function ExpensesPage() {
       icon="gastos"
     >
       <section className="grid gap-3 sm:grid-cols-3">
-        <MetricCard label="Total gastos" value={formatCop(total)} helper="Egresos del periodo." tone="warning" icon="gastos" />
-        <MetricCard label="Por propiedad" value={formatCop(porPropiedad)} helper="Reparaciones y mantenimiento." tone="primary" icon="propiedades" />
-        <MetricCard label="Globales" value={formatCop(globales)} helper="Administración y contador." tone="neutral" icon="admin" />
+        <MetricCard
+          label="Total gastos"
+          value={formatCop(total)}
+          helper="Egresos del periodo."
+          tone="warning"
+          icon="gastos"
+        />
+        <MetricCard
+          label="Por propiedad"
+          value={formatCop(porPropiedad)}
+          helper="Reparaciones y mantenimiento."
+          tone="primary"
+          icon="propiedades"
+        />
+        <MetricCard
+          label="Globales"
+          value={formatCop(globales)}
+          helper="Administración y contador."
+          tone="neutral"
+          icon="admin"
+        />
       </section>
 
       <section className="overflow-hidden rounded-xl border border-white/10 bg-atria-graphite shadow-card">
@@ -48,14 +69,20 @@ export default function ExpensesPage() {
               key={expense.id}
             >
               <p className="text-sm font-semibold text-atria-fog">
-                {expense.propertyId ? propertyName.get(expense.propertyId) : "Administración general"}
+                {expense.propertyId
+                  ? propertyName.get(expense.propertyId)
+                  : "Administración general"}
               </p>
               <span className="sm:justify-self-start">
-                <Badge tone={expense.category === "global" ? "primary" : "neutral"}>
+                <Badge
+                  tone={expense.category === "global" ? "primary" : "neutral"}
+                >
                   {expense.category === "global" ? "Global" : "Por propiedad"}
                 </Badge>
               </span>
-              <span className="text-base font-semibold text-atria-fog">{formatCop(expense.amountCop)}</span>
+              <span className="text-base font-semibold text-atria-fog">
+                {formatCop(expense.amountCop)}
+              </span>
               <span className="sm:text-right">
                 <Badge tone={state.tone}>{state.label}</Badge>
               </span>

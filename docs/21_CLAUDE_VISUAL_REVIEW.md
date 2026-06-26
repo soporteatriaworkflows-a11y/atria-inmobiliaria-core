@@ -18,29 +18,31 @@ Principio aplicado: lo que ya estaba bien no se cambio por cambiar.
 
 ## Evaluacion visual por criterio
 
-| Criterio | Estado previo | Accion |
-| --- | --- | --- |
-| Jerarquia visual | Buena, titulos algo planos | Tipografia serif de marca en titulos + icono de modulo |
-| Legibilidad | Buena (18px base) | Sin cambios de tamano; se conserva |
-| Espaciado | Adecuado | Ajustes menores en sidebar y header |
-| Contraste | Suficiente | Conservado; acentos de color por tono |
-| Personas mayores | Controles grandes | + Estado activo de navegacion e iconos de reconocimiento |
-| Consistencia de botones | Consistente | Conservada |
-| Consistencia de cards | Consistente | MetricCard mas limpia y menos tecnica |
-| Estados vacios | Correctos | EmptyState con glifo suave |
-| Textos de ayuda | Algo tecnicos | Microcopy humanizado (ver abajo) |
-| Navegacion | Lista plana de 12 enlaces | Agrupada (Paneles/Operacion/Control) con estado activo e iconos |
-| Sensacion de marca | Sobria, sin identidad fuerte | Wordmark + serif de marca + iconografia propia |
+| Criterio                | Estado previo                | Accion                                                          |
+| ----------------------- | ---------------------------- | --------------------------------------------------------------- |
+| Jerarquia visual        | Buena, titulos algo planos   | Tipografia serif de marca en titulos + icono de modulo          |
+| Legibilidad             | Buena (18px base)            | Sin cambios de tamano; se conserva                              |
+| Espaciado               | Adecuado                     | Ajustes menores en sidebar y header                             |
+| Contraste               | Suficiente                   | Conservado; acentos de color por tono                           |
+| Personas mayores        | Controles grandes            | + Estado activo de navegacion e iconos de reconocimiento        |
+| Consistencia de botones | Consistente                  | Conservada                                                      |
+| Consistencia de cards   | Consistente                  | MetricCard mas limpia y menos tecnica                           |
+| Estados vacios          | Correctos                    | EmptyState con glifo suave                                      |
+| Textos de ayuda         | Algo tecnicos                | Microcopy humanizado (ver abajo)                                |
+| Navegacion              | Lista plana de 12 enlaces    | Agrupada (Paneles/Operacion/Control) con estado activo e iconos |
+| Sensacion de marca      | Sobria, sin identidad fuerte | Wordmark + serif de marca + iconografia propia                  |
 
 ## Mejoras aplicadas
 
 ### 1. Orientacion (clave para personas mayores)
+
 - Navegacion del sidebar ahora marca la ruta activa con `aria-current="page"`,
   color de marca y sombra. El usuario siempre sabe donde esta.
 - Navegacion reorganizada en grupos con sentido: **Paneles**, **Operacion**,
   **Control**. Reduce la carga de escanear 12 enlaces planos.
 
 ### 2. Calidez de marca (menos SaaS generico, mas humano)
+
 - Tipografia serif **Fraunces** (`next/font`, con fallback serif del sistema)
   aplicada solo a wordmark y titulos. Aporta tono familiar/inmobiliario sin
   perder profesionalismo.
@@ -50,6 +52,7 @@ Principio aplicado: lo que ya estaba bien no se cambio por cambiar.
 - Wordmark ATRIA Inmobiliaria mas presente en el sidebar.
 
 ### 3. Menos lenguaje tecnico (textos para no expertos)
+
 - "Append-only" -> "Solo se agrega" / "Queda en el historial".
 - "Sin borrado fisico" -> "No se borra".
 - "Publicado demo" -> "Registrado".
@@ -60,6 +63,7 @@ Principio aplicado: lo que ya estaba bien no se cambio por cambiar.
   ("Por revisar", "Al dia", "Estimado", "Protegido").
 
 ### 4. Componentes reutilizables (mantenidos o mejorados)
+
 - `Badge`, `StatusPill`, `SectionPanel`: conservados.
 - `ModuleHeader`: soporta icono opcional + titulo en serif de marca.
 - `MetricCard`: acento de color por tono, badge de texto opcional, sin pill tecnico.
@@ -69,6 +73,7 @@ Principio aplicado: lo que ya estaba bien no se cambio por cambiar.
   un check calido; nueva variante `step` con numeros para secuencias guiadas.
 
 ### 5. Login
+
 - Icono de candado, campo de contrasena deshabilitado (no simula Auth real) y
   panel de confianza con checklist humano. Mas completo y tranquilizador sin
   habilitar sesiones productivas.
@@ -76,11 +81,13 @@ Principio aplicado: lo que ya estaba bien no se cambio por cambiar.
 ## Archivos modificados
 
 Nuevos:
+
 - `src/components/icons.tsx`
 - `src/components/sidebar-nav.tsx` (client component, estado activo)
 - `docs/21_CLAUDE_VISUAL_REVIEW.md`
 
 Modificados:
+
 - `src/app/layout.tsx` (fuente serif de marca)
 - `src/app/globals.css` (utilidad `.font-display`)
 - `src/lib/navigation.ts` (grupos + iconos, conserva `mainNavigation`)
@@ -103,13 +110,13 @@ Modificados:
 
 ## Verificaciones
 
-| Verificacion | Resultado |
-| --- | --- |
-| `pnpm lint` | PASS |
-| `pnpm typecheck` | PASS |
-| `pnpm test` | PASS (6/6) |
-| `pnpm build` | PASS (12 rutas, fuente descargada) |
-| Smoke runtime (HTTP) | PASS (200 en las 12 rutas) |
+| Verificacion         | Resultado                                  |
+| -------------------- | ------------------------------------------ |
+| `pnpm lint`          | PASS                                       |
+| `pnpm typecheck`     | PASS                                       |
+| `pnpm test`          | PASS (6/6)                                 |
+| `pnpm build`         | PASS (12 rutas, fuente descargada)         |
+| Smoke runtime (HTTP) | PASS (200 en las 12 rutas)                 |
 | Estado activo de nav | Verificado (`aria-current="page"` en HTML) |
 
 ## Riesgos pendientes

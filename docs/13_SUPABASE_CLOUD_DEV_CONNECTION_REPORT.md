@@ -6,11 +6,11 @@ Connect the local ATRIA Inmobiliaria project to the approved Supabase Cloud DEV 
 
 ## Approved DEV project
 
-| Field | Value |
-| ----- | ----- |
-| Visible name | `atria-inmobiliaria` |
-| Intended environment | DEV for the MVP |
-| Project ref | `bzoqbjcktoyngvszcwhl` |
+| Field                | Value                  |
+| -------------------- | ---------------------- |
+| Visible name         | `atria-inmobiliaria`   |
+| Intended environment | DEV for the MVP        |
+| Project ref          | `bzoqbjcktoyngvszcwhl` |
 
 The owner confirmed this is not Construction Ops. Do not touch these projects:
 
@@ -33,8 +33,8 @@ docker ps
 
 Migration status after `db push`:
 
-| Local | Remote | Status |
-| ----- | ------ | ------ |
+| Local          | Remote         | Status  |
+| -------------- | -------------- | ------- |
 | `202606240001` | `202606240001` | Applied |
 
 The applied migration is:
@@ -65,11 +65,11 @@ Do not configure Vercel Production with Supabase DEV. Production must remain in 
 
 Preview-only variables for the next phase:
 
-| Variable | Value/source | Public/secret | Frontend allowed |
-| -------- | ------------ | ------------- | ---------------- |
-| `NEXT_PUBLIC_APP_MODE` | `dev` | Public | Yes |
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase API settings for `bzoqbjcktoyngvszcwhl` | Public | Yes |
-| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase API settings for `bzoqbjcktoyngvszcwhl` | Public | Yes |
+| Variable                               | Value/source                                     | Public/secret | Frontend allowed |
+| -------------------------------------- | ------------------------------------------------ | ------------- | ---------------- |
+| `NEXT_PUBLIC_APP_MODE`                 | `dev`                                            | Public        | Yes              |
+| `NEXT_PUBLIC_SUPABASE_URL`             | Supabase API settings for `bzoqbjcktoyngvszcwhl` | Public        | Yes              |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase API settings for `bzoqbjcktoyngvszcwhl` | Public        | Yes              |
 
 Never add these to frontend, Vercel public env, chat, commits, screenshots, or logs:
 

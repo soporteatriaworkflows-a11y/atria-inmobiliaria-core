@@ -70,7 +70,10 @@ export function SupabaseLiveStatus() {
           return;
         }
 
-        if (error.code === "42501" || error.message.toLowerCase().includes("permission")) {
+        if (
+          error.code === "42501" ||
+          error.message.toLowerCase().includes("permission")
+        ) {
           setStatus({
             kind: "ok",
             message:
@@ -81,7 +84,8 @@ export function SupabaseLiveStatus() {
 
         setStatus({
           kind: "warning",
-          message: "El sistema respondio, pero esta vista aun no muestra registros.",
+          message:
+            "El sistema respondio, pero esta vista aun no muestra registros.",
         });
       } catch {
         if (!cancelled) {
@@ -113,9 +117,13 @@ export function SupabaseLiveStatus() {
     <section className="flex items-center gap-3 rounded-xl border border-white/10 bg-atria-graphite px-4 py-3 shadow-card">
       <span className="relative flex h-2.5 w-2.5 shrink-0">
         {status.kind === "ok" ? (
-          <span className={`absolute inline-flex h-full w-full animate-ping rounded-full ${dotByTone[tone]} opacity-60`} />
+          <span
+            className={`absolute inline-flex h-full w-full animate-ping rounded-full ${dotByTone[tone]} opacity-60`}
+          />
         ) : null}
-        <span className={`relative inline-flex h-2.5 w-2.5 rounded-full ${dotByTone[tone]}`} />
+        <span
+          className={`relative inline-flex h-2.5 w-2.5 rounded-full ${dotByTone[tone]}`}
+        />
       </span>
       <div className="min-w-0 flex-1">
         <p className="text-2xs font-semibold uppercase tracking-[0.12em] text-atria-mist">

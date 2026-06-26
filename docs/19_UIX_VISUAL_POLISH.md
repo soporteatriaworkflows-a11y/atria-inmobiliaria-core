@@ -27,26 +27,26 @@ La interfaz mantiene una sensacion profesional y sobria, con tonos verdes y aren
 
 Colores detectados en el repo antes de esta fase:
 
-| Token | Valor | Fuente |
-| --- | --- | --- |
-| `atria.ink` | `#16231f` | `tailwind.config.ts` |
-| `atria.forest` | `#245448` | `tailwind.config.ts` |
-| `atria.mint` | `#dff2e8` | `tailwind.config.ts` |
-| `atria.sand` | `#f7f3eb` | `tailwind.config.ts` y `globals.css` |
-| `atria.line` | `#d8ded8` | `tailwind.config.ts` |
+| Token          | Valor     | Fuente                               |
+| -------------- | --------- | ------------------------------------ |
+| `atria.ink`    | `#16231f` | `tailwind.config.ts`                 |
+| `atria.forest` | `#245448` | `tailwind.config.ts`                 |
+| `atria.mint`   | `#dff2e8` | `tailwind.config.ts`                 |
+| `atria.sand`   | `#f7f3eb` | `tailwind.config.ts` y `globals.css` |
+| `atria.line`   | `#d8ded8` | `tailwind.config.ts`                 |
 
 No se detectaron logo, favicon, manual de marca, paleta formal externa ni assets graficos definitivos dentro del repo.
 
 Colores temporales agregados como derivados de la paleta existente:
 
-| Token | Valor | Uso provisional |
-| --- | --- | --- |
-| `atria.leaf` | `#3f7a68` | acento verde secundario |
-| `atria.cream` | `#fffaf1` | superficies calidas |
+| Token         | Valor     | Uso provisional              |
+| ------------- | --------- | ---------------------------- |
+| `atria.leaf`  | `#3f7a68` | acento verde secundario      |
+| `atria.cream` | `#fffaf1` | superficies calidas          |
 | `atria.pearl` | `#fbf8f1` | fondos suaves de panel/input |
-| `atria.muted` | `#65756e` | texto secundario legible |
-| `atria.amber` | `#b56b1d` | advertencias calidas |
-| `atria.rose` | `#b94a48` | riesgos/errores sobrios |
+| `atria.muted` | `#65756e` | texto secundario legible     |
+| `atria.amber` | `#b56b1d` | advertencias calidas         |
+| `atria.rose`  | `#b94a48` | riesgos/errores sobrios      |
 
 Que falta confirmar:
 

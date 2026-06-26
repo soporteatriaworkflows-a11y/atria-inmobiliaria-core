@@ -22,8 +22,12 @@ export default function LoginPage() {
               <LockIcon className="h-5 w-5" />
             </span>
             <div>
-              <h2 className="text-base font-semibold text-atria-fog">Entrar a ATRIA</h2>
-              <p className="text-xs text-atria-mist">Vista de ejemplo · ingreso real pendiente</p>
+              <h2 className="text-base font-semibold text-atria-fog">
+                Entrar a ATRIA
+              </h2>
+              <p className="text-xs text-atria-mist">
+                Vista de ejemplo · ingreso real pendiente
+              </p>
             </div>
             <span className="ml-auto">
               <Badge tone="warning">Pendiente</Badge>
@@ -32,7 +36,10 @@ export default function LoginPage() {
 
           <div className="mt-4 grid gap-4">
             <div>
-              <label className="block text-xs font-semibold text-atria-fog" htmlFor="email">
+              <label
+                className="block text-xs font-semibold text-atria-fog"
+                htmlFor="email"
+              >
                 Correo de acceso
               </label>
               <input
@@ -44,7 +51,10 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-atria-fog" htmlFor="password">
+              <label
+                className="block text-xs font-semibold text-atria-fog"
+                htmlFor="password"
+              >
                 Contrasena
               </label>
               <input
@@ -60,16 +70,22 @@ export default function LoginPage() {
               Continuar
             </button>
             <p className="text-xs leading-relaxed text-atria-mist">
-              Al activarse, el ingreso respetara roles y permisos por organizacion.
+              Al activarse, el ingreso respetara roles y permisos por
+              organizacion.
             </p>
           </div>
         </SectionPanel>
 
         <SectionPanel className="bg-gradient-to-br from-atria-violet/15 to-atria-graphite">
-          <h2 className="text-sm font-semibold text-atria-fog">Antes de entrar</h2>
+          <h2 className="text-sm font-semibold text-atria-fog">
+            Antes de entrar
+          </h2>
           <ul className="mt-3 grid gap-2.5">
             {trustPoints.map((point) => (
-              <li className="flex items-start gap-2.5 text-xs leading-relaxed text-atria-mist" key={point}>
+              <li
+                className="flex items-start gap-2.5 text-xs leading-relaxed text-atria-mist"
+                key={point}
+              >
                 <span className="mt-px flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-atria-violet/15 text-atria-lavender">
                   <CheckIcon className="h-3 w-3" />
                 </span>

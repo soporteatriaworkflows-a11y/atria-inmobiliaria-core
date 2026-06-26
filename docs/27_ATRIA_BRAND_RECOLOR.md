@@ -17,33 +17,33 @@ glow lavanda. El verde queda solo para el estado de exito (discreto).
 
 ## Paleta aplicada (marca ATRIA)
 
-| Token | Hex | Uso |
-| --- | --- | --- |
-| `atria.carbon` | `#0A0A0F` | fondo base de la app |
-| `atria.graphite` | `#13131B` | superficies / cards / paneles |
-| `atria.indigo` | `#1B1240` | capa profunda (sidebar, headers de modulo) |
-| `atria.violet` | `#7C3AED` | acento primario (activo, botones, foco, iconos) |
-| `atria.lavender` | `#B68CFF` | glow / highlights / acentos de texto e iconos |
-| `atria.fog` | `#F2F2F7` | texto claro principal |
+| Token            | Hex       | Uso                                             |
+| ---------------- | --------- | ----------------------------------------------- |
+| `atria.carbon`   | `#0A0A0F` | fondo base de la app                            |
+| `atria.graphite` | `#13131B` | superficies / cards / paneles                   |
+| `atria.indigo`   | `#1B1240` | capa profunda (sidebar, headers de modulo)      |
+| `atria.violet`   | `#7C3AED` | acento primario (activo, botones, foco, iconos) |
+| `atria.lavender` | `#B68CFF` | glow / highlights / acentos de texto e iconos   |
+| `atria.fog`      | `#F2F2F7` | texto claro principal                           |
 
 Derivados provisionales (para profundidad y jerarquia, documentados como
 temporales hasta validar marca):
 
-| Token | Hex | Uso |
-| --- | --- | --- |
-| `atria.elevated` | `#181826` | superficie elevada / inputs |
-| `atria.mist` | `#9D9BB8` | texto secundario sobre oscuro |
-| `atria.edge` | `#2A2740` | bordes sutiles indigo |
+| Token            | Hex       | Uso                           |
+| ---------------- | --------- | ----------------------------- |
+| `atria.elevated` | `#181826` | superficie elevada / inputs   |
+| `atria.mist`     | `#9D9BB8` | texto secundario sobre oscuro |
+| `atria.edge`     | `#2A2740` | bordes sutiles indigo         |
 
 Estados (no identidad):
 
-| Estado | Token/clase | Color |
-| --- | --- | --- |
-| success | `atria.emerald` `#34D39A` | verde discreto |
-| warning | `atria.amber` `#F5B54A` | ambar |
-| danger | `atria.rose` `#F0788F` | rojo/rosa |
+| Estado         | Token/clase                       | Color           |
+| -------------- | --------------------------------- | --------------- |
+| success        | `atria.emerald` `#34D39A`         | verde discreto  |
+| warning        | `atria.amber` `#F5B54A`           | ambar           |
+| danger         | `atria.rose` `#F0788F`            | rojo/rosa       |
 | info / primary | `atria.violet` / `atria.lavender` | violeta/lavanda |
-| neutral | grafito + `atria.mist` | gris-lavanda |
+| neutral        | grafito + `atria.mist`            | gris-lavanda    |
 
 ## Que verde se elimino como identidad
 
@@ -103,12 +103,12 @@ merge a `main`, sin deploy.
 
 ## Verificaciones
 
-| Verificacion | Resultado |
-| --- | --- |
-| `pnpm lint` | PASS |
-| `pnpm typecheck` | PASS |
-| `pnpm test` | PASS (6/6) |
-| `pnpm build` | PASS (12 rutas) |
+| Verificacion                           | Resultado        |
+| -------------------------------------- | ---------------- |
+| `pnpm lint`                            | PASS             |
+| `pnpm typecheck`                       | PASS             |
+| `pnpm test`                            | PASS (6/6)       |
+| `pnpm build`                           | PASS (12 rutas)  |
 | Smoke local Playwright (desktop+movil) | PASS (24 vistas) |
 
 Smoke: HTTP 200 en las 12 rutas, 0 overflow horizontal, navegacion visible,

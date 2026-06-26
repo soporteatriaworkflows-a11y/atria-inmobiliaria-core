@@ -6,11 +6,11 @@ Conectar Vercel Production de `atria-inmobiliaria-core` al backend Supabase prin
 
 ## Backend Supabase unico
 
-| Campo | Valor |
-| ----- | ----- |
-| Nombre visible | `atria-inmobiliaria` |
-| Project ref | `bzoqbjcktoyngvszcwhl` |
-| URL publica | `https://bzoqbjcktoyngvszcwhl.supabase.co` |
+| Campo          | Valor                                      |
+| -------------- | ------------------------------------------ |
+| Nombre visible | `atria-inmobiliaria`                       |
+| Project ref    | `bzoqbjcktoyngvszcwhl`                     |
+| URL publica    | `https://bzoqbjcktoyngvszcwhl.supabase.co` |
 
 Por decision operativa, este proyecto Supabase sera el backend principal unico por ahora. No se crea un segundo Supabase DEV/PROD en esta etapa.
 
@@ -23,11 +23,11 @@ No tocar:
 
 Variables publicas configuradas en Production:
 
-| Variable | Valor / fuente | Tipo | Frontend |
-| -------- | -------------- | ---- | -------- |
-| `NEXT_PUBLIC_APP_MODE` | `live` | Publica | Si |
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase API URL de `bzoqbjcktoyngvszcwhl` | Publica | Si |
-| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Publishable key publica del mismo proyecto | Publica | Si |
+| Variable                               | Valor / fuente                             | Tipo    | Frontend |
+| -------------------------------------- | ------------------------------------------ | ------- | -------- |
+| `NEXT_PUBLIC_APP_MODE`                 | `live`                                     | Publica | Si       |
+| `NEXT_PUBLIC_SUPABASE_URL`             | Supabase API URL de `bzoqbjcktoyngvszcwhl` | Publica | Si       |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Publishable key publica del mismo proyecto | Publica | Si       |
 
 Estas variables son publicas por el prefijo `NEXT_PUBLIC_`; no son service role ni claves secretas.
 

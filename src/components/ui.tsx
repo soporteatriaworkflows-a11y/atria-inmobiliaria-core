@@ -40,7 +40,10 @@ export function StatusPill({
     <span
       className={`inline-flex w-fit items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-2xs font-semibold uppercase tracking-wide ${toneClasses[tone]}`}
     >
-      <span className={`h-1.5 w-1.5 rounded-full ${toneDot[tone]}`} />
+      <span
+        aria-hidden="true"
+        className={`h-1.5 w-1.5 rounded-full ${toneDot[tone]}`}
+      />
       {children}
     </span>
   );
@@ -138,11 +141,16 @@ export function MetricCard({
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
           {icon ? (
-            <span className={`flex h-8 w-8 items-center justify-center rounded-lg ${toneSoft[tone]}`}>
+            <span
+              className={`flex h-8 w-8 items-center justify-center rounded-lg ${toneSoft[tone]}`}
+            >
               <ModuleIcon className="h-4 w-4" name={icon} />
             </span>
           ) : (
-            <span className={`h-2 w-2 rounded-full ${toneDot[tone]}`} />
+            <span
+              aria-hidden="true"
+              className={`h-2 w-2 rounded-full ${toneDot[tone]}`}
+            />
           )}
           <p className="text-2xs font-semibold uppercase tracking-[0.12em] text-atria-mist">
             {label}

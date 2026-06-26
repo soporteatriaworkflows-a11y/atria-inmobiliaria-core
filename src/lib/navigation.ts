@@ -19,7 +19,11 @@ export const navigationGroups: NavGroup[] = [
       { href: "/", label: "Dashboard", icon: "home" },
       { href: "/dashboard/admin", label: "Administrador", icon: "admin" },
       { href: "/dashboard/contador", label: "Contador", icon: "contador" },
-      { href: "/dashboard/propietario", label: "Propietario", icon: "propietario" },
+      {
+        href: "/dashboard/propietario",
+        label: "Propietario",
+        icon: "propietario",
+      },
     ],
   },
   {
@@ -35,7 +39,11 @@ export const navigationGroups: NavGroup[] = [
   {
     title: "Control",
     items: [
-      { href: "/solicitudes", label: "Solicitudes de ajuste", icon: "solicitudes" },
+      {
+        href: "/solicitudes",
+        label: "Solicitudes de ajuste",
+        icon: "solicitudes",
+      },
       { href: "/auditoria", label: "Historial", icon: "auditoria" },
       { href: "/login", label: "Ingreso", icon: "login" },
     ],

@@ -25,19 +25,19 @@ rama para preview. Sin tocar `main`, produccion, Supabase ni seguridad.
 
 Resultado: **NINGUN archivo sensible fue tocado por Claude.**
 
-| Zona | Tocada por Claude |
-| --- | --- |
-| `supabase/` (migraciones, RLS, `supabase/tests`) | NO |
-| `src/lib/finance/` (calculos) | NO |
-| `src/lib/supabase/` (cliente) | NO |
-| `src/lib/security/` (RBAC) | NO |
-| `.env`, `.env.local`, `.env.example` | NO |
-| `.vercel/` | NO |
-| `next.config.ts` | NO |
-| `vercel.json` | NO (no existe) |
-| `package.json` / scripts | NO |
-| OCR / n8n | NO |
-| Secretos (service role, secret key, DB password/URL) | NO |
+| Zona                                                 | Tocada por Claude |
+| ---------------------------------------------------- | ----------------- |
+| `supabase/` (migraciones, RLS, `supabase/tests`)     | NO                |
+| `src/lib/finance/` (calculos)                        | NO                |
+| `src/lib/supabase/` (cliente)                        | NO                |
+| `src/lib/security/` (RBAC)                           | NO                |
+| `.env`, `.env.local`, `.env.example`                 | NO                |
+| `.vercel/`                                           | NO                |
+| `next.config.ts`                                     | NO                |
+| `vercel.json`                                        | NO (no existe)    |
+| `package.json` / scripts                             | NO                |
+| OCR / n8n                                            | NO                |
+| Secretos (service role, secret key, DB password/URL) | NO                |
 
 El diff de `7f33a8f` se limita a: `docs/19`, `docs/21` (nuevo), 12 paginas en
 `src/app/*`, `src/app/globals.css`, `src/app/layout.tsx`, `src/components/`
@@ -49,12 +49,12 @@ El diff de `7f33a8f` se limita a: `docs/19`, `docs/21` (nuevo), 12 paginas en
 Las alertas del reporte resultaron ser artefactos de truncado de terminal, no
 problemas del repositorio:
 
-| Senal reportada | Hallazgo real |
-| --- | --- |
-| Archivo `layout.tsn.ts` | No existe. Solo `src/app/layout.tsx`. Sin archivos mal nombrados. |
-| Ruta `/on` | No existe. `navigation.ts` define 12 rutas validas. |
+| Senal reportada              | Hallazgo real                                                          |
+| ---------------------------- | ---------------------------------------------------------------------- |
+| Archivo `layout.tsn.ts`      | No existe. Solo `src/app/layout.tsx`. Sin archivos mal nombrados.      |
+| Ruta `/on`                   | No existe. `navigation.ts` define 12 rutas validas.                    |
 | "Nuevos (3)" pero parecian 2 | Correcto: 3 nuevos reales (`docs/21`, `icons.tsx`, `sidebar-nav.tsx`). |
-| Texto truncado/corrupto | No hay corrupcion en el codigo ni en los docs. |
+| Texto truncado/corrupto      | No hay corrupcion en el codigo ni en los docs.                         |
 
 ## Problemas encontrados
 
@@ -78,16 +78,17 @@ aqui.
 
 ## Verificaciones ejecutadas
 
-| Verificacion | Resultado |
-| --- | --- |
-| `pnpm lint` | PASS |
-| `pnpm typecheck` | PASS |
-| `pnpm test` | PASS (6/6) |
-| `pnpm build` | PASS (12 rutas + not-found) |
-| Smoke HTTP (12 rutas) | PASS (200 en todas) |
-| Smoke Playwright Chromium (375px movil) | PASS (12/12) |
+| Verificacion                            | Resultado                   |
+| --------------------------------------- | --------------------------- |
+| `pnpm lint`                             | PASS                        |
+| `pnpm typecheck`                        | PASS                        |
+| `pnpm test`                             | PASS (6/6)                  |
+| `pnpm build`                            | PASS (12 rutas + not-found) |
+| Smoke HTTP (12 rutas)                   | PASS (200 en todas)         |
+| Smoke Playwright Chromium (375px movil) | PASS (12/12)                |
 
 Detalle del smoke Playwright por ruta (viewport 375px):
+
 - HTTP 200 en las 12 rutas.
 - Overflow horizontal: 0px en todas.
 - Navegacion visible: 12 enlaces en `nav[aria-label="Rutas principales"]`.

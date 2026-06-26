@@ -48,13 +48,13 @@ solo en presentacion; su logica de conexion no se modifico.
 
 ## Verificaciones
 
-| Verificacion | En rama | Post-merge en main |
-| --- | --- | --- |
-| `pnpm lint` | PASS | PASS |
-| `pnpm typecheck` | PASS | PASS |
-| `pnpm test` | PASS (6/6) | PASS (6/6) |
-| `pnpm build` | PASS | PASS |
-| Smoke local Playwright (desktop+movil) | PASS (24 vistas) | PASS (24 vistas) |
+| Verificacion                           | En rama          | Post-merge en main |
+| -------------------------------------- | ---------------- | ------------------ |
+| `pnpm lint`                            | PASS             | PASS               |
+| `pnpm typecheck`                       | PASS             | PASS               |
+| `pnpm test`                            | PASS (6/6)       | PASS (6/6)         |
+| `pnpm build`                           | PASS             | PASS               |
+| Smoke local Playwright (desktop+movil) | PASS (24 vistas) | PASS (24 vistas)   |
 
 Smoke: HTTP 200 en las 12 rutas, 0 overflow horizontal, navegacion visible
 (12 enlaces), estado activo presente, 0 errores de consola.

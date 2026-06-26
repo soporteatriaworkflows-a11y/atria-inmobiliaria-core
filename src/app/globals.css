@@ -21,9 +21,21 @@ body {
   min-height: 100vh;
   /* Fondo dark tech ATRIA: carbon con glows violeta/indigo sutiles. */
   background:
-    radial-gradient(1000px circle at 8% -10%, rgba(124, 58, 237, 0.16), transparent 55%),
-    radial-gradient(900px circle at 100% 0%, rgba(27, 18, 64, 0.55), transparent 55%),
-    radial-gradient(700px circle at 50% 120%, rgba(182, 140, 255, 0.08), transparent 60%),
+    radial-gradient(
+      1000px circle at 8% -10%,
+      rgba(124, 58, 237, 0.16),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px circle at 100% 0%,
+      rgba(27, 18, 64, 0.55),
+      transparent 55%
+    ),
+    radial-gradient(
+      700px circle at 50% 120%,
+      rgba(182, 140, 255, 0.08),
+      transparent 60%
+    ),
     linear-gradient(180deg, #0a0a0f 0%, #0c0c14 60%, #0a0a0f 100%);
   background-attachment: fixed;
   color: #f2f2f7;
@@ -52,7 +64,7 @@ textarea {
 
 /* Foco visible violeta, fino y elegante. */
 .focus-ring {
-  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-atria-violet;
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-atria-lavender;
 }
 
 .font-display {
