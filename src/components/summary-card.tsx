@@ -1,4 +1,4 @@
-export function SummaryCard({
+﻿export function SummaryCard({
   label,
   value,
   helper,
@@ -8,10 +8,12 @@ export function SummaryCard({
   helper: string;
 }) {
   return (
-    <section className="rounded-lg border border-atria-line bg-white p-5 shadow-soft">
-      <p className="text-base font-semibold text-slate-600">{label}</p>
-      <p className="mt-2 text-3xl font-bold text-atria-ink">{value}</p>
-      <p className="mt-3 leading-relaxed text-slate-700">{helper}</p>
+    <section className="rounded-2xl border border-atria-line bg-white p-5 shadow-soft">
+      <p className="text-base font-bold text-atria-muted">{label}</p>
+      <p className="mt-3 text-3xl font-bold tracking-tight text-atria-ink">
+        {value}
+      </p>
+      <p className="mt-3 leading-relaxed text-atria-muted">{helper}</p>
     </section>
   );
 }

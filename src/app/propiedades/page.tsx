@@ -1,4 +1,5 @@
-import { AppShell } from "@/components/app-shell";
+﻿import { AppShell } from "@/components/app-shell";
+import { Badge, EmptyState, SectionPanel } from "@/components/ui";
 import { demoLiquidationInput } from "@/lib/demo-data";
 
 export default function PropertiesPage() {
@@ -9,17 +10,20 @@ export default function PropertiesPage() {
     >
       <section className="grid gap-4 md:grid-cols-2">
         {demoLiquidationInput.properties.map((property) => (
-          <article
-            className="rounded-lg border border-atria-line bg-white p-5 shadow-soft"
-            key={property.id}
-          >
-            <h2 className="text-2xl font-bold">{property.name}</h2>
-            <p className="mt-3 text-slate-700">
-              Estado demo: activa para liquidacion mensual.
-            </p>
-          </article>
+          <SectionPanel key={property.id}>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <Badge tone="success">Activa para cierre</Badge>
+                <h2 className="mt-4 text-2xl font-bold text-atria-ink">{property.name}</h2>
+                <p className="mt-3 text-lg leading-relaxed text-atria-muted">
+                  Propiedad demo preparada para liquidacion mensual. La direccion real no se guarda en el repo.
+                </p>
+              </div>
+            </div>
+          </SectionPanel>
         ))}
       </section>
+      <EmptyState title="Adjuntos reales pendientes" description="Los soportes y documentos privados se conectaran despues, con almacenamiento seguro y revision manual." />
     </AppShell>
   );
 }

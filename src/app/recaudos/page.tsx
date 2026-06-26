@@ -1,4 +1,5 @@
-import { AppShell } from "@/components/app-shell";
+﻿import { AppShell } from "@/components/app-shell";
+import { Badge, SectionPanel } from "@/components/ui";
 import { demoLiquidationInput } from "@/lib/demo-data";
 import { formatCop } from "@/lib/money";
 
@@ -10,18 +11,16 @@ export default function CollectionsPage() {
     >
       <section className="grid gap-4">
         {demoLiquidationInput.collections.map((collection) => (
-          <article
-            className="rounded-lg border border-atria-line bg-white p-5 shadow-soft"
-            key={collection.id}
-          >
-            <h2 className="text-2xl font-bold">
-              {formatCop(collection.amountCop)}
-            </h2>
-            <p className="mt-2 text-slate-700">
-              Propiedad: {collection.propertyId}
-            </p>
-            <p className="mt-1 text-slate-700">Estado: publicado demo</p>
-          </article>
+          <SectionPanel key={collection.id}>
+            <div className="grid gap-4 md:grid-cols-[1fr_1fr_auto] md:items-center">
+              <div>
+                <Badge tone="success">Publicado demo</Badge>
+                <h2 className="mt-3 text-3xl font-bold text-atria-ink">{formatCop(collection.amountCop)}</h2>
+              </div>
+              <p className="text-lg leading-relaxed text-atria-muted">Propiedad demo: {collection.propertyId}</p>
+              <p className="rounded-2xl bg-atria-pearl px-4 py-3 text-base font-bold text-atria-muted">Append-only</p>
+            </div>
+          </SectionPanel>
         ))}
       </section>
     </AppShell>

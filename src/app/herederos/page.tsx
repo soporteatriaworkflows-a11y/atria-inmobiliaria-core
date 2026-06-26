@@ -1,4 +1,5 @@
-import { AppShell } from "@/components/app-shell";
+﻿import { AppShell } from "@/components/app-shell";
+import { Badge, SectionPanel } from "@/components/ui";
 import { demoLiquidationInput } from "@/lib/demo-data";
 
 export default function ParticipantsPage() {
@@ -9,13 +10,14 @@ export default function ParticipantsPage() {
     >
       <section className="grid gap-4 md:grid-cols-3">
         {demoLiquidationInput.participants.map((participant) => (
-          <article
-            className="rounded-lg border border-atria-line bg-white p-5 shadow-soft"
-            key={participant.id}
-          >
-            <h2 className="text-2xl font-bold">{participant.displayName}</h2>
-            <p className="mt-3 text-slate-700">{participant.roleLabel}</p>
-          </article>
+          <SectionPanel key={participant.id}>
+            <Badge>Participante demo</Badge>
+            <h2 className="mt-4 text-2xl font-bold text-atria-ink">{participant.displayName}</h2>
+            <p className="mt-3 text-lg leading-relaxed text-atria-muted">{participant.roleLabel}</p>
+            <p className="mt-4 text-base leading-relaxed text-atria-muted">
+              Los cambios de participacion entran como solicitud trazable, no como edicion directa.
+            </p>
+          </SectionPanel>
         ))}
       </section>
     </AppShell>

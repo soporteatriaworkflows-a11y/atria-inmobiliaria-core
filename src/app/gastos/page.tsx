@@ -1,4 +1,5 @@
-import { AppShell } from "@/components/app-shell";
+﻿import { AppShell } from "@/components/app-shell";
+import { Badge, SectionPanel } from "@/components/ui";
 import { demoLiquidationInput } from "@/lib/demo-data";
 import { formatCop } from "@/lib/money";
 
@@ -10,20 +11,18 @@ export default function ExpensesPage() {
     >
       <section className="grid gap-4">
         {demoLiquidationInput.expenses.map((expense) => (
-          <article
-            className="rounded-lg border border-atria-line bg-white p-5 shadow-soft"
-            key={expense.id}
-          >
-            <h2 className="text-2xl font-bold">
-              {formatCop(expense.amountCop)}
-            </h2>
-            <p className="mt-2 text-slate-700">
-              Tipo: {expense.category === "global" ? "global" : "por propiedad"}
-            </p>
-            <p className="mt-1 text-slate-700">
-              Referencia: {expense.propertyId ?? "todos los participantes"}
-            </p>
-          </article>
+          <SectionPanel key={expense.id}>
+            <div className="grid gap-4 md:grid-cols-[1fr_1fr_auto] md:items-center">
+              <div>
+                <Badge tone={expense.category === "global" ? "warning" : "neutral"}>
+                  {expense.category === "global" ? "Global" : "Por propiedad"}
+                </Badge>
+                <h2 className="mt-3 text-3xl font-bold text-atria-ink">{formatCop(expense.amountCop)}</h2>
+              </div>
+              <p className="text-lg leading-relaxed text-atria-muted">Referencia: {expense.propertyId ?? "todos los participantes"}</p>
+              <p className="rounded-2xl bg-atria-pearl px-4 py-3 text-base font-bold text-atria-muted">Sin borrado fisico</p>
+            </div>
+          </SectionPanel>
         ))}
       </section>
     </AppShell>
