@@ -14,19 +14,19 @@ barras, donut, timeline, estados) sin perder el recolor de marca.
 
 ## Mapa de términos (antes → después)
 
-| Antes | Después | Justificación | Dónde se aplicó |
-| --- | --- | --- | --- |
-| Inicio | Dashboard | Lenguaje de producto, no de sitio web | Sidebar, título home |
-| Herederos / Participantes | Propietarios | Más profesional y menos legal | Sidebar, título y copy de `/herederos`, accesos |
-| Recaudos | Ingresos | Término financiero claro | Sidebar, título `/recaudos`, dashboards, KPIs |
-| Liquidación | Cierre mensual | Describe el proceso, no el tecnicismo | Sidebar, título `/liquidacion`, dashboards |
-| Auditoría | Historial | Cercano para el usuario final | Sidebar, título `/auditoria`, accesos |
-| Solicitudes | Solicitudes de ajuste | Precisa la intención | Sidebar, título `/solicitudes` |
-| Modo live | Producción activa | Menos técnico | Header (StatusPill) |
-| Supabase conectado | Sistema conectado | No expone el proveedor | Estado del sistema |
-| Datos sanitizados / demo | Datos de prueba | Lenguaje humano | Header, copy general |
-| Append-only | Solo se agrega | Comprensible | Historial |
-| RLS / DB / schema / CRUD | (no aparecen) | No deben verse en UI final | Todo el UI |
+| Antes                     | Después               | Justificación                         | Dónde se aplicó                                 |
+| ------------------------- | --------------------- | ------------------------------------- | ----------------------------------------------- |
+| Inicio                    | Dashboard             | Lenguaje de producto, no de sitio web | Sidebar, título home                            |
+| Herederos / Participantes | Propietarios          | Más profesional y menos legal         | Sidebar, título y copy de `/herederos`, accesos |
+| Recaudos                  | Ingresos              | Término financiero claro              | Sidebar, título `/recaudos`, dashboards, KPIs   |
+| Liquidación               | Cierre mensual        | Describe el proceso, no el tecnicismo | Sidebar, título `/liquidacion`, dashboards      |
+| Auditoría                 | Historial             | Cercano para el usuario final         | Sidebar, título `/auditoria`, accesos           |
+| Solicitudes               | Solicitudes de ajuste | Precisa la intención                  | Sidebar, título `/solicitudes`                  |
+| Modo live                 | Producción activa     | Menos técnico                         | Header (StatusPill)                             |
+| Supabase conectado        | Sistema conectado     | No expone el proveedor                | Estado del sistema                              |
+| Datos sanitizados / demo  | Datos de prueba       | Lenguaje humano                       | Header, copy general                            |
+| Append-only               | Solo se agrega        | Comprensible                          | Historial                                       |
+| RLS / DB / schema / CRUD  | (no aparecen)         | No deben verse en UI final            | Todo el UI                                      |
 
 Nota: las rutas técnicas (`/herederos`, `/recaudos`, `/liquidacion`,
 `/auditoria`) NO se cambiaron para no romper navegación. Solo cambió el texto
@@ -94,12 +94,12 @@ layout moderno. No SaaS blanco, no inmobiliaria verde, no ICONIC OPS.
 
 ## Verificaciones
 
-| Verificación | Resultado |
-| --- | --- |
-| `pnpm lint` | PASS |
-| `pnpm typecheck` | PASS |
-| `pnpm test` | PASS (6/6) |
-| `pnpm build` | PASS (12 rutas) |
+| Verificación                           | Resultado        |
+| -------------------------------------- | ---------------- |
+| `pnpm lint`                            | PASS             |
+| `pnpm typecheck`                       | PASS             |
+| `pnpm test`                            | PASS (6/6)       |
+| `pnpm build`                           | PASS (12 rutas)  |
 | Smoke local Playwright (desktop+móvil) | PASS (24 vistas) |
 
 Smoke: HTTP 200 en las 12 rutas, 0 overflow horizontal, navegación visible,

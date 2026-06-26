@@ -1,5 +1,5 @@
 // Primitivas visuales ATRIA (dark tech). SVG/CSS puro, sin dependencias.
-// No son graficos engañosos: representan los valores demo de forma proporcional.
+// No son graficos enganosos: representan los valores demo de forma proporcional.
 
 export type VizTone =
   | "primary"
@@ -37,15 +37,18 @@ export function ProgressBar({
   max = 100,
   tone = "primary",
   className = "",
+  ariaLabel,
 }: {
   value: number;
   max?: number;
   tone?: VizTone;
   className?: string;
+  ariaLabel?: string;
 }) {
   const p = pct(value, max);
   return (
     <div
+      aria-label={ariaLabel}
       aria-valuemax={max}
       aria-valuemin={0}
       aria-valuenow={Math.max(0, Math.min(value, max))}
@@ -79,7 +82,12 @@ export function LabeledBar({
         <span className="text-xs font-medium text-atria-fog">{label}</span>
         <span className="text-xs font-semibold text-atria-mist">{caption}</span>
       </div>
-      <ProgressBar value={value} max={max} tone={tone} />
+      <ProgressBar
+        ariaLabel={`${label}: ${caption}`}
+        value={value}
+        max={max}
+        tone={tone}
+      />
     </div>
   );
 }
@@ -165,6 +173,7 @@ export function TimelineItem({
     <li className="relative flex gap-3 pb-4 last:pb-0">
       <div className="flex flex-col items-center">
         <span
+          aria-hidden="true"
           className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full ring-4 ring-white/[0.04]"
           style={{ backgroundColor: strokeColor[tone] }}
         />

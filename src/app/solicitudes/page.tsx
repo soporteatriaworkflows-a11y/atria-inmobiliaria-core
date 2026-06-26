@@ -1,10 +1,30 @@
 import { AppShell } from "@/components/app-shell";
-import { EmptyState, QuickAction, StatusPill, type Tone } from "@/components/ui";
+import {
+  EmptyState,
+  QuickAction,
+  StatusPill,
+  type Tone,
+} from "@/components/ui";
 
 const requests: { title: string; meta: string; state: string; tone: Tone }[] = [
-  { title: "Actualizar participacion desde el proximo periodo", meta: "Propietario · hoy", state: "En revision", tone: "warning" },
-  { title: "Revisar el soporte de un gasto", meta: "Contador · ayer", state: "Recibida", tone: "neutral" },
-  { title: "Cambiar acceso de lectura a una propiedad", meta: "Administrador · esta semana", state: "Aprobada", tone: "success" },
+  {
+    title: "Actualizar participacion desde el proximo periodo",
+    meta: "Propietario · hoy",
+    state: "En revision",
+    tone: "warning",
+  },
+  {
+    title: "Revisar el soporte de un gasto",
+    meta: "Contador · ayer",
+    state: "Recibida",
+    tone: "neutral",
+  },
+  {
+    title: "Cambiar acceso de lectura a una propiedad",
+    meta: "Administrador · esta semana",
+    state: "Aprobada",
+    tone: "success",
+  },
 ];
 
 export default function RequestsPage() {
@@ -21,8 +41,12 @@ export default function RequestsPage() {
             key={request.title}
           >
             <div className="min-w-0">
-              <p className="truncate text-sm font-medium text-atria-fog">{request.title}</p>
-              <p className="mt-0.5 text-2xs uppercase tracking-wide text-atria-mist">{request.meta}</p>
+              <p className="truncate text-sm font-medium text-atria-fog">
+                {request.title}
+              </p>
+              <p className="mt-0.5 text-2xs uppercase tracking-wide text-atria-mist">
+                {request.meta}
+              </p>
             </div>
             <StatusPill tone={request.tone}>{request.state}</StatusPill>
           </article>
@@ -32,7 +56,14 @@ export default function RequestsPage() {
       <EmptyState
         title="Flujo completo pendiente"
         description="Al activar el ingreso, cada solicitud tendra responsable, estado, comentarios e historial."
-        action={<QuickAction href="/auditoria" label="Ver historial" helper="Revisar el registro de actividad." icon="auditoria" />}
+        action={
+          <QuickAction
+            href="/auditoria"
+            label="Ver historial"
+            helper="Revisar el registro de actividad."
+            icon="auditoria"
+          />
+        }
       />
     </AppShell>
   );

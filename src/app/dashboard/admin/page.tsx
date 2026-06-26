@@ -10,13 +10,34 @@ export default function AdminDashboardPage() {
       icon="admin"
     >
       <section className="grid gap-3 md:grid-cols-3">
-        <MetricCard label="Pendientes" value="3" helper="Tareas antes de publicar el cierre." tone="warning" badge="Por revisar" icon="auditoria" />
-        <MetricCard label="Solicitudes" value="3" helper="Cambios que quedan registrados." icon="solicitudes" />
-        <MetricCard label="Estado de datos" value="De prueba" helper="Sin información real en esta etapa." tone="success" badge="Protegido" icon="propietario" />
+        <MetricCard
+          label="Pendientes"
+          value="3"
+          helper="Tareas antes de publicar el cierre."
+          tone="warning"
+          badge="Por revisar"
+          icon="auditoria"
+        />
+        <MetricCard
+          label="Solicitudes"
+          value="3"
+          helper="Cambios que quedan registrados."
+          icon="solicitudes"
+        />
+        <MetricCard
+          label="Estado de datos"
+          value="De prueba"
+          helper="Sin información real en esta etapa."
+          tone="success"
+          badge="Protegido"
+          icon="propietario"
+        />
       </section>
 
       <div className="rounded-xl border border-white/10 bg-atria-graphite p-4 shadow-card">
-        <h3 className="mb-3 text-sm font-semibold text-atria-fog">Pasos para el cierre</h3>
+        <h3 className="mb-3 text-sm font-semibold text-atria-fog">
+          Pasos para el cierre
+        </h3>
         <ActionList
           variant="step"
           items={[
@@ -28,9 +49,24 @@ export default function AdminDashboardPage() {
       </div>
 
       <section className="grid gap-2.5 md:grid-cols-3">
-        <QuickAction href="/recaudos" label="Ver ingresos" helper="Pagos del periodo." icon="recaudos" />
-        <QuickAction href="/gastos" label="Ver gastos" helper="Globales y por propiedad." icon="gastos" />
-        <QuickAction href="/auditoria" label="Ver historial" helper="Registro de actividad." icon="auditoria" />
+        <QuickAction
+          href="/recaudos"
+          label="Ver ingresos"
+          helper="Pagos del periodo."
+          icon="recaudos"
+        />
+        <QuickAction
+          href="/gastos"
+          label="Ver gastos"
+          helper="Globales y por propiedad."
+          icon="gastos"
+        />
+        <QuickAction
+          href="/auditoria"
+          label="Ver historial"
+          helper="Registro de actividad."
+          icon="auditoria"
+        />
       </section>
     </AppShell>
   );

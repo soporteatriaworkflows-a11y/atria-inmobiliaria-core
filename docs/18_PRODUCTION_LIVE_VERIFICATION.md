@@ -59,11 +59,11 @@ Verificacion con navegador headless:
 
 Variables publicas activas:
 
-| Variable | Estado | Uso frontend |
-| --- | --- | --- |
-| `NEXT_PUBLIC_APP_MODE` | configurada como `live` | Si |
-| `NEXT_PUBLIC_SUPABASE_URL` | apunta a `https://bzoqbjcktoyngvszcwhl.supabase.co` | Si |
-| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | existe | Si, es publica |
+| Variable                               | Estado                                              | Uso frontend   |
+| -------------------------------------- | --------------------------------------------------- | -------------- |
+| `NEXT_PUBLIC_APP_MODE`                 | configurada como `live`                             | Si             |
+| `NEXT_PUBLIC_SUPABASE_URL`             | apunta a `https://bzoqbjcktoyngvszcwhl.supabase.co` | Si             |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | existe                                              | Si, es publica |
 
 Variables prohibidas no encontradas por nombre en Production pull local:
 

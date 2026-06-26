@@ -22,9 +22,27 @@ export default function CollectionsPage() {
       icon="recaudos"
     >
       <section className="grid gap-3 sm:grid-cols-3">
-        <MetricCard label="Total cobrado" value={formatCop(total)} helper="Ingresos del periodo." tone="success" icon="recaudos" />
-        <MetricCard label="Propiedades al día" value={`${pagadas}/${totalProps}`} helper="Con pago registrado." tone="primary" icon="propiedades" />
-        <MetricCard label="Pendientes" value="0" helper="Sin pagos por confirmar." tone="neutral" icon="auditoria" />
+        <MetricCard
+          label="Total cobrado"
+          value={formatCop(total)}
+          helper="Ingresos del periodo."
+          tone="success"
+          icon="recaudos"
+        />
+        <MetricCard
+          label="Propiedades al día"
+          value={`${pagadas}/${totalProps}`}
+          helper="Con pago registrado."
+          tone="primary"
+          icon="propiedades"
+        />
+        <MetricCard
+          label="Pendientes"
+          value="0"
+          helper="Sin pagos por confirmar."
+          tone="neutral"
+          icon="auditoria"
+        />
       </section>
 
       <section className="overflow-hidden rounded-xl border border-white/10 bg-atria-graphite shadow-card">
@@ -41,7 +59,9 @@ export default function CollectionsPage() {
             <p className="text-sm font-semibold text-atria-fog">
               {propertyName.get(collection.propertyId) ?? collection.propertyId}
             </p>
-            <span className="text-base font-semibold text-atria-fog">{formatCop(collection.amountCop)}</span>
+            <span className="text-base font-semibold text-atria-fog">
+              {formatCop(collection.amountCop)}
+            </span>
             <span className="sm:text-right">
               <Badge tone="success">Pagado</Badge>
             </span>

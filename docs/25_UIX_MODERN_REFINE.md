@@ -21,6 +21,7 @@ agrandar todo.
 ## Que se cambio
 
 ### Sistema global
+
 - Escala tipografica controlada: base 15px (antes 18px), titulos de modulo
   20-24px, hero <= ~24px, labels 11-13px, secundario 12-14px.
 - Fondo neutro sofisticado (no blanco puro): degradado `haze`/`surface` con
@@ -30,6 +31,7 @@ agrandar todo.
 - Foco visible mas fino (outline 2px) manteniendo accesibilidad.
 
 ### Layout / App shell
+
 - Sidebar **semi-dark elegante**: degradado `night -> slate -> night` (derivado
   de ink/forest), mas estrecha (15.5rem), scrollbar discreto, marca compacta.
 - Estado activo de navegacion refinado: barra de acento mint + fondo sutil +
@@ -39,6 +41,7 @@ agrandar todo.
 - Footer compacto.
 
 ### Dashboards y modulos
+
 - Home recompuesto: barra de estado fina, 3 metricas con icono, panel de accesos
   rapidos (2 col) y panel "Proximo paso" con degradado mint sutil.
 - Admin como centro de control: metricas con estado + checklist de pasos + accesos.
@@ -53,6 +56,7 @@ agrandar todo.
 - Auditoria: linea de tiempo compacta con puntos, en vez de tarjetas grandes.
 
 ### Componentes refinados
+
 - `Badge`, `StatusPill`: mas pequenos, con punto de color (StatusPill), uppercase fino.
 - `SectionPanel`: radio `xl`, padding reducido, borde/sombra refinados.
 - `ModuleHeader`: compacto, icono 10px, titulo controlado.
@@ -94,12 +98,12 @@ Se mantiene la paleta ATRIA: `ink`, `forest`, `leaf`, `mint`, `sand`, `cream`,
 Extensiones visuales PROVISIONALES (derivadas de ink/forest, documentadas como
 temporales hasta validar marca):
 
-| Token | Valor | Uso |
-| --- | --- | --- |
-| `atria.night` | `#101b18` | base profunda de la sidebar |
-| `atria.slate` | `#1b2c27` | capa intermedia de la sidebar |
-| `atria.haze` | `#eef1ea` | fondo neutro general |
-| `atria.surface` | `#f6f4ee` | superficie de paneles suaves |
+| Token           | Valor     | Uso                           |
+| --------------- | --------- | ----------------------------- |
+| `atria.night`   | `#101b18` | base profunda de la sidebar   |
+| `atria.slate`   | `#1b2c27` | capa intermedia de la sidebar |
+| `atria.haze`    | `#eef1ea` | fondo neutro general          |
+| `atria.surface` | `#f6f4ee` | superficie de paneles suaves  |
 
 ## Decisiones de tipografia
 
@@ -124,12 +128,12 @@ force-push, sin borrado de ramas, sin merge a `main`, sin deploy.
 
 ## Verificaciones
 
-| Verificacion | Resultado |
-| --- | --- |
-| `pnpm lint` | PASS |
-| `pnpm typecheck` | PASS |
-| `pnpm test` | PASS (6/6) |
-| `pnpm build` | PASS (12 rutas) |
+| Verificacion                             | Resultado        |
+| ---------------------------------------- | ---------------- |
+| `pnpm lint`                              | PASS             |
+| `pnpm typecheck`                         | PASS             |
+| `pnpm test`                              | PASS (6/6)       |
+| `pnpm build`                             | PASS (12 rutas)  |
 | Smoke local Playwright (desktop + movil) | PASS (24 vistas) |
 
 Smoke: HTTP 200 en las 12 rutas, 0 overflow horizontal, navegacion visible (12

@@ -47,7 +47,9 @@ export default function OwnersPage() {
                   {initials(participant.displayName)}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <h2 className="truncate text-sm font-semibold text-atria-fog">{participant.displayName}</h2>
+                  <h2 className="truncate text-sm font-semibold text-atria-fog">
+                    {participant.displayName}
+                  </h2>
                   <Badge>{participant.roleLabel}</Badge>
                 </div>
                 <Badge tone="success">Activo</Badge>
@@ -55,21 +57,33 @@ export default function OwnersPage() {
 
               <div className="grid gap-1.5">
                 <div className="flex items-baseline justify-between">
-                  <span className="text-2xs font-medium uppercase tracking-wide text-atria-mist">Participación</span>
-                  <span className="text-sm font-semibold text-atria-lavender">{pct}%</span>
+                  <span className="text-2xs font-medium uppercase tracking-wide text-atria-mist">
+                    Participación
+                  </span>
+                  <span className="text-sm font-semibold text-atria-lavender">
+                    {pct}%
+                  </span>
                 </div>
-                <ProgressBar value={pct} tone="primary" />
+                <ProgressBar
+                  ariaLabel={`Participacion de ${participant.displayName}: ${pct}%`}
+                  value={pct}
+                  tone="primary"
+                />
               </div>
 
               <div className="flex items-center justify-between rounded-lg bg-white/[0.03] px-3 py-2">
-                <span className="text-2xs uppercase tracking-wide text-atria-mist">Valor del periodo</span>
+                <span className="text-2xs uppercase tracking-wide text-atria-mist">
+                  Valor del periodo
+                </span>
                 <span className="text-sm font-semibold text-atria-fog">
                   {result ? formatCop(result.amountToPayCop) : "—"}
                 </span>
               </div>
 
               <div className="mt-auto flex items-center justify-between">
-                <span className="text-2xs text-atria-mist">Actualizado {lastUpdate[index] ?? "esta semana"}</span>
+                <span className="text-2xs text-atria-mist">
+                  Actualizado {lastUpdate[index] ?? "esta semana"}
+                </span>
                 <a
                   className="focus-ring rounded-md border border-atria-violet/30 bg-atria-violet/10 px-2.5 py-1 text-xs font-semibold text-atria-lavender transition hover:bg-atria-violet hover:text-white"
                   href="/liquidacion"

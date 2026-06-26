@@ -19,7 +19,7 @@ export function SidebarNav() {
     <nav aria-label="Rutas principales" className="grid gap-4">
       {navigationGroups.map((group) => (
         <div className="grid gap-1" key={group.title}>
-          <p className="px-2 pb-0.5 text-2xs font-semibold uppercase tracking-[0.16em] text-atria-mist/50">
+          <p className="px-2 pb-0.5 text-2xs font-semibold uppercase tracking-[0.16em] text-atria-mist/70">
             {group.title}
           </p>
           <ul className="grid gap-0.5">

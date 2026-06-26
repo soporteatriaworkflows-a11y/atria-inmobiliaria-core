@@ -16,7 +16,11 @@ export function ActionList({
           key={item}
         >
           <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-atria-violet/15 text-xs font-semibold text-atria-lavender ring-1 ring-atria-violet/25">
-            {variant === "step" ? index + 1 : <CheckIcon className="h-3.5 w-3.5" />}
+            {variant === "step" ? (
+              index + 1
+            ) : (
+              <CheckIcon className="h-3.5 w-3.5" />
+            )}
           </span>
           <span>{item}</span>
         </li>

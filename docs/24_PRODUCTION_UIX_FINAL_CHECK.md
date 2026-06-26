@@ -66,12 +66,12 @@ la revision con cliente, compartir las imagenes de esa carpeta de forma manual.
 
 ## Verificaciones de codigo
 
-| Verificacion | Resultado |
-| --- | --- |
-| `pnpm lint` | PASS |
-| `pnpm typecheck` | PASS |
-| `pnpm test` | PASS (6/6) |
-| `pnpm build` | PASS (12 rutas + not-found) |
+| Verificacion     | Resultado                   |
+| ---------------- | --------------------------- |
+| `pnpm lint`      | PASS                        |
+| `pnpm typecheck` | PASS                        |
+| `pnpm test`      | PASS (6/6)                  |
+| `pnpm build`     | PASS (12 rutas + not-found) |
 
 ## Que SE PUEDE mostrar al cliente
 

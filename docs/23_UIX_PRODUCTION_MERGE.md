@@ -54,15 +54,15 @@ Cambios del merge: solo `docs/`, `src/app/*` (UI), `src/components/*` (UI),
 
 ## Verificaciones
 
-| Verificacion | Resultado |
-| --- | --- |
-| `pnpm lint` | PASS |
-| `pnpm typecheck` | PASS |
-| `pnpm test` | PASS (6/6) |
-| `pnpm build` | PASS (12 rutas + not-found) |
-| `pnpm exec supabase test db` | OMITIDO (justificado, ver abajo) |
-| Smoke local Playwright 375px | PASS (12/12) |
-| Smoke produccion HTTP (12 rutas) | PASS (200 en todas) |
+| Verificacion                     | Resultado                        |
+| -------------------------------- | -------------------------------- |
+| `pnpm lint`                      | PASS                             |
+| `pnpm typecheck`                 | PASS                             |
+| `pnpm test`                      | PASS (6/6)                       |
+| `pnpm build`                     | PASS (12 rutas + not-found)      |
+| `pnpm exec supabase test db`     | OMITIDO (justificado, ver abajo) |
+| Smoke local Playwright 375px     | PASS (12/12)                     |
+| Smoke produccion HTTP (12 rutas) | PASS (200 en todas)              |
 
 `supabase test db` se omitio a proposito: el merge es UI puro, no cambia
 migraciones, RLS ni permisos, por lo que la verification gate de RLS no aplica.
