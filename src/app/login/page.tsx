@@ -1,76 +1,77 @@
 import { AppShell } from "@/components/app-shell";
 import { CheckIcon, LockIcon } from "@/components/icons";
-import { Badge, SectionPanel, StatusPill } from "@/components/ui";
+import { Badge, SectionPanel } from "@/components/ui";
 
 const trustPoints = [
-  "No pedimos claves, cuentas bancarias ni cedulas reales en esta version.",
-  "Cuando Auth real este listo, respetara roles y permisos por organizacion.",
+  "No pedimos claves, cuentas bancarias ni documentos reales en esta version.",
+  "Cuando el ingreso real este activo, respetara roles y permisos por organizacion.",
   "Cada ingreso quedara registrado para mayor tranquilidad.",
 ];
 
 export default function LoginPage() {
   return (
     <AppShell
-      title="Ingreso seguro"
-      description="Preparado para Supabase Auth. En esta etapa no se solicitan claves reales ni se habilitan sesiones productivas."
+      title="Ingreso"
+      description="Acceso preparado para activarse. Por ahora es una vista de ejemplo, sin claves reales ni sesiones."
       icon="login"
     >
-      <section className="grid gap-5 lg:grid-cols-[1fr_24rem]">
+      <section className="grid gap-3 lg:grid-cols-[1fr_20rem]">
         <SectionPanel>
-          <div className="flex flex-wrap gap-2">
-            <Badge tone="warning">Auth pendiente</Badge>
-            <Badge tone="success">Sin datos reales</Badge>
+          <div className="flex items-center gap-3 border-b border-atria-line/70 pb-4">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-atria-mint/70 text-atria-forest">
+              <LockIcon className="h-5 w-5" />
+            </span>
+            <div>
+              <h2 className="text-base font-semibold text-atria-ink">Entrar a ATRIA</h2>
+              <p className="text-xs text-atria-muted">Vista de ejemplo · ingreso real pendiente</p>
+            </div>
+            <span className="ml-auto">
+              <Badge tone="warning">Pendiente</Badge>
+            </span>
           </div>
 
-          <div className="mt-6 flex items-center gap-3">
-            <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-atria-mint text-atria-forest">
-              <LockIcon className="h-7 w-7" />
-            </span>
-            <p className="text-lg leading-relaxed text-atria-muted">
-              Entra con calma. Esta pantalla todavia es una vista de ejemplo.
+          <div className="mt-4 grid gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-atria-ink" htmlFor="email">
+                Correo de acceso
+              </label>
+              <input
+                className="focus-ring mt-1.5 w-full rounded-lg border border-atria-line bg-atria-surface px-3.5 py-2.5 text-sm text-atria-ink placeholder:text-atria-muted/70"
+                id="email"
+                placeholder="usuario@atria.local"
+                type="email"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-atria-ink" htmlFor="password">
+                Contrasena
+              </label>
+              <input
+                className="focus-ring mt-1.5 w-full rounded-lg border border-atria-line bg-atria-surface px-3.5 py-2.5 text-sm text-atria-ink placeholder:text-atria-muted/70 disabled:cursor-not-allowed disabled:opacity-60"
+                disabled
+                id="password"
+                placeholder="Disponible al activar el ingreso real"
+                type="password"
+              />
+            </div>
+
+            <button className="focus-ring mt-1 w-full rounded-lg bg-atria-forest px-4 py-2.5 text-sm font-semibold text-white shadow-soft transition hover:bg-atria-ink">
+              Continuar
+            </button>
+            <p className="text-xs leading-relaxed text-atria-muted">
+              Al activarse, el ingreso respetara roles y permisos por organizacion.
             </p>
           </div>
-
-          <label className="mt-6 block text-lg font-bold text-atria-ink" htmlFor="email">
-            Correo de acceso
-          </label>
-          <input
-            className="focus-ring mt-2 w-full rounded-2xl border border-atria-line bg-atria-pearl px-5 py-4 text-lg text-atria-ink placeholder:text-atria-muted"
-            id="email"
-            placeholder="usuario.demo@atria.local"
-            type="email"
-          />
-
-          <label className="mt-5 block text-lg font-bold text-atria-ink" htmlFor="password">
-            Contrasena
-          </label>
-          <input
-            className="focus-ring mt-2 w-full rounded-2xl border border-atria-line bg-atria-pearl px-5 py-4 text-lg text-atria-ink placeholder:text-atria-muted disabled:cursor-not-allowed disabled:opacity-70"
-            disabled
-            id="password"
-            placeholder="Disponible cuando se active el ingreso real"
-            type="password"
-          />
-
-          <button className="focus-ring mt-6 w-full rounded-2xl bg-atria-forest px-6 py-4 text-xl font-bold text-white shadow-soft transition hover:bg-atria-ink">
-            Continuar de forma segura
-          </button>
-          <p className="mt-4 leading-relaxed text-atria-muted">
-            Cuando Auth real este listo, este ingreso respetara roles y permisos
-            por organizacion.
-          </p>
         </SectionPanel>
 
-        <SectionPanel className="bg-atria-cream">
-          <StatusPill tone="success">Cuidado ATRIA</StatusPill>
-          <h2 className="mt-4 font-display text-2xl font-semibold text-atria-ink">
-            Antes de entrar
-          </h2>
-          <ul className="mt-4 grid gap-3">
+        <SectionPanel className="bg-gradient-to-br from-atria-mint/40 to-atria-surface">
+          <h2 className="text-sm font-semibold text-atria-ink">Antes de entrar</h2>
+          <ul className="mt-3 grid gap-2.5">
             {trustPoints.map((point) => (
-              <li className="flex items-start gap-3 text-base leading-relaxed text-atria-muted" key={point}>
-                <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-atria-mint text-atria-forest">
-                  <CheckIcon className="h-4 w-4" />
+              <li className="flex items-start gap-2.5 text-xs leading-relaxed text-atria-muted" key={point}>
+                <span className="mt-px flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-atria-mint text-atria-forest">
+                  <CheckIcon className="h-3 w-3" />
                 </span>
                 <span>{point}</span>
               </li>

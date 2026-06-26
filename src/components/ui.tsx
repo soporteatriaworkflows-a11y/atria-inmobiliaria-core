@@ -2,14 +2,21 @@ import Link from "next/link";
 import { type ModuleIconName, ModuleIcon } from "@/components/icons";
 
 const toneClasses = {
-  danger: "border-red-200 bg-red-50 text-red-900",
-  neutral: "border-atria-line bg-atria-pearl text-atria-muted",
-  success: "border-atria-mint bg-atria-mint text-atria-forest",
-  warning: "border-amber-200 bg-amber-50 text-amber-900",
+  danger: "border-red-200 bg-red-50 text-red-700",
+  neutral: "border-atria-line bg-atria-surface text-atria-muted",
+  success: "border-atria-mint bg-atria-mint/70 text-atria-forest",
+  warning: "border-amber-200 bg-amber-50 text-amber-700",
 } as const;
 
-// Acento de color por tono para barras y puntos, sin texto tecnico redundante.
-const toneAccent = {
+// Tinte suave para iconos/acentos por tono.
+const toneSoft = {
+  danger: "bg-red-50 text-atria-rose",
+  neutral: "bg-atria-mint/50 text-atria-leaf",
+  success: "bg-atria-mint text-atria-forest",
+  warning: "bg-amber-50 text-atria-amber",
+} as const;
+
+const toneDot = {
   danger: "bg-atria-rose",
   neutral: "bg-atria-leaf",
   success: "bg-atria-forest",
@@ -27,8 +34,9 @@ export function StatusPill({
 }) {
   return (
     <span
-      className={`inline-flex w-fit items-center rounded-full border px-3 py-1 text-sm font-bold ${toneClasses[tone]}`}
+      className={`inline-flex w-fit items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-2xs font-semibold uppercase tracking-wide ${toneClasses[tone]}`}
     >
+      <span className={`h-1.5 w-1.5 rounded-full ${toneDot[tone]}`} />
       {children}
     </span>
   );
@@ -43,7 +51,7 @@ export function Badge({
 }) {
   return (
     <span
-      className={`inline-flex w-fit rounded-md border px-3 py-2 text-base font-semibold ${toneClasses[tone]}`}
+      className={`inline-flex w-fit items-center rounded-md border px-2.5 py-1 text-xs font-semibold ${toneClasses[tone]}`}
     >
       {children}
     </span>
@@ -59,7 +67,7 @@ export function SectionPanel({
 }) {
   return (
     <section
-      className={`rounded-2xl border border-atria-line bg-white/92 p-5 shadow-soft sm:p-6 ${className}`}
+      className={`rounded-xl border border-atria-line/80 bg-white p-4 shadow-card sm:p-5 ${className}`}
     >
       {children}
     </section>
@@ -80,23 +88,23 @@ export function ModuleHeader({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-4 rounded-2xl border border-atria-line bg-atria-cream p-5 shadow-soft sm:p-6 lg:flex-row lg:items-end lg:justify-between">
-      <div className="flex max-w-3xl items-start gap-4">
+    <div className="flex flex-col gap-3 rounded-xl border border-atria-line/80 bg-atria-surface p-4 shadow-soft sm:p-5 lg:flex-row lg:items-center lg:justify-between">
+      <div className="flex max-w-3xl items-start gap-3">
         {icon ? (
-          <span className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-atria-forest shadow-soft sm:flex">
-            <ModuleIcon className="h-7 w-7" name={icon} />
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-atria-forest shadow-soft">
+            <ModuleIcon className="h-5 w-5" name={icon} />
           </span>
         ) : null}
         <div>
           {eyebrow ? (
-            <p className="text-sm font-bold uppercase tracking-[0.16em] text-atria-forest">
+            <p className="text-2xs font-semibold uppercase tracking-[0.14em] text-atria-leaf">
               {eyebrow}
             </p>
           ) : null}
-          <h2 className="mt-2 font-display text-2xl font-semibold leading-tight text-atria-ink sm:text-3xl">
+          <h2 className="mt-0.5 text-lg font-semibold leading-snug text-atria-ink sm:text-xl">
             {title}
           </h2>
-          <p className="mt-3 text-lg leading-relaxed text-atria-muted">
+          <p className="mt-1.5 text-sm leading-relaxed text-atria-muted">
             {description}
           </p>
         </div>
@@ -112,27 +120,36 @@ export function MetricCard({
   helper,
   tone = "neutral",
   badge,
+  icon,
 }: {
   label: string;
   value: string;
   helper: string;
   tone?: Tone;
   badge?: string;
+  icon?: ModuleIconName;
 }) {
   return (
-    <section className="relative overflow-hidden rounded-2xl border border-atria-line bg-white p-5 pl-6 shadow-soft">
-      <span
-        aria-hidden="true"
-        className={`absolute inset-y-3 left-0 w-1.5 rounded-full ${toneAccent[tone]}`}
-      />
-      <div className="flex items-start justify-between gap-3">
-        <p className="text-base font-bold text-atria-muted">{label}</p>
+    <section className="group rounded-xl border border-atria-line/80 bg-white p-4 shadow-card transition hover:shadow-panel">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2.5">
+          {icon ? (
+            <span className={`flex h-8 w-8 items-center justify-center rounded-lg ${toneSoft[tone]}`}>
+              <ModuleIcon className="h-4 w-4" name={icon} />
+            </span>
+          ) : (
+            <span className={`h-2 w-2 rounded-full ${toneDot[tone]}`} />
+          )}
+          <p className="text-2xs font-semibold uppercase tracking-[0.12em] text-atria-muted">
+            {label}
+          </p>
+        </div>
         {badge ? <StatusPill tone={tone}>{badge}</StatusPill> : null}
       </div>
-      <p className="mt-4 text-3xl font-bold tracking-tight text-atria-ink">
+      <p className="mt-3 text-2xl font-semibold tracking-tight text-atria-ink">
         {value}
       </p>
-      <p className="mt-3 text-base leading-relaxed text-atria-muted">{helper}</p>
+      <p className="mt-1.5 text-xs leading-relaxed text-atria-muted">{helper}</p>
     </section>
   );
 }
@@ -147,11 +164,11 @@ export function EmptyState({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-dashed border-atria-line bg-atria-pearl p-7 text-center">
-      <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-atria-forest shadow-soft">
+    <div className="rounded-xl border border-dashed border-atria-line bg-atria-surface/60 p-6 text-center">
+      <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-lg bg-white text-atria-leaf shadow-soft">
         <svg
           aria-hidden="true"
-          className="h-7 w-7"
+          className="h-5 w-5"
           fill="none"
           stroke="currentColor"
           strokeLinecap="round"
@@ -164,13 +181,11 @@ export function EmptyState({
           <path d="M9 14h6" />
         </svg>
       </span>
-      <p className="mt-4 font-display text-xl font-semibold text-atria-ink">
-        {title}
-      </p>
-      <p className="mx-auto mt-3 max-w-2xl text-lg leading-relaxed text-atria-muted">
+      <p className="mt-3 text-base font-semibold text-atria-ink">{title}</p>
+      <p className="mx-auto mt-1.5 max-w-xl text-sm leading-relaxed text-atria-muted">
         {description}
       </p>
-      {action ? <div className="mt-5 flex justify-center">{action}</div> : null}
+      {action ? <div className="mt-4 flex justify-center">{action}</div> : null}
     </div>
   );
 }
@@ -179,41 +194,44 @@ export function QuickAction({
   href,
   label,
   helper,
+  icon,
 }: {
   href: string;
   label: string;
   helper: string;
+  icon?: ModuleIconName;
 }) {
   return (
     <Link
-      className="focus-ring group flex items-start justify-between gap-3 rounded-2xl border border-atria-line bg-white p-5 shadow-soft transition hover:-translate-y-0.5 hover:border-atria-forest hover:shadow-panel"
+      className="focus-ring group flex items-center gap-3 rounded-xl border border-atria-line/80 bg-white p-3.5 shadow-card transition hover:-translate-y-0.5 hover:border-atria-leaf hover:shadow-panel"
       href={href}
     >
-      <span>
-        <span className="text-lg font-bold text-atria-ink group-hover:text-atria-forest">
+      {icon ? (
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-atria-mint/60 text-atria-forest transition group-hover:bg-atria-forest group-hover:text-white">
+          <ModuleIcon className="h-5 w-5" name={icon} />
+        </span>
+      ) : null}
+      <span className="min-w-0 flex-1">
+        <span className="block text-sm font-semibold text-atria-ink group-hover:text-atria-forest">
           {label}
         </span>
-        <span className="mt-2 block text-base leading-relaxed text-atria-muted">
+        <span className="mt-0.5 block text-xs leading-relaxed text-atria-muted">
           {helper}
         </span>
       </span>
-      <span
+      <svg
         aria-hidden="true"
-        className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-atria-mint text-atria-forest transition group-hover:bg-atria-forest group-hover:text-white"
+        className="h-4 w-4 shrink-0 text-atria-line transition group-hover:translate-x-0.5 group-hover:text-atria-forest"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        viewBox="0 0 24 24"
       >
-        <svg
-          className="h-5 w-5"
-          fill="none"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          viewBox="0 0 24 24"
-        >
-          <path d="M5 12h14" />
-          <path d="M13 6l6 6-6 6" />
-        </svg>
-      </span>
+        <path d="M5 12h14" />
+        <path d="M13 6l6 6-6 6" />
+      </svg>
     </Link>
   );
 }

@@ -17,8 +17,8 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "ATRIA Inmobiliaria Core",
-  description: "MVP demo para administracion segura de propiedades heredadas.",
+  title: "ATRIA Inmobiliaria",
+  description: "Administracion de patrimonios, propiedades y cierres mensuales.",
 };
 
 export const dynamic = "force-dynamic";

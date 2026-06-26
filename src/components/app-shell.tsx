@@ -22,89 +22,85 @@ export function AppShell({
   const supabaseConfig = getSupabasePublicConfig();
 
   return (
-    <main className="min-h-screen px-4 py-4 text-atria-ink sm:px-6 lg:px-8">
-      <div className="mx-auto grid w-full max-w-7xl gap-5 lg:grid-cols-[19rem_1fr]">
-        <aside className="rounded-3xl border border-atria-line bg-atria-forest p-5 text-white shadow-panel lg:sticky lg:top-5 lg:h-[calc(100vh-2.5rem)] lg:overflow-y-auto">
-          <div className="flex h-full flex-col gap-6">
-            <div>
-              <div className="flex items-center gap-3">
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-atria-mint text-2xl font-black text-atria-forest font-display">
-                  A
+    <main className="min-h-screen px-3 py-3 text-atria-ink sm:px-5 sm:py-5 lg:px-6">
+      <div className="mx-auto grid w-full max-w-[78rem] gap-4 lg:grid-cols-[15.5rem_1fr]">
+        <aside className="scroll-slim rounded-2xl bg-gradient-to-b from-atria-night via-atria-slate to-atria-night p-3.5 text-white shadow-sidebar ring-1 ring-white/5 lg:sticky lg:top-5 lg:h-[calc(100vh-2.5rem)] lg:overflow-y-auto">
+          <div className="flex h-full flex-col gap-5">
+            <div className="flex items-center gap-2.5 px-1 pt-1">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-atria-mint font-display text-lg font-bold text-atria-forest">
+                A
+              </span>
+              <span className="leading-tight">
+                <span className="block font-display text-base font-semibold">
+                  ATRIA
                 </span>
-                <span>
-                  <span className="block text-xs font-bold uppercase tracking-[0.22em] text-atria-mint">
-                    ATRIA
-                  </span>
-                  <span className="block font-display text-2xl font-semibold leading-tight">
-                    Inmobiliaria
-                  </span>
+                <span className="block text-2xs font-medium uppercase tracking-[0.18em] text-atria-mint/80">
+                  Inmobiliaria
                 </span>
-              </div>
-              <p className="mt-4 text-base leading-relaxed text-white/80">
-                Administracion clara para patrimonios, propiedades y cierres
-                mensuales en familia.
-              </p>
+              </span>
             </div>
 
             <SidebarNav />
 
-            <div className="mt-auto flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 p-4">
-              <ShieldIcon className="mt-0.5 h-6 w-6 shrink-0 text-atria-mint" />
+            <div className="mt-auto flex items-start gap-2.5 rounded-xl border border-white/10 bg-white/[0.06] p-3">
+              <ShieldIcon className="mt-0.5 h-4 w-4 shrink-0 text-atria-mint" />
               <div>
-                <p className="text-base font-bold">Base segura</p>
-                <p className="mt-1 text-sm leading-relaxed text-white/78">
-                  Sin datos reales. Los cambios financieros requieren auditoria
-                  y revision.
+                <p className="text-xs font-semibold text-white/90">
+                  Informacion protegida
+                </p>
+                <p className="mt-0.5 text-2xs leading-relaxed text-white/55">
+                  Sin datos reales. Los cambios financieros pasan por revision.
                 </p>
               </div>
             </div>
           </div>
         </aside>
 
-        <div className="flex min-w-0 flex-col gap-5">
-          <header className="rounded-3xl border border-atria-line bg-white/90 p-5 shadow-soft sm:p-7">
-            <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
-              <div className="max-w-4xl">
-                <div className="flex flex-wrap items-center gap-2">
-                  {isDemoMode ? (
-                    <StatusPill tone="warning">Modo demostracion</StatusPill>
-                  ) : null}
-                  {isDevMode ? <StatusPill tone="warning">Entorno de pruebas</StatusPill> : null}
-                  {isLiveMode ? (
-                    <StatusPill tone="success">Produccion conectada</StatusPill>
-                  ) : null}
-                  <StatusPill tone="neutral">Datos de ejemplo</StatusPill>
-                </div>
-                <div className="mt-4 flex items-start gap-4">
-                  {icon ? (
-                    <span className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-atria-mint text-atria-forest sm:flex">
-                      <ModuleIcon className="h-8 w-8" name={icon} />
-                    </span>
-                  ) : null}
-                  <div>
-                    <h2 className="font-display text-3xl font-semibold leading-tight text-atria-ink sm:text-[2.75rem]">
-                      {title}
-                    </h2>
-                    <p className="mt-3 max-w-3xl text-xl leading-relaxed text-atria-muted">
-                      {description}
-                    </p>
-                  </div>
+        <div className="flex min-w-0 flex-col gap-4">
+          <header className="rounded-2xl border border-atria-line/80 bg-white/85 px-4 py-3.5 shadow-soft backdrop-blur-sm sm:px-5">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <div className="flex items-start gap-3">
+                {icon ? (
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-atria-mint/70 text-atria-forest">
+                    <ModuleIcon className="h-6 w-6" name={icon} />
+                  </span>
+                ) : null}
+                <div className="min-w-0">
+                  <h2 className="text-xl font-semibold leading-tight tracking-tight text-atria-ink sm:text-2xl">
+                    {title}
+                  </h2>
+                  <p className="mt-1 max-w-2xl text-sm leading-relaxed text-atria-muted">
+                    {description}
+                  </p>
                 </div>
               </div>
 
-              {isLiveMode && !supabaseConfig.isConfigured ? (
-                <div className="rounded-2xl border border-red-200 bg-red-50 p-4 text-base font-semibold text-red-900">
-                  Faltan variables publicas de Supabase para modo live.
-                </div>
-              ) : null}
+              <div className="flex flex-wrap items-center gap-1.5 lg:justify-end">
+                {isDemoMode ? (
+                  <StatusPill tone="warning">Modo demostracion</StatusPill>
+                ) : null}
+                {isDevMode ? (
+                  <StatusPill tone="warning">Entorno de pruebas</StatusPill>
+                ) : null}
+                {isLiveMode ? (
+                  <StatusPill tone="success">Produccion activa</StatusPill>
+                ) : null}
+                <StatusPill tone="neutral">Datos de prueba</StatusPill>
+              </div>
             </div>
+
+            {isLiveMode && !supabaseConfig.isConfigured ? (
+              <div className="mt-3 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-semibold text-red-700">
+                Faltan variables publicas de Supabase para modo live.
+              </div>
+            ) : null}
           </header>
 
-          <div className="grid gap-5">{children}</div>
+          <div className="grid gap-4">{children}</div>
 
-          <footer className="px-2 pb-6 pt-1 text-sm leading-relaxed text-atria-muted">
+          <footer className="px-1 pb-4 pt-1 text-2xs leading-relaxed text-atria-muted">
             ATRIA Inmobiliaria · Administracion familiar de patrimonios ·
-            Version tecnica con datos de ejemplo.
+            Version tecnica con datos de prueba.
           </footer>
         </div>
       </div>

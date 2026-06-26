@@ -1,30 +1,41 @@
-﻿import { AppShell } from "@/components/app-shell";
-import { Badge, EmptyState, SectionPanel } from "@/components/ui";
+import { AppShell } from "@/components/app-shell";
+import { ModuleIcon } from "@/components/icons";
+import { Badge, EmptyState } from "@/components/ui";
 import { demoLiquidationInput } from "@/lib/demo-data";
 
 export default function PropertiesPage() {
   return (
     <AppShell
       title="Propiedades"
-      description="Inventario de ejemplo sin direcciones reales ni informacion personal."
+      description="Inventario de ejemplo, sin direcciones reales ni informacion personal."
       icon="propiedades"
     >
-      <section className="grid gap-4 md:grid-cols-2">
+      <section className="grid gap-3 md:grid-cols-2">
         {demoLiquidationInput.properties.map((property) => (
-          <SectionPanel key={property.id}>
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-              <div>
-                <Badge tone="success">Activa para cierre</Badge>
-                <h2 className="mt-4 text-2xl font-bold text-atria-ink">{property.name}</h2>
-                <p className="mt-3 text-lg leading-relaxed text-atria-muted">
-                  Propiedad demo preparada para liquidacion mensual. La direccion real no se guarda en el repo.
-                </p>
+          <article
+            className="flex items-start gap-3 rounded-xl border border-atria-line/80 bg-white p-4 shadow-card transition hover:shadow-panel"
+            key={property.id}
+          >
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-atria-mint/60 text-atria-forest">
+              <ModuleIcon className="h-5 w-5" name="propiedades" />
+            </span>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <h2 className="text-base font-semibold text-atria-ink">{property.name}</h2>
+                <Badge tone="success">Activa</Badge>
               </div>
+              <p className="mt-1 text-xs leading-relaxed text-atria-muted">
+                Preparada para la liquidacion del periodo. La direccion real no se guarda aqui.
+              </p>
             </div>
-          </SectionPanel>
+          </article>
         ))}
       </section>
-      <EmptyState title="Adjuntos reales pendientes" description="Los soportes y documentos privados se conectaran despues, con almacenamiento seguro y revision manual." />
+
+      <EmptyState
+        title="Documentos pendientes"
+        description="Los soportes y documentos se conectaran despues, con almacenamiento seguro y revision."
+      />
     </AppShell>
   );
 }

@@ -1,9 +1,9 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import { getSupabasePublicConfig, isLiveMode } from "@/lib/app-config";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
-import { SectionPanel, StatusPill, type Tone } from "@/components/ui";
+import { type Tone } from "@/components/ui";
 
 type Status =
   | { kind: "idle"; message: string }
@@ -11,13 +11,27 @@ type Status =
   | { kind: "warning"; message: string }
   | { kind: "error"; message: string };
 
+const dotByTone: Record<Tone, string> = {
+  danger: "bg-atria-rose",
+  neutral: "bg-atria-leaf",
+  success: "bg-atria-forest",
+  warning: "bg-atria-amber",
+};
+
+const labelByKind: Record<Status["kind"], string> = {
+  idle: "Verificando",
+  ok: "Conectado",
+  warning: "Atencion",
+  error: "Sin conexion",
+};
+
 export function SupabaseLiveStatus() {
   const config = getSupabasePublicConfig();
   const [status, setStatus] = useState<Status>({
     kind: "idle",
     message: isLiveMode
-      ? "Estamos comprobando la conexion segura."
-      : "Puedes revisar la interfaz sin conectar Supabase.",
+      ? "Verificando la conexion del sistema."
+      : "Puedes revisar la interfaz sin conexion.",
   });
 
   useEffect(() => {
@@ -31,8 +45,7 @@ export function SupabaseLiveStatus() {
       if (!config.isConfigured) {
         setStatus({
           kind: "error",
-          message:
-            "Faltan variables publicas de Supabase para trabajar en modo live.",
+          message: "Falta configurar la conexion del sistema.",
         });
         return;
       }
@@ -51,7 +64,7 @@ export function SupabaseLiveStatus() {
         if (!error) {
           setStatus({
             kind: "ok",
-            message: "Supabase conectado. La vista sigue sin datos reales.",
+            message: "Sistema conectado. La informacion sigue protegida.",
           });
           return;
         }
@@ -60,21 +73,20 @@ export function SupabaseLiveStatus() {
           setStatus({
             kind: "ok",
             message:
-              "Supabase conectado. Los datos estan protegidos hasta habilitar inicio de sesion.",
+              "Sistema conectado. La informacion esta protegida hasta iniciar sesion.",
           });
           return;
         }
 
         setStatus({
           kind: "warning",
-          message:
-            "Supabase respondio, pero esta vista aun no tiene lectura publica habilitada.",
+          message: "El sistema respondio, pero esta vista aun no muestra registros.",
         });
       } catch {
         if (!cancelled) {
           setStatus({
             kind: "error",
-            message: "No se pudo comprobar Supabase desde el navegador.",
+            message: "No se pudo verificar la conexion en este momento.",
           });
         }
       }
@@ -94,27 +106,37 @@ export function SupabaseLiveStatus() {
     warning: "warning",
   };
 
+  const tone = toneByStatus[status.kind];
+
   return (
-    <SectionPanel className="bg-atria-cream">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <p className="text-base font-bold text-atria-muted">Estado del sistema</p>
-          <h2 className="mt-2 text-2xl font-bold text-atria-ink">
-            Plataforma conectada con cuidado
-          </h2>
-          <p className="mt-3 text-lg leading-relaxed text-atria-muted">
-            {status.message}
-          </p>
-          {isLiveMode ? (
-            <p className="mt-3 text-base leading-relaxed text-atria-muted">
-              Backend ATRIA en Supabase. Sin claves secretas en frontend y sin datos reales en esta etapa.
-            </p>
-          ) : null}
-        </div>
-        <StatusPill tone={toneByStatus[status.kind]}>
-          {status.kind === "ok" ? "Supabase conectado" : "Revision"}
-        </StatusPill>
+    <section className="flex items-center gap-3 rounded-xl border border-atria-line/80 bg-white px-4 py-3 shadow-card">
+      <span className="relative flex h-2.5 w-2.5 shrink-0">
+        {status.kind === "ok" ? (
+          <span className={`absolute inline-flex h-full w-full animate-ping rounded-full ${dotByTone[tone]} opacity-60`} />
+        ) : null}
+        <span className={`relative inline-flex h-2.5 w-2.5 rounded-full ${dotByTone[tone]}`} />
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="text-2xs font-semibold uppercase tracking-[0.12em] text-atria-muted">
+          Estado del sistema
+        </p>
+        <p className="mt-0.5 truncate text-sm font-medium text-atria-ink">
+          {status.message}
+        </p>
       </div>
-    </SectionPanel>
+      <span
+        className={`hidden shrink-0 rounded-full border px-2.5 py-0.5 text-2xs font-semibold uppercase tracking-wide sm:inline-flex ${
+          tone === "success"
+            ? "border-atria-mint bg-atria-mint/70 text-atria-forest"
+            : tone === "warning"
+              ? "border-amber-200 bg-amber-50 text-atria-amber"
+              : tone === "danger"
+                ? "border-red-200 bg-red-50 text-atria-rose"
+                : "border-atria-line bg-atria-surface text-atria-muted"
+        }`}
+      >
+        {labelByKind[status.kind]}
+      </span>
+    </section>
   );
 }
