@@ -23,8 +23,8 @@ URL produccion: https://atria-inmobiliaria-core.vercel.app
 
 - `pre-modern-refine-main` -> `07f5b73` (snapshot de seguridad de `main` previo
   al merge; permite rollback). Subido a origin.
-- `uix-modern-refine-v1` -> PENDIENTE: se creara cuando produccion confirme la
-  nueva UI live (ver estado de deploy abajo).
+- `uix-modern-refine-v1` -> commit final de `main` con la UI moderna en
+  produccion. Subido a origin.
 - Tags previos intactos: `production-live-baseline-v1`, `pre-uix-merge-main`,
   `uix-visual-polish-v1`.
 
@@ -59,23 +59,23 @@ solo en presentacion; su logica de conexion no se modifico.
 Smoke: HTTP 200 en las 12 rutas, 0 overflow horizontal, navegacion visible
 (12 enlaces), estado activo presente, 0 errores de consola.
 
-## Estado del deploy de produccion
+## Estado del deploy de produccion (RESUELTO: live)
 
-- Push a `origin/main` correcto: `07f5b73..5ab226d`.
-- Tras mas de 20 minutos de sondeo, la URL de produccion seguia sirviendo la
-  version anterior (UIX visual-polish: "Produccion conectada"), incluso con
-  cache-buster. La nueva UI moderna ("Resumen general", "Datos de prueba",
-  sidebar oscura) aun no aparecia.
-- Diagnostico: el deploy automatico de Vercel Production no propago el nuevo
-  commit. Coincide con la flakiness historica de la integracion GitHub -> Vercel
-  del proyecto (ver commit previo "retrigger production deploy after GitHub
-  connection refresh").
-- Acciones NO realizadas (por reglas no negociables): no se tocaron variables ni
-  configuracion de Vercel, ni `.vercel/`, ni se uso Vercel CLI. La integracion
-  MCP de Vercel no tiene acceso a este proyecto (sin teams), por lo que no se
-  pudo consultar el estado del build por API.
-- Mitigacion aplicada: commit de documentacion en `main` como retrigger del
-  pipeline (mismo patron que uso el equipo antes).
+- Push inicial a `origin/main`: `07f5b73..5ab226d`.
+- Tras mas de 20 minutos, la URL de produccion seguia sirviendo la version
+  anterior (UIX visual-polish), incluso con cache-buster: el deploy automatico
+  de Vercel no habia propagado el commit. Coincide con la flakiness historica de
+  la integracion GitHub -> Vercel del proyecto.
+- Por reglas no negociables NO se tocaron variables ni configuracion de Vercel,
+  ni `.vercel/`, ni se uso Vercel CLI. La integracion MCP de Vercel no tiene
+  acceso a este proyecto (sin teams), por lo que no se consulto el build por API.
+- Mitigacion: commit de documentacion en `main` (`4254788`) como retrigger del
+  pipeline (mismo patron que uso el equipo antes). El retrigger funciono.
+- Verificacion final en produccion: HTTP 200 en las 12 rutas, nueva UI moderna
+  visible ("Resumen general", "Datos de prueba", "Accesos rapidos", sidebar
+  oscura), modo live "Produccion activa", estado "Sistema conectado" en navegador,
+  0 errores de consola, sin secretos ni datos reales, y la version anterior ya no
+  aparece como estado principal. Captura: `artifacts/uix-modern-refine-prod/`.
 
 ## Que NO se toco
 
