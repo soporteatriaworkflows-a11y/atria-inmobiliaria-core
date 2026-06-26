@@ -1,7 +1,13 @@
 // Primitivas visuales ATRIA (dark tech). SVG/CSS puro, sin dependencias.
 // No son graficos engañosos: representan los valores demo de forma proporcional.
 
-export type VizTone = "primary" | "lavender" | "success" | "warning" | "danger" | "neutral";
+export type VizTone =
+  | "primary"
+  | "lavender"
+  | "success"
+  | "warning"
+  | "danger"
+  | "neutral";
 
 const barColor: Record<VizTone, string> = {
   primary: "bg-atria-violet",
@@ -39,7 +45,13 @@ export function ProgressBar({
 }) {
   const p = pct(value, max);
   return (
-    <div className={`h-1.5 w-full overflow-hidden rounded-full bg-white/[0.08] ${className}`}>
+    <div
+      aria-valuemax={max}
+      aria-valuemin={0}
+      aria-valuenow={Math.max(0, Math.min(value, max))}
+      className={`h-1.5 w-full overflow-hidden rounded-full bg-white/[0.08] ${className}`}
+      role="progressbar"
+    >
       <div
         className={`h-full rounded-full ${barColor[tone]} transition-all`}
         style={{ width: `${p}%` }}
@@ -95,7 +107,12 @@ export function Donut({
   return (
     <div className="flex flex-col items-center gap-1.5">
       <div className="relative" style={{ width: size, height: size }}>
-        <svg className="-rotate-90" height={size} width={size}>
+        <svg
+          aria-hidden="true"
+          className="-rotate-90"
+          height={size}
+          width={size}
+        >
           <circle
             cx={size / 2}
             cy={size / 2}
@@ -117,7 +134,9 @@ export function Donut({
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-base font-semibold text-atria-fog">{center}</span>
+          <span className="text-base font-semibold text-atria-fog">
+            {center}
+          </span>
         </div>
       </div>
       {caption ? (
@@ -149,12 +168,17 @@ export function TimelineItem({
           className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full ring-4 ring-white/[0.04]"
           style={{ backgroundColor: strokeColor[tone] }}
         />
-        {!last ? <span aria-hidden="true" className="mt-1 w-px flex-1 bg-white/10" /> : null}
+        {!last ? (
+          <span aria-hidden="true" className="mt-1 w-px flex-1 bg-white/10" />
+        ) : null}
       </div>
       <div className="pb-0.5">
-        <p className="text-2xs font-semibold uppercase tracking-wide text-atria-mist">{date}</p>
+        <p className="text-2xs font-semibold uppercase tracking-wide text-atria-mist">
+          {date}
+        </p>
         <p className="mt-0.5 text-sm text-atria-fog">
-          <span className="font-semibold text-atria-lavender">{actor}</span> {action}
+          <span className="font-semibold text-atria-lavender">{actor}</span>{" "}
+          {action}
         </p>
       </div>
     </li>

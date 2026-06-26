@@ -4,7 +4,11 @@ import {
   isDevMode,
   isLiveMode,
 } from "@/lib/app-config";
-import { ModuleIcon, type ModuleIconName, ShieldIcon } from "@/components/icons";
+import {
+  ModuleIcon,
+  type ModuleIconName,
+  ShieldIcon,
+} from "@/components/icons";
 import { SidebarNav } from "@/components/sidebar-nav";
 import { StatusPill } from "@/components/ui";
 
@@ -91,7 +95,7 @@ export function AppShell({
 
             {isLiveMode && !supabaseConfig.isConfigured ? (
               <div className="mt-3 rounded-lg border border-atria-rose/30 bg-atria-rose/10 px-3 py-2 text-xs font-semibold text-atria-rose">
-                Faltan variables publicas de Supabase para modo live.
+                Falta configurar la conexion segura del sistema.
               </div>
             ) : null}
           </header>
@@ -99,8 +103,8 @@ export function AppShell({
           <div className="grid gap-4">{children}</div>
 
           <footer className="px-1 pb-4 pt-1 text-2xs leading-relaxed text-atria-mist">
-            ATRIA Inmobiliaria · Administracion de patrimonios ·
-            Version tecnica con datos de prueba.
+            ATRIA Inmobiliaria · Administracion de patrimonios · Version tecnica
+            con datos de prueba.
           </footer>
         </div>
       </div>
