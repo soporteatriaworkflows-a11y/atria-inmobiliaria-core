@@ -6,7 +6,24 @@ const config: Config = {
     extend: {
       colors: {
         atria: {
-          // Paleta base ATRIA (fuente de verdad del repo).
+          // ===== Identidad de marca ATRIA (dark tech, premium) =====
+          carbon: "#0A0A0F", // fondo base
+          graphite: "#13131B", // superficies / paneles
+          indigo: "#1B1240", // acento profundo / capa de sidebar
+          violet: "#7C3AED", // acento primario
+          lavender: "#B68CFF", // glow / highlights
+          fog: "#F2F2F7", // texto claro principal
+          // Derivados de marca (provisionales, para profundidad y jerarquia).
+          elevated: "#181826", // superficie elevada / hover
+          mist: "#9D9BB8", // texto secundario sobre oscuro
+          edge: "#2A2740", // bordes sutiles indigo
+
+          // ===== Estados (no identidad) =====
+          amber: "#f5b54a", // warning sobre oscuro
+          rose: "#f0788f", // danger sobre oscuro
+          emerald: "#34d39a", // success discreto
+
+          // ===== Legacy (conservados para compatibilidad puntual) =====
           ink: "#16231f",
           forest: "#245448",
           leaf: "#3f7a68",
@@ -16,26 +33,18 @@ const config: Config = {
           pearl: "#fbf8f1",
           line: "#d8ded8",
           muted: "#65756e",
-          amber: "#b56b1d",
-          rose: "#b94a48",
-          // Extensiones visuales PROVISIONALES para la capa moderna (sidebar
-          // semi-dark y superficies neutras sofisticadas). Derivadas de ink/forest.
-          night: "#101b18", // base profunda de la sidebar
-          slate: "#1b2c27", // capa intermedia de la sidebar
-          haze: "#eef1ea", // fondo neutro general (menos blanco puro)
-          surface: "#f6f4ee", // superficie de paneles suaves
         },
       },
       fontSize: {
-        // Escala controlada para un look compacto/premium.
         "2xs": ["0.6875rem", { lineHeight: "1rem" }], // 11px
       },
       boxShadow: {
-        // Sombras finas y en capas (sin exageraciones).
-        soft: "0 1px 2px rgba(16, 27, 24, 0.04), 0 4px 12px rgba(16, 27, 24, 0.05)",
-        card: "0 1px 2px rgba(16, 27, 24, 0.05), 0 8px 20px rgba(16, 27, 24, 0.06)",
-        panel: "0 2px 6px rgba(16, 27, 24, 0.06), 0 18px 40px rgba(16, 27, 24, 0.09)",
-        sidebar: "0 12px 40px rgba(16, 27, 24, 0.22)",
+        // Sombras profundas para tema oscuro + glow violeta de marca.
+        soft: "0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.28)",
+        card: "0 1px 2px rgba(0, 0, 0, 0.35), 0 10px 24px rgba(0, 0, 0, 0.34)",
+        panel: "0 2px 8px rgba(0, 0, 0, 0.4), 0 22px 48px rgba(0, 0, 0, 0.45)",
+        sidebar: "0 20px 60px rgba(0, 0, 0, 0.5)",
+        glow: "0 0 0 1px rgba(124, 58, 237, 0.35), 0 8px 30px rgba(124, 58, 237, 0.25)",
       },
     },
   },

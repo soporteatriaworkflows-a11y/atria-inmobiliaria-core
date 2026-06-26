@@ -4,7 +4,11 @@ import {
   isDevMode,
   isLiveMode,
 } from "@/lib/app-config";
-import { ModuleIcon, type ModuleIconName, ShieldIcon } from "@/components/icons";
+import {
+  ModuleIcon,
+  type ModuleIconName,
+  ShieldIcon,
+} from "@/components/icons";
 import { SidebarNav } from "@/components/sidebar-nav";
 import { StatusPill } from "@/components/ui";
 
@@ -22,19 +26,19 @@ export function AppShell({
   const supabaseConfig = getSupabasePublicConfig();
 
   return (
-    <main className="min-h-screen px-3 py-3 text-atria-ink sm:px-5 sm:py-5 lg:px-6">
+    <main className="min-h-screen px-3 py-3 text-atria-fog sm:px-5 sm:py-5 lg:px-6">
       <div className="mx-auto grid w-full max-w-[78rem] gap-4 lg:grid-cols-[15.5rem_1fr]">
-        <aside className="scroll-slim rounded-2xl bg-gradient-to-b from-atria-night via-atria-slate to-atria-night p-3.5 text-white shadow-sidebar ring-1 ring-white/5 lg:sticky lg:top-5 lg:h-[calc(100vh-2.5rem)] lg:overflow-y-auto">
+        <aside className="scroll-slim rounded-2xl bg-gradient-to-b from-atria-carbon via-atria-indigo to-atria-carbon p-3.5 text-atria-fog shadow-sidebar ring-1 ring-atria-violet/15 lg:sticky lg:top-5 lg:h-[calc(100vh-2.5rem)] lg:overflow-y-auto">
           <div className="flex h-full flex-col gap-5">
             <div className="flex items-center gap-2.5 px-1 pt-1">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-atria-mint font-display text-lg font-bold text-atria-forest">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-atria-violet to-atria-lavender font-display text-lg font-bold text-white shadow-glow">
                 A
               </span>
               <span className="leading-tight">
-                <span className="block font-display text-base font-semibold">
+                <span className="block font-display text-base font-semibold text-atria-fog">
                   ATRIA
                 </span>
-                <span className="block text-2xs font-medium uppercase tracking-[0.18em] text-atria-mint/80">
+                <span className="block text-2xs font-medium uppercase tracking-[0.18em] text-atria-lavender/80">
                   Inmobiliaria
                 </span>
               </span>
@@ -42,13 +46,13 @@ export function AppShell({
 
             <SidebarNav />
 
-            <div className="mt-auto flex items-start gap-2.5 rounded-xl border border-white/10 bg-white/[0.06] p-3">
-              <ShieldIcon className="mt-0.5 h-4 w-4 shrink-0 text-atria-mint" />
+            <div className="mt-auto flex items-start gap-2.5 rounded-xl border border-atria-violet/20 bg-atria-violet/[0.08] p-3">
+              <ShieldIcon className="mt-0.5 h-4 w-4 shrink-0 text-atria-lavender" />
               <div>
-                <p className="text-xs font-semibold text-white/90">
+                <p className="text-xs font-semibold text-atria-fog">
                   Informacion protegida
                 </p>
-                <p className="mt-0.5 text-2xs leading-relaxed text-white/55">
+                <p className="mt-0.5 text-2xs leading-relaxed text-atria-mist">
                   Sin datos reales. Los cambios financieros pasan por revision.
                 </p>
               </div>
@@ -57,19 +61,19 @@ export function AppShell({
         </aside>
 
         <div className="flex min-w-0 flex-col gap-4">
-          <header className="rounded-2xl border border-atria-line/80 bg-white/85 px-4 py-3.5 shadow-soft backdrop-blur-sm sm:px-5">
+          <header className="rounded-2xl border border-white/10 bg-atria-graphite/80 px-4 py-3.5 shadow-soft backdrop-blur-sm sm:px-5">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div className="flex items-start gap-3">
                 {icon ? (
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-atria-mint/70 text-atria-forest">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-atria-violet/15 text-atria-lavender ring-1 ring-atria-violet/30">
                     <ModuleIcon className="h-6 w-6" name={icon} />
                   </span>
                 ) : null}
                 <div className="min-w-0">
-                  <h2 className="text-xl font-semibold leading-tight tracking-tight text-atria-ink sm:text-2xl">
+                  <h2 className="text-xl font-semibold leading-tight tracking-tight text-atria-fog sm:text-2xl">
                     {title}
                   </h2>
-                  <p className="mt-1 max-w-2xl text-sm leading-relaxed text-atria-muted">
+                  <p className="mt-1 max-w-2xl text-sm leading-relaxed text-atria-mist">
                     {description}
                   </p>
                 </div>
@@ -90,17 +94,17 @@ export function AppShell({
             </div>
 
             {isLiveMode && !supabaseConfig.isConfigured ? (
-              <div className="mt-3 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-semibold text-red-700">
-                Faltan variables publicas de Supabase para modo live.
+              <div className="mt-3 rounded-lg border border-atria-rose/30 bg-atria-rose/10 px-3 py-2 text-xs font-semibold text-atria-rose">
+                Falta configurar la conexion segura del sistema.
               </div>
             ) : null}
           </header>
 
           <div className="grid gap-4">{children}</div>
 
-          <footer className="px-1 pb-4 pt-1 text-2xs leading-relaxed text-atria-muted">
-            ATRIA Inmobiliaria · Administracion familiar de patrimonios ·
-            Version tecnica con datos de prueba.
+          <footer className="px-1 pb-4 pt-1 text-2xs leading-relaxed text-atria-mist">
+            ATRIA Inmobiliaria · Administracion de patrimonios · Version tecnica
+            con datos de prueba.
           </footer>
         </div>
       </div>

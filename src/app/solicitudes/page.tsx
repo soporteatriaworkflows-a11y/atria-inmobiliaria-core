@@ -10,19 +10,19 @@ const requests: { title: string; meta: string; state: string; tone: Tone }[] = [
 export default function RequestsPage() {
   return (
     <AppShell
-      title="Solicitudes"
-      description="Los cambios de propietarios, herederos o permisos entran por una solicitud que queda registrada."
+      title="Solicitudes de ajuste"
+      description="Los cambios de propietarios o permisos entran por una solicitud que queda registrada."
       icon="solicitudes"
     >
-      <section className="overflow-hidden rounded-xl border border-atria-line/80 bg-white shadow-card">
+      <section className="overflow-hidden rounded-xl border border-white/10 bg-atria-graphite shadow-card">
         {requests.map((request) => (
           <article
-            className="flex items-center justify-between gap-3 border-b border-atria-line/60 px-4 py-3 last:border-b-0"
+            className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3 last:border-b-0"
             key={request.title}
           >
             <div className="min-w-0">
-              <p className="truncate text-sm font-medium text-atria-ink">{request.title}</p>
-              <p className="mt-0.5 text-2xs uppercase tracking-wide text-atria-muted">{request.meta}</p>
+              <p className="truncate text-sm font-medium text-atria-fog">{request.title}</p>
+              <p className="mt-0.5 text-2xs uppercase tracking-wide text-atria-mist">{request.meta}</p>
             </div>
             <StatusPill tone={request.tone}>{request.state}</StatusPill>
           </article>
@@ -32,7 +32,7 @@ export default function RequestsPage() {
       <EmptyState
         title="Flujo completo pendiente"
         description="Al activar el ingreso, cada solicitud tendra responsable, estado, comentarios e historial."
-        action={<QuickAction href="/auditoria" label="Ver auditoria" helper="Revisar el historial de cambios." icon="auditoria" />}
+        action={<QuickAction href="/auditoria" label="Ver historial" helper="Revisar el registro de actividad." icon="auditoria" />}
       />
     </AppShell>
   );
