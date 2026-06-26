@@ -1,4 +1,4 @@
-﻿import { AppShell } from "@/components/app-shell";
+import { AppShell } from "@/components/app-shell";
 import { MetricCard, QuickAction, SectionPanel, StatusPill } from "@/components/ui";
 import { demoLiquidation } from "@/lib/demo-data";
 import { formatCop } from "@/lib/money";
@@ -9,38 +9,43 @@ export default function OwnerDashboardPage() {
   return (
     <AppShell
       title="Mi resumen"
-      description="Vista de lectura para propietario o heredero. Aqui no se editan recaudos, gastos ni cierres."
+      description="Vista de solo lectura para propietarios y herederos. Aqui no se editan cifras."
       icon="propietario"
     >
-      <section className="grid gap-4 md:grid-cols-2">
+      <section className="grid gap-3 md:grid-cols-2">
         <MetricCard
           label="Saldo acumulado"
           value={formatCop(firstParticipant.accumulatedBalanceCop)}
-          helper="Valor calculado con reglas provisionales."
+          helper="Calculado con reglas provisionales."
           badge="Ejemplo"
+          icon="propietario"
         />
         <MetricCard
           label="Valor a pagar"
           value={formatCop(firstParticipant.amountToPayCop)}
-          helper="Pendiente de validacion con documentos privados fuera del repo."
+          helper="Pendiente de validacion final."
           tone="success"
           badge="Estimado"
+          icon="recaudos"
         />
       </section>
-      <SectionPanel>
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+
+      <SectionPanel className="bg-gradient-to-br from-atria-mint/40 to-atria-surface">
+        <div className="flex items-start justify-between gap-3">
           <div>
-            <h2 className="text-2xl font-bold text-atria-ink">Solo lectura</h2>
-            <p className="mt-3 text-lg leading-relaxed text-atria-muted">
-              Si algo no coincide, el camino correcto es crear una solicitud. No se modifican cifras directamente desde esta vista.
+            <h2 className="text-sm font-semibold text-atria-ink">Tu informacion esta protegida</h2>
+            <p className="mt-1.5 text-sm leading-relaxed text-atria-muted">
+              Si algo no coincide, puedes pedir una revision. Las cifras no se
+              modifican desde esta vista.
             </p>
           </div>
-          <StatusPill tone="success">Protegido</StatusPill>
+          <StatusPill tone="success">Solo lectura</StatusPill>
         </div>
       </SectionPanel>
-      <section className="grid gap-4 md:grid-cols-2">
-        <QuickAction href="/liquidacion" label="Ver liquidacion" helper="Consultar el resumen demo del mes." />
-        <QuickAction href="/solicitudes" label="Pedir revision" helper="Preparado para cambios trazables." />
+
+      <section className="grid gap-2.5 md:grid-cols-2">
+        <QuickAction href="/liquidacion" label="Ver mi liquidacion" helper="Resumen del periodo." icon="liquidacion" />
+        <QuickAction href="/solicitudes" label="Pedir una revision" helper="Solicita un cambio o aclaracion." icon="solicitudes" />
       </section>
     </AppShell>
   );

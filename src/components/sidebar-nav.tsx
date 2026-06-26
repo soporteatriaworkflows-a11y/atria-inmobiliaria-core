@@ -16,35 +16,36 @@ export function SidebarNav() {
   const pathname = usePathname() ?? "/";
 
   return (
-    <nav aria-label="Rutas principales" className="grid gap-5">
+    <nav aria-label="Rutas principales" className="grid gap-4">
       {navigationGroups.map((group) => (
-        <div className="grid gap-1.5" key={group.title}>
-          <p className="px-2 text-xs font-bold uppercase tracking-[0.18em] text-atria-mint/80">
+        <div className="grid gap-1" key={group.title}>
+          <p className="px-2 pb-0.5 text-2xs font-semibold uppercase tracking-[0.16em] text-white/35">
             {group.title}
           </p>
-          <ul className="grid gap-1.5">
+          <ul className="grid gap-0.5">
             {group.items.map((item) => {
               const active = isActive(pathname, item.href);
               return (
                 <li key={item.href}>
                   <Link
                     aria-current={active ? "page" : undefined}
-                    className={`focus-ring flex items-center gap-3 rounded-2xl px-3 py-3 text-base font-bold transition ${
+                    className={`focus-ring relative flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-[0.8125rem] font-medium transition ${
                       active
-                        ? "bg-atria-mint text-atria-forest shadow-soft"
-                        : "text-white/85 hover:bg-white/12 hover:text-white"
+                        ? "bg-white/[0.09] font-semibold text-white"
+                        : "text-white/65 hover:bg-white/[0.05] hover:text-white"
                     }`}
                     href={item.href}
                   >
-                    <span
-                      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${
-                        active
-                          ? "bg-atria-forest/12 text-atria-forest"
-                          : "bg-white/10 text-white"
-                      }`}
-                    >
-                      <ModuleIcon className="h-5 w-5" name={item.icon} />
-                    </span>
+                    {active ? (
+                      <span
+                        aria-hidden="true"
+                        className="absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-atria-mint"
+                      />
+                    ) : null}
+                    <ModuleIcon
+                      className={`h-4 w-4 shrink-0 ${active ? "text-atria-mint" : "text-white/55"}`}
+                      name={item.icon}
+                    />
                     {item.label}
                   </Link>
                 </li>

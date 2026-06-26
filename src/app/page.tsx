@@ -1,78 +1,95 @@
-﻿import { AppShell } from "@/components/app-shell";
+import { AppShell } from "@/components/app-shell";
 import { SupabaseLiveStatus } from "@/components/supabase-live-status";
-import { MetricCard, ModuleHeader, QuickAction, SectionPanel, StatusPill } from "@/components/ui";
+import { MetricCard, QuickAction, StatusPill } from "@/components/ui";
 import { isLiveMode } from "@/lib/app-config";
 import { demoLiquidation } from "@/lib/demo-data";
 import { formatCop } from "@/lib/money";
 
 export default function HomePage() {
-  const title = isLiveMode
-    ? "Produccion conectada"
-    : "Fundacion tecnica demo";
+  const title = isLiveMode ? "Resumen general" : "Resumen general";
   const description = isLiveMode
-    ? "ATRIA ya tiene una base funcional conectada a Supabase. Seguimos sin cargar datos reales hasta completar Auth, permisos y operacion segura."
-    : "Base segura para revisar avance visual con datos sanitizados. No hay conexion a produccion ni datos reales.";
+    ? "Vista operativa de ATRIA con datos de prueba. Sin informacion real hasta activar el ingreso y los permisos."
+    : "Vista operativa con datos de prueba. Sin conexion a produccion ni informacion real.";
 
   return (
     <AppShell title={title} description={description} icon="home">
       <SupabaseLiveStatus />
 
-      <section className="grid gap-4 md:grid-cols-3">
+      <section className="grid gap-3 md:grid-cols-3">
         <MetricCard
           label="Recaudos del mes"
           value={formatCop(demoLiquidation.totalCollectionsCop)}
-          helper="Montos demo en COP enteros. Sin informacion real."
+          helper="Total de ejemplo del periodo."
           tone="success"
+          icon="recaudos"
         />
         <MetricCard
           label="Gastos globales"
           value={formatCop(demoLiquidation.totalGlobalExpensesCop)}
-          helper="Administracion y contador del ejercicio sanitizado."
+          helper="Administracion y contador del periodo."
+          icon="gastos"
         />
         <MetricCard
           label="Participantes"
-          value="3 demo"
-          helper="Personas demo separadas de usuarios autenticados."
+          value="3"
+          helper="Propietarios y herederos registrados."
+          icon="participantes"
         />
       </section>
 
-      <ModuleHeader
-        eyebrow="Siguiente paso"
-        title="Preparar la operacion real sin exponer datos"
-        description="Antes de cargar informacion privada, ATRIA necesita Auth, permisos por rol, auditoria visible y un proceso claro de revision."
-        icon="auditoria"
-        action={<StatusPill tone="warning">Pendiente de seguridad</StatusPill>}
-      />
+      <section className="grid gap-3 lg:grid-cols-3">
+        <div className="rounded-xl border border-atria-line/80 bg-white p-4 shadow-card lg:col-span-2">
+          <div className="flex items-center justify-between">
+            <h3 className="text-sm font-semibold text-atria-ink">Accesos rapidos</h3>
+            <span className="text-2xs font-medium uppercase tracking-wide text-atria-muted">
+              Por rol
+            </span>
+          </div>
+          <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
+            <QuickAction
+              href="/dashboard/admin"
+              label="Administrar cierre"
+              helper="Pendientes, solicitudes y accesos."
+              icon="admin"
+            />
+            <QuickAction
+              href="/dashboard/contador"
+              label="Revisar cifras"
+              helper="Recaudos, gastos y liquidacion."
+              icon="contador"
+            />
+            <QuickAction
+              href="/dashboard/propietario"
+              label="Vista de propietario"
+              helper="Experiencia de solo lectura."
+              icon="propietario"
+            />
+            <QuickAction
+              href="/liquidacion"
+              label="Ver liquidacion"
+              helper="Resultado del periodo por participante."
+              icon="liquidacion"
+            />
+          </div>
+        </div>
 
-      <section className="grid gap-4 md:grid-cols-3">
-        <QuickAction
-          href="/dashboard/admin"
-          label="Administrar cierre"
-          helper="Ver pendientes, solicitudes y accesos del mes."
-        />
-        <QuickAction
-          href="/dashboard/contador"
-          label="Revisar cifras"
-          helper="Entrar a recaudos, gastos y liquidacion demo."
-        />
-        <QuickAction
-          href="/dashboard/propietario"
-          label="Vista de heredero"
-          helper="Comprobar la experiencia solo lectura."
-        />
-      </section>
-
-      <SectionPanel>
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="text-xl font-bold text-atria-ink">Regla de cuidado</p>
-            <p className="mt-2 text-lg leading-relaxed text-atria-muted">
-              Esta produccion tecnica esta conectada, pero permanece sin datos financieros o personales reales.
+        <div className="flex flex-col gap-3 rounded-xl border border-atria-line/80 bg-gradient-to-br from-atria-mint/50 to-atria-surface p-4 shadow-card">
+          <div className="flex items-center justify-between">
+            <h3 className="text-sm font-semibold text-atria-ink">Proximo paso</h3>
+            <StatusPill tone="warning">Pendiente</StatusPill>
+          </div>
+          <p className="text-sm leading-relaxed text-atria-muted">
+            Antes de cargar informacion real, ATRIA habilitara el ingreso, los
+            permisos por rol y el registro de cada cambio.
+          </p>
+          <div className="mt-auto rounded-lg border border-atria-line/70 bg-white/70 p-3">
+            <p className="text-xs font-semibold text-atria-ink">Informacion protegida</p>
+            <p className="mt-0.5 text-xs leading-relaxed text-atria-muted">
+              Conectado y operativo, sin datos financieros o personales reales.
             </p>
           </div>
-          <StatusPill tone="success">Seguro para revision</StatusPill>
         </div>
-      </SectionPanel>
+      </section>
     </AppShell>
   );
 }

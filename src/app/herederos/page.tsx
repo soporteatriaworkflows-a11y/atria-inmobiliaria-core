@@ -1,24 +1,43 @@
-﻿import { AppShell } from "@/components/app-shell";
-import { Badge, SectionPanel } from "@/components/ui";
+import { AppShell } from "@/components/app-shell";
+import { Badge } from "@/components/ui";
+
 import { demoLiquidationInput } from "@/lib/demo-data";
+
+function initials(name: string) {
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? "")
+    .join("");
+}
 
 export default function ParticipantsPage() {
   return (
     <AppShell
       title="Herederos y participantes"
-      description="Participantes de ejemplo, separados de usuarios autenticados y membresias."
+      description="Participantes de ejemplo. Los cambios entran como solicitud, no como edicion directa."
       icon="participantes"
     >
-      <section className="grid gap-4 md:grid-cols-3">
+      <section className="grid gap-3 md:grid-cols-3">
         {demoLiquidationInput.participants.map((participant) => (
-          <SectionPanel key={participant.id}>
-            <Badge>Participante demo</Badge>
-            <h2 className="mt-4 text-2xl font-bold text-atria-ink">{participant.displayName}</h2>
-            <p className="mt-3 text-lg leading-relaxed text-atria-muted">{participant.roleLabel}</p>
-            <p className="mt-4 text-base leading-relaxed text-atria-muted">
-              Los cambios de participacion entran como solicitud trazable, no como edicion directa.
+          <article
+            className="rounded-xl border border-atria-line/80 bg-white p-4 shadow-card transition hover:shadow-panel"
+            key={participant.id}
+          >
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-atria-forest text-sm font-semibold text-atria-mint">
+                {initials(participant.displayName)}
+              </span>
+              <div className="min-w-0">
+                <h2 className="truncate text-sm font-semibold text-atria-ink">{participant.displayName}</h2>
+                <Badge>{participant.roleLabel}</Badge>
+              </div>
+            </div>
+            <p className="mt-3 text-xs leading-relaxed text-atria-muted">
+              Los cambios de participacion se solicitan y quedan registrados.
             </p>
-          </SectionPanel>
+          </article>
         ))}
       </section>
     </AppShell>
