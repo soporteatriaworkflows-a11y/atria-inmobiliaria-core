@@ -28,31 +28,31 @@ claro. El modo oscuro se conserva intacto en estética, disponible vía toggle.
 
 ## Paleta — modo claro
 
-| Rol | Color |
-| --- | --- |
-| Background | #F8F6FF (blanco cálido con glow lavanda) |
-| Surface (cards) | #FFFFFF |
-| Surface elevada / tracks | #F4F0FF |
-| Border | #E5DDF8 |
-| Texto principal | #15121F |
-| Texto secundario | #6E6682 |
-| Acento / iconos / activos | #7C3AED (violet) |
-| Acento de texto (lavender token) | #7C3AED (violeta, por contraste) |
-| Sidebar | gradiente lavanda muy pálido, activo violeta |
-| Success / Warning / Danger | #047857 / #B45309 / #BE123C (discretos) |
+| Rol                              | Color                                        |
+| -------------------------------- | -------------------------------------------- |
+| Background                       | #F8F6FF (blanco cálido con glow lavanda)     |
+| Surface (cards)                  | #FFFFFF                                      |
+| Surface elevada / tracks         | #F4F0FF                                      |
+| Border                           | #E5DDF8                                      |
+| Texto principal                  | #15121F                                      |
+| Texto secundario                 | #6E6682                                      |
+| Acento / iconos / activos        | #7C3AED (violet)                             |
+| Acento de texto (lavender token) | #7C3AED (violeta, por contraste)             |
+| Sidebar                          | gradiente lavanda muy pálido, activo violeta |
+| Success / Warning / Danger       | #047857 / #B45309 / #BE123C (discretos)      |
 
 ## Paleta — modo oscuro (conservada y refinada)
 
-| Rol | Color |
-| --- | --- |
-| Carbon (base) | #0A0A0F |
-| Graphite (surface) | #13131B |
-| Indigo (acento profundo) | #1B1240 |
-| Violet | #7C3AED |
-| Lavender | #B68CFF |
-| Fog (texto) | #F2F2F7 |
-| Mist (texto sec.) | #9D9BB8 |
-| Edge (bordes) | #2A2740 |
+| Rol                        | Color                       |
+| -------------------------- | --------------------------- |
+| Carbon (base)              | #0A0A0F                     |
+| Graphite (surface)         | #13131B                     |
+| Indigo (acento profundo)   | #1B1240                     |
+| Violet                     | #7C3AED                     |
+| Lavender                   | #B68CFF                     |
+| Fog (texto)                | #F2F2F7                     |
+| Mist (texto sec.)          | #9D9BB8                     |
+| Edge (bordes)              | #2A2740                     |
 | Success / Warning / Danger | #34D39A / #F5B54A / #F0788F |
 
 Refinamiento: los bordes pasaron de `white/10` translúcido a un token sólido
@@ -95,15 +95,15 @@ de success; el ámbar solo en warning; violeta/lavanda dominan la identidad.
 
 ## Validaciones
 
-| Verificación | Resultado |
-| --- | --- |
-| `pnpm format` | PASS (global) |
-| `pnpm lint` | PASS |
-| `pnpm typecheck` | PASS |
-| `pnpm test` | PASS (6/6) |
-| `pnpm build` | PASS (12 rutas) |
-| Smoke local Playwright (claro+oscuro, desktop+móvil) | PASS (48 vistas) |
-| Toggle + persistencia | PASS (default claro; cambia y persiste tras recarga) |
+| Verificación                                         | Resultado                                            |
+| ---------------------------------------------------- | ---------------------------------------------------- |
+| `pnpm format`                                        | PASS (global)                                        |
+| `pnpm lint`                                          | PASS                                                 |
+| `pnpm typecheck`                                     | PASS                                                 |
+| `pnpm test`                                          | PASS (6/6)                                           |
+| `pnpm build`                                         | PASS (12 rutas)                                      |
+| Smoke local Playwright (claro+oscuro, desktop+móvil) | PASS (48 vistas)                                     |
+| Toggle + persistencia                                | PASS (default claro; cambia y persiste tras recarga) |
 
 Smoke: HTTP 200 en las 12 rutas, 0 overflow horizontal, navegación visible,
 estado activo, 0 errores de consola, tema correcto por contexto (claro default /

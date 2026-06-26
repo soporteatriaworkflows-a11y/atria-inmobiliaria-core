@@ -118,10 +118,12 @@ export function SupabaseLiveStatus() {
       <span className="relative flex h-2.5 w-2.5 shrink-0">
         {status.kind === "ok" ? (
           <span
+            aria-hidden="true"
             className={`absolute inline-flex h-full w-full animate-ping rounded-full ${dotByTone[tone]} opacity-60`}
           />
         ) : null}
         <span
+          aria-hidden="true"
           className={`relative inline-flex h-2.5 w-2.5 rounded-full ${dotByTone[tone]}`}
         />
       </span>
