@@ -39,7 +39,7 @@ export default function OwnersPage() {
           const result = resultByParticipant.get(participant.id);
           return (
             <article
-              className="flex flex-col gap-3 rounded-xl border border-white/10 bg-atria-graphite p-4 shadow-card transition hover:border-atria-violet/40 hover:shadow-glow"
+              className="flex flex-col gap-3 rounded-xl border border-atria-edge bg-atria-graphite p-4 shadow-card transition hover:border-atria-violet/40 hover:shadow-glow"
               key={participant.id}
             >
               <div className="flex items-center gap-3">
@@ -71,7 +71,7 @@ export default function OwnersPage() {
                 />
               </div>
 
-              <div className="flex items-center justify-between rounded-lg bg-white/[0.03] px-3 py-2">
+              <div className="flex items-center justify-between rounded-lg bg-atria-elevated px-3 py-2">
                 <span className="text-2xs uppercase tracking-wide text-atria-mist">
                   Valor del periodo
                 </span>

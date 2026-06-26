@@ -75,7 +75,7 @@ export default function HomePage() {
       </section>
 
       <section className="grid gap-3 lg:grid-cols-3">
-        <div className="flex flex-col gap-4 rounded-xl border border-white/10 bg-atria-graphite p-4 shadow-card sm:p-5 lg:col-span-2">
+        <div className="flex flex-col gap-4 rounded-xl border border-atria-edge bg-atria-graphite p-4 shadow-card sm:p-5 lg:col-span-2">
           <div className="flex items-center justify-between gap-3">
             <div>
               <h3 className="text-sm font-semibold text-atria-fog">
@@ -129,7 +129,7 @@ export default function HomePage() {
           </a>
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-white/10 bg-gradient-to-br from-atria-indigo/50 to-atria-graphite p-4 shadow-card sm:p-5">
+        <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-atria-edge bg-gradient-to-br from-atria-indigo/50 to-atria-graphite p-4 shadow-card sm:p-5">
           <h3 className="self-start text-sm font-semibold text-atria-fog">
             Saldo estimado
           </h3>
@@ -150,7 +150,7 @@ export default function HomePage() {
       </section>
 
       <section className="grid gap-3 lg:grid-cols-3">
-        <div className="rounded-xl border border-white/10 bg-atria-graphite p-4 shadow-card sm:p-5 lg:col-span-2">
+        <div className="rounded-xl border border-atria-edge bg-atria-graphite p-4 shadow-card sm:p-5 lg:col-span-2">
           <div className="mb-3 flex items-center justify-between">
             <h3 className="text-sm font-semibold text-atria-fog">
               Accesos rápidos
@@ -187,7 +187,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="rounded-xl border border-white/10 bg-atria-graphite p-4 shadow-card sm:p-5">
+        <div className="rounded-xl border border-atria-edge bg-atria-graphite p-4 shadow-card sm:p-5">
           <h3 className="mb-3 text-sm font-semibold text-atria-fog">
             Actividad reciente
           </h3>

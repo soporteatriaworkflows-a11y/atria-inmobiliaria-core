@@ -54,8 +54,8 @@ export default function ExpensesPage() {
         />
       </section>
 
-      <section className="overflow-hidden rounded-xl border border-white/10 bg-atria-graphite shadow-card">
-        <div className="hidden grid-cols-[1.4fr_auto_auto_auto] gap-3 border-b border-white/10 bg-white/[0.03] px-4 py-2 text-2xs font-semibold uppercase tracking-wide text-atria-mist sm:grid">
+      <section className="overflow-hidden rounded-xl border border-atria-edge bg-atria-graphite shadow-card">
+        <div className="hidden grid-cols-[1.4fr_auto_auto_auto] gap-3 border-b border-atria-edge bg-atria-elevated px-4 py-2 text-2xs font-semibold uppercase tracking-wide text-atria-mist sm:grid">
           <span>Referencia</span>
           <span>Categoría</span>
           <span>Monto</span>
@@ -65,7 +65,7 @@ export default function ExpensesPage() {
           const state = reviewState(expense.category);
           return (
             <article
-              className="flex flex-col gap-2 border-b border-white/10 px-4 py-3 last:border-b-0 sm:grid sm:grid-cols-[1.4fr_auto_auto_auto] sm:items-center sm:gap-3"
+              className="flex flex-col gap-2 border-b border-atria-edge px-4 py-3 last:border-b-0 sm:grid sm:grid-cols-[1.4fr_auto_auto_auto] sm:items-center sm:gap-3"
               key={expense.id}
             >
               <p className="text-sm font-semibold text-atria-fog">

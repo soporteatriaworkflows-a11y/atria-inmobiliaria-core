@@ -18,13 +18,14 @@ const barColor: Record<VizTone, string> = {
   neutral: "bg-atria-mist",
 };
 
+// CSS vars theme-aware (definidas en globals.css por :root / html.dark).
 const strokeColor: Record<VizTone, string> = {
-  primary: "#7C3AED",
-  lavender: "#B68CFF",
-  success: "#34D39A",
-  warning: "#F5B54A",
-  danger: "#F0788F",
-  neutral: "#9D9BB8",
+  primary: "var(--viz-primary)",
+  lavender: "var(--viz-lavender)",
+  success: "var(--viz-success)",
+  warning: "var(--viz-warning)",
+  danger: "var(--viz-danger)",
+  neutral: "var(--viz-neutral)",
 };
 
 function pct(value: number, max: number) {
@@ -52,7 +53,7 @@ export function ProgressBar({
       aria-valuemax={max}
       aria-valuemin={0}
       aria-valuenow={Math.max(0, Math.min(value, max))}
-      className={`h-1.5 w-full overflow-hidden rounded-full bg-white/[0.08] ${className}`}
+      className={`h-1.5 w-full overflow-hidden rounded-full bg-atria-edge ${className}`}
       role="progressbar"
     >
       <div
@@ -126,7 +127,7 @@ export function Donut({
             cy={size / 2}
             fill="none"
             r={r}
-            stroke="rgba(255,255,255,0.08)"
+            stroke="rgb(var(--c-edge))"
             strokeWidth={stroke}
           />
           <circle
@@ -174,11 +175,14 @@ export function TimelineItem({
       <div className="flex flex-col items-center">
         <span
           aria-hidden="true"
-          className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full ring-4 ring-white/[0.04]"
+          className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full ring-4 ring-atria-edge"
           style={{ backgroundColor: strokeColor[tone] }}
         />
         {!last ? (
-          <span aria-hidden="true" className="mt-1 w-px flex-1 bg-white/10" />
+          <span
+            aria-hidden="true"
+            className="mt-1 w-px flex-1 bg-atria-elevated"
+          />
         ) : null}
       </div>
       <div className="pb-0.5">

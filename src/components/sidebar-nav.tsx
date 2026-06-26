@@ -32,7 +32,7 @@ export function SidebarNav() {
                     className={`focus-ring relative flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-[0.8125rem] font-medium transition ${
                       active
                         ? "bg-atria-violet/15 font-semibold text-atria-fog ring-1 ring-atria-violet/30"
-                        : "text-atria-mist hover:bg-white/[0.04] hover:text-atria-fog"
+                        : "text-atria-mist hover:bg-atria-elevated hover:text-atria-fog"
                     }`}
                     href={item.href}
                   >

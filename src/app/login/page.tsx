@@ -17,7 +17,7 @@ export default function LoginPage() {
     >
       <section className="grid gap-3 lg:grid-cols-[1fr_20rem]">
         <SectionPanel>
-          <div className="flex items-center gap-3 border-b border-white/10 pb-4">
+          <div className="flex items-center gap-3 border-b border-atria-edge pb-4">
             <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-atria-violet/15 text-atria-lavender">
               <LockIcon className="h-5 w-5" />
             </span>
@@ -43,7 +43,7 @@ export default function LoginPage() {
                 Correo de acceso
               </label>
               <input
-                className="focus-ring mt-1.5 w-full rounded-lg border border-white/10 bg-atria-elevated px-3.5 py-2.5 text-sm text-atria-fog placeholder:text-atria-mist/70"
+                className="focus-ring mt-1.5 w-full rounded-lg border border-atria-edge bg-atria-elevated px-3.5 py-2.5 text-sm text-atria-fog placeholder:text-atria-mist/70"
                 id="email"
                 placeholder="usuario@atria.local"
                 type="email"
@@ -58,7 +58,7 @@ export default function LoginPage() {
                 Contrasena
               </label>
               <input
-                className="focus-ring mt-1.5 w-full rounded-lg border border-white/10 bg-atria-elevated px-3.5 py-2.5 text-sm text-atria-fog placeholder:text-atria-mist/70 disabled:cursor-not-allowed disabled:opacity-60"
+                className="focus-ring mt-1.5 w-full rounded-lg border border-atria-edge bg-atria-elevated px-3.5 py-2.5 text-sm text-atria-fog placeholder:text-atria-mist/70 disabled:cursor-not-allowed disabled:opacity-60"
                 disabled
                 id="password"
                 placeholder="Disponible al activar el ingreso real"

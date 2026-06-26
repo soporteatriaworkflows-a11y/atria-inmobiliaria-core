@@ -56,8 +56,8 @@ export default function AuditPage() {
       description="Registro de actividad: quién hizo qué y cuándo. La información no se modifica ni se borra."
       icon="auditoria"
     >
-      <section className="rounded-xl border border-white/10 bg-atria-graphite p-4 shadow-card sm:p-5">
-        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+      <section className="rounded-xl border border-atria-edge bg-atria-graphite p-4 shadow-card sm:p-5">
+        <div className="flex items-center justify-between border-b border-atria-edge pb-3">
           <h2 className="text-sm font-semibold text-atria-fog">
             Actividad reciente
           </h2>
@@ -72,22 +72,22 @@ export default function AuditPage() {
             >
               <div className="flex flex-col items-center">
                 <span
-                  className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full ring-4 ring-white/[0.04]"
+                  className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full ring-4 ring-atria-edge"
                   style={{
                     backgroundColor: {
-                      primary: "#7C3AED",
-                      warning: "#F5B54A",
-                      success: "#34D39A",
-                      neutral: "#9D9BB8",
-                      lavender: "#B68CFF",
-                      danger: "#F0788F",
+                      primary: "var(--viz-primary)",
+                      warning: "var(--viz-warning)",
+                      success: "var(--viz-success)",
+                      neutral: "var(--viz-neutral)",
+                      lavender: "var(--viz-lavender)",
+                      danger: "var(--viz-danger)",
                     }[event.tone],
                   }}
                 />
                 {index < events.length - 1 ? (
                   <span
                     aria-hidden="true"
-                    className="mt-1 w-px flex-1 bg-white/10"
+                    className="mt-1 w-px flex-1 bg-atria-elevated"
                   />
                 ) : null}
               </div>

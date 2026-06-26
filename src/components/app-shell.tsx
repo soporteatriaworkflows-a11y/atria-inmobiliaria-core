@@ -10,6 +10,7 @@ import {
   ShieldIcon,
 } from "@/components/icons";
 import { SidebarNav } from "@/components/sidebar-nav";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { StatusPill } from "@/components/ui";
 
 export function AppShell({
@@ -46,22 +47,26 @@ export function AppShell({
 
             <SidebarNav />
 
-            <div className="mt-auto flex items-start gap-2.5 rounded-xl border border-atria-violet/20 bg-atria-violet/[0.08] p-3">
-              <ShieldIcon className="mt-0.5 h-4 w-4 shrink-0 text-atria-lavender" />
-              <div>
-                <p className="text-xs font-semibold text-atria-fog">
-                  Informacion protegida
-                </p>
-                <p className="mt-0.5 text-2xs leading-relaxed text-atria-mist">
-                  Sin datos reales. Los cambios financieros pasan por revision.
-                </p>
+            <div className="mt-auto grid gap-2.5">
+              <ThemeToggle />
+              <div className="flex items-start gap-2.5 rounded-xl border border-atria-violet/20 bg-atria-violet/[0.08] p-3">
+                <ShieldIcon className="mt-0.5 h-4 w-4 shrink-0 text-atria-lavender" />
+                <div>
+                  <p className="text-xs font-semibold text-atria-fog">
+                    Informacion protegida
+                  </p>
+                  <p className="mt-0.5 text-2xs leading-relaxed text-atria-mist">
+                    Sin datos reales. Los cambios financieros pasan por
+                    revision.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </aside>
 
         <div className="flex min-w-0 flex-col gap-4">
-          <header className="rounded-2xl border border-white/10 bg-atria-graphite/80 px-4 py-3.5 shadow-soft backdrop-blur-sm sm:px-5">
+          <header className="rounded-2xl border border-atria-edge bg-atria-graphite/80 px-4 py-3.5 shadow-soft backdrop-blur-sm sm:px-5">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div className="flex items-start gap-3">
                 {icon ? (
