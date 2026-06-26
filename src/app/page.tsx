@@ -14,7 +14,7 @@ export default function HomePage() {
     : "Base segura para revisar avance visual con datos sanitizados. No hay conexion a produccion ni datos reales.";
 
   return (
-    <AppShell title={title} description={description}>
+    <AppShell title={title} description={description} icon="home">
       <SupabaseLiveStatus />
 
       <section className="grid gap-4 md:grid-cols-3">
@@ -40,6 +40,7 @@ export default function HomePage() {
         eyebrow="Siguiente paso"
         title="Preparar la operacion real sin exponer datos"
         description="Antes de cargar informacion privada, ATRIA necesita Auth, permisos por rol, auditoria visible y un proceso claro de revision."
+        icon="auditoria"
         action={<StatusPill tone="warning">Pendiente de seguridad</StatusPill>}
       />
 

@@ -7,13 +7,15 @@ export default function AccountantDashboardPage() {
     <AppShell
       title="Panel contador"
       description="Herramientas claras para revisar cifras, soportes pendientes y borradores de liquidacion."
+      icon="contador"
     >
       <section className="grid gap-4 md:grid-cols-3">
-        <MetricCard label="Recaudos" value="Listos" helper="Demo preparado para revision mensual." tone="success" />
-        <MetricCard label="Gastos" value="En revision" helper="Separados entre globales y propiedad." tone="warning" />
+        <MetricCard label="Recaudos" value="Listos" helper="Ejemplo preparado para revision mensual." tone="success" badge="Al dia" />
+        <MetricCard label="Gastos" value="En revision" helper="Separados entre globales y por propiedad." tone="warning" badge="Revisar" />
         <MetricCard label="Liquidacion" value="Borrador" helper="No publicar sin validacion." />
       </section>
       <ActionList
+        variant="step"
         items={[
           "Validar gastos globales configurados del mes.",
           "Revisar ajustes manuales con soporte y auditoria.",

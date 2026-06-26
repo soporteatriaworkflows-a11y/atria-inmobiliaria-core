@@ -144,6 +144,25 @@ Pasar a una segunda capa visual con Claude o revision humana de marca:
 4. Mantener backend y seguridad intactos.
 5. Preparar despues una fase separada de Auth real y CRUD por rol.
 
+## Segunda capa Claude (2026-06-25)
+
+La segunda capa visual se ejecuto en la rama derivada
+`feature/uix-visual-polish-claude` y esta documentada en
+`docs/21_CLAUDE_VISUAL_REVIEW.md`. Resumen de lo agregado sobre esta base:
+
+- estado activo en la navegacion (`aria-current`) y agrupacion por intencion
+  (Paneles / Operacion / Control) con iconografia propia;
+- tipografia serif de marca (Fraunces) en wordmark y titulos;
+- microcopy mas humano (se retiraron terminos como "append-only" o
+  "sin borrado fisico");
+- `MetricCard` sin el pill tecnico automatico "OK/Demo", con acento de color y
+  badge opcional;
+- `ActionList` con check calido y variante de pasos numerados;
+- login con icono, campo de contrasena deshabilitado y panel de confianza.
+
+No se toco backend, Supabase, RLS, calculos, Auth real, Vercel ni datos reales.
+Verificaciones lint/typecheck/test/build en PASS.
+
 ## Revision visual local
 
 Se levanto un servidor local temporal en `http://127.0.0.1:3100` y luego se apago al terminar la revision.

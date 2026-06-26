@@ -6,7 +6,8 @@ export default function PropertiesPage() {
   return (
     <AppShell
       title="Propiedades"
-      description="Inventario demo sin direcciones reales ni informacion personal."
+      description="Inventario de ejemplo sin direcciones reales ni informacion personal."
+      icon="propiedades"
     >
       <section className="grid gap-4 md:grid-cols-2">
         {demoLiquidationInput.properties.map((property) => (

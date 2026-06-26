@@ -10,18 +10,21 @@ export default function OwnerDashboardPage() {
     <AppShell
       title="Mi resumen"
       description="Vista de lectura para propietario o heredero. Aqui no se editan recaudos, gastos ni cierres."
+      icon="propietario"
     >
       <section className="grid gap-4 md:grid-cols-2">
         <MetricCard
-          label="Saldo acumulado demo"
+          label="Saldo acumulado"
           value={formatCop(firstParticipant.accumulatedBalanceCop)}
           helper="Valor calculado con reglas provisionales."
+          badge="Ejemplo"
         />
         <MetricCard
-          label="Valor a pagar demo"
+          label="Valor a pagar"
           value={formatCop(firstParticipant.amountToPayCop)}
           helper="Pendiente de validacion con documentos privados fuera del repo."
           tone="success"
+          badge="Estimado"
         />
       </section>
       <SectionPanel>

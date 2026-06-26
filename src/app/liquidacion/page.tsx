@@ -7,10 +7,11 @@ export default function LiquidationPage() {
   return (
     <AppShell
       title="Liquidacion mensual"
-      description="Resultado inicial con fixture sanitizado y supuestos provisionales documentados."
+      description="Resultado inicial con datos de ejemplo y supuestos provisionales documentados."
+      icon="liquidacion"
     >
       <section className="grid gap-4 md:grid-cols-3">
-        <MetricCard label="Recaudos" value={formatCop(demoLiquidation.totalCollectionsCop)} helper="Total demo del mes." tone="success" />
+        <MetricCard label="Recaudos" value={formatCop(demoLiquidation.totalCollectionsCop)} helper="Total de ejemplo del mes." tone="success" />
         <MetricCard label="Gastos por propiedad" value={formatCop(demoLiquidation.totalPropertyExpensesCop)} helper="Reparaciones y otros demo." />
         <MetricCard label="Gastos globales" value={formatCop(demoLiquidation.totalGlobalExpensesCop)} helper="Administracion + contador." />
       </section>
@@ -18,8 +19,8 @@ export default function LiquidationPage() {
       <section className="overflow-hidden rounded-2xl border border-atria-line bg-white shadow-soft">
         <div className="flex flex-col gap-3 border-b border-atria-line bg-atria-cream p-5 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-atria-ink">Resultado por participante</h2>
-            <p className="mt-2 text-base text-atria-muted">Valores demo. No usar para pagos reales.</p>
+            <h2 className="font-display text-2xl font-semibold text-atria-ink">Resultado por participante</h2>
+            <p className="mt-2 text-base text-atria-muted">Valores de ejemplo. No usar para pagos reales.</p>
           </div>
           <StatusPill tone="warning">Borrador</StatusPill>
         </div>
@@ -39,7 +40,7 @@ export default function LiquidationPage() {
       </section>
 
       <SectionPanel>
-        <h2 className="text-2xl font-bold text-atria-ink">Supuestos provisionales</h2>
+        <h2 className="font-display text-2xl font-semibold text-atria-ink">Supuestos provisionales</h2>
         <ul className="mt-4 grid gap-3">
           {demoLiquidation.assumptions.map((assumption) => (
             <li className="rounded-xl bg-atria-pearl p-4 text-lg leading-relaxed text-atria-muted" key={assumption}>

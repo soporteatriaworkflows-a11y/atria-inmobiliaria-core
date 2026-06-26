@@ -7,7 +7,8 @@ export default function ExpensesPage() {
   return (
     <AppShell
       title="Gastos"
-      description="Gastos demo separados entre propiedad y globales. Montos en COP enteros."
+      description="Gastos de ejemplo separados entre propiedad y globales. Montos en pesos colombianos."
+      icon="gastos"
     >
       <section className="grid gap-4">
         {demoLiquidationInput.expenses.map((expense) => (
@@ -20,7 +21,7 @@ export default function ExpensesPage() {
                 <h2 className="mt-3 text-3xl font-bold text-atria-ink">{formatCop(expense.amountCop)}</h2>
               </div>
               <p className="text-lg leading-relaxed text-atria-muted">Referencia: {expense.propertyId ?? "todos los participantes"}</p>
-              <p className="rounded-2xl bg-atria-pearl px-4 py-3 text-base font-bold text-atria-muted">Sin borrado fisico</p>
+              <p className="rounded-2xl bg-atria-pearl px-4 py-3 text-base font-bold text-atria-muted">No se borra</p>
             </div>
           </SectionPanel>
         ))}

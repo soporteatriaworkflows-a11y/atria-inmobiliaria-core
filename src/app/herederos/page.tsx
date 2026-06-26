@@ -6,7 +6,8 @@ export default function ParticipantsPage() {
   return (
     <AppShell
       title="Herederos y participantes"
-      description="Participantes demo separados de usuarios autenticados y membresias."
+      description="Participantes de ejemplo, separados de usuarios autenticados y membresias."
+      icon="participantes"
     >
       <section className="grid gap-4 md:grid-cols-3">
         {demoLiquidationInput.participants.map((participant) => (
