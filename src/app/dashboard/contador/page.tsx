@@ -6,14 +6,14 @@ export default function AccountantDashboardPage() {
   return (
     <AppShell
       title="Panel del contador"
-      description="Trabajo del periodo: recaudos, gastos, conciliacion y borradores de liquidacion."
+      description="Trabajo del periodo: ingresos, gastos, conciliación y cierre."
       icon="contador"
     >
       <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        <MetricCard label="Recaudos" value="Revisados" helper="Ingresos del periodo conciliados." tone="success" badge="Listo" icon="recaudos" />
-        <MetricCard label="Gastos" value="En revision" helper="Globales y por propiedad." tone="warning" badge="Revisar" icon="gastos" />
-        <MetricCard label="Conciliacion" value="Parcial" helper="Faltan soportes por confirmar." tone="warning" badge="Por conciliar" icon="auditoria" />
-        <MetricCard label="Liquidacion" value="Borrador" helper="No publicar sin validacion." badge="Pendiente" icon="liquidacion" />
+        <MetricCard label="Ingresos" value="Revisados" helper="Pagos del periodo conciliados." tone="success" badge="Listo" icon="recaudos" />
+        <MetricCard label="Gastos" value="En revisión" helper="Globales y por propiedad." tone="warning" badge="Revisar" icon="gastos" />
+        <MetricCard label="Conciliación" value="Parcial" helper="Faltan soportes por confirmar." tone="warning" badge="Por conciliar" icon="auditoria" />
+        <MetricCard label="Cierre" value="Borrador" helper="No publicar sin validación." tone="primary" badge="Pendiente" icon="liquidacion" />
       </section>
 
       <div className="rounded-xl border border-white/10 bg-atria-graphite p-4 shadow-card">
@@ -23,15 +23,15 @@ export default function AccountantDashboardPage() {
           items={[
             "Validar los gastos globales del periodo.",
             "Revisar ajustes manuales con su soporte.",
-            "Marcar el cierre como listo para revision.",
+            "Marcar el cierre como listo para revisión.",
           ]}
         />
       </div>
 
       <section className="grid gap-2.5 md:grid-cols-3">
-        <QuickAction href="/liquidacion" label="Abrir liquidacion" helper="Resultado por participante." icon="liquidacion" />
+        <QuickAction href="/liquidacion" label="Abrir cierre" helper="Distribución por propietario." icon="liquidacion" />
         <QuickAction href="/gastos" label="Revisar gastos" helper="Montos del periodo." icon="gastos" />
-        <QuickAction href="/recaudos" label="Revisar recaudos" helper="Ingresos del periodo." icon="recaudos" />
+        <QuickAction href="/recaudos" label="Revisar ingresos" helper="Pagos del periodo." icon="recaudos" />
       </section>
     </AppShell>
   );

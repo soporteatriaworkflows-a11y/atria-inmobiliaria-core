@@ -1,33 +1,49 @@
 import { AppShell } from "@/components/app-shell";
-import { Badge } from "@/components/ui";
+import { Badge, MetricCard } from "@/components/ui";
 import { demoLiquidationInput } from "@/lib/demo-data";
 import { formatCop } from "@/lib/money";
 
+const propertyName = new Map(
+  demoLiquidationInput.properties.map((p) => [p.id, p.name]),
+);
+
 export default function CollectionsPage() {
+  const total = demoLiquidationInput.collections.reduce(
+    (sum, c) => sum + c.amountCop,
+    0,
+  );
+  const pagadas = demoLiquidationInput.collections.length;
+  const totalProps = demoLiquidationInput.properties.length;
+
   return (
     <AppShell
-      title="Recaudos"
-      description="Ingresos del periodo. Los registros se corrigen con ajustes, nunca se borran."
+      title="Ingresos"
+      description="Estado de pago por propiedad. Los registros se corrigen con ajustes, nunca se borran."
       icon="recaudos"
     >
+      <section className="grid gap-3 sm:grid-cols-3">
+        <MetricCard label="Total cobrado" value={formatCop(total)} helper="Ingresos del periodo." tone="success" icon="recaudos" />
+        <MetricCard label="Propiedades al día" value={`${pagadas}/${totalProps}`} helper="Con pago registrado." tone="primary" icon="propiedades" />
+        <MetricCard label="Pendientes" value="0" helper="Sin pagos por confirmar." tone="neutral" icon="auditoria" />
+      </section>
+
       <section className="overflow-hidden rounded-xl border border-white/10 bg-atria-graphite shadow-card">
-        <div className="hidden grid-cols-[auto_1fr_auto] gap-3 border-b border-white/10 bg-white/[0.03] px-4 py-2 text-2xs font-semibold uppercase tracking-wide text-atria-mist sm:grid">
-          <span>Monto</span>
+        <div className="hidden grid-cols-[1.4fr_1fr_auto] gap-3 border-b border-white/10 bg-white/[0.03] px-4 py-2 text-2xs font-semibold uppercase tracking-wide text-atria-mist sm:grid">
           <span>Propiedad</span>
-          <span className="text-right">Estado</span>
+          <span>Monto</span>
+          <span className="text-right">Estado de pago</span>
         </div>
         {demoLiquidationInput.collections.map((collection) => (
           <article
-            className="flex flex-col gap-2 border-b border-white/10 px-4 py-3 last:border-b-0 sm:grid sm:grid-cols-[auto_1fr_auto] sm:items-center sm:gap-3"
+            className="flex flex-col gap-2 border-b border-white/10 px-4 py-3 last:border-b-0 sm:grid sm:grid-cols-[1.4fr_1fr_auto] sm:items-center sm:gap-3"
             key={collection.id}
           >
-            <div className="flex items-center gap-2.5">
-              <span className="text-lg font-semibold text-atria-fog">{formatCop(collection.amountCop)}</span>
-              <Badge tone="success">Registrado</Badge>
-            </div>
-            <p className="text-sm text-atria-mist">Propiedad: {collection.propertyId}</p>
-            <span className="text-2xs font-medium uppercase tracking-wide text-atria-mist sm:text-right">
-              Queda en el historial
+            <p className="text-sm font-semibold text-atria-fog">
+              {propertyName.get(collection.propertyId) ?? collection.propertyId}
+            </p>
+            <span className="text-base font-semibold text-atria-fog">{formatCop(collection.amountCop)}</span>
+            <span className="sm:text-right">
+              <Badge tone="success">Pagado</Badge>
             </span>
           </article>
         ))}

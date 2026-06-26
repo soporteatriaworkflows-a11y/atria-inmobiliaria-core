@@ -16,7 +16,7 @@ export const navigationGroups: NavGroup[] = [
   {
     title: "Paneles",
     items: [
-      { href: "/", label: "Inicio", icon: "home" },
+      { href: "/", label: "Dashboard", icon: "home" },
       { href: "/dashboard/admin", label: "Administrador", icon: "admin" },
       { href: "/dashboard/contador", label: "Contador", icon: "contador" },
       { href: "/dashboard/propietario", label: "Propietario", icon: "propietario" },
@@ -26,17 +26,17 @@ export const navigationGroups: NavGroup[] = [
     title: "Operacion",
     items: [
       { href: "/propiedades", label: "Propiedades", icon: "propiedades" },
-      { href: "/herederos", label: "Participantes", icon: "participantes" },
-      { href: "/recaudos", label: "Recaudos", icon: "recaudos" },
+      { href: "/herederos", label: "Propietarios", icon: "participantes" },
+      { href: "/recaudos", label: "Ingresos", icon: "recaudos" },
       { href: "/gastos", label: "Gastos", icon: "gastos" },
-      { href: "/liquidacion", label: "Liquidacion", icon: "liquidacion" },
+      { href: "/liquidacion", label: "Cierre mensual", icon: "liquidacion" },
     ],
   },
   {
     title: "Control",
     items: [
-      { href: "/solicitudes", label: "Solicitudes", icon: "solicitudes" },
-      { href: "/auditoria", label: "Auditoria", icon: "auditoria" },
+      { href: "/solicitudes", label: "Solicitudes de ajuste", icon: "solicitudes" },
+      { href: "/auditoria", label: "Historial", icon: "auditoria" },
       { href: "/login", label: "Ingreso", icon: "login" },
     ],
   },

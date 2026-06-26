@@ -10,8 +10,8 @@ const requests: { title: string; meta: string; state: string; tone: Tone }[] = [
 export default function RequestsPage() {
   return (
     <AppShell
-      title="Solicitudes"
-      description="Los cambios de propietarios, herederos o permisos entran por una solicitud que queda registrada."
+      title="Solicitudes de ajuste"
+      description="Los cambios de propietarios o permisos entran por una solicitud que queda registrada."
       icon="solicitudes"
     >
       <section className="overflow-hidden rounded-xl border border-white/10 bg-atria-graphite shadow-card">
@@ -32,7 +32,7 @@ export default function RequestsPage() {
       <EmptyState
         title="Flujo completo pendiente"
         description="Al activar el ingreso, cada solicitud tendra responsable, estado, comentarios e historial."
-        action={<QuickAction href="/auditoria" label="Ver auditoria" helper="Revisar el historial de cambios." icon="auditoria" />}
+        action={<QuickAction href="/auditoria" label="Ver historial" helper="Revisar el registro de actividad." icon="auditoria" />}
       />
     </AppShell>
   );
