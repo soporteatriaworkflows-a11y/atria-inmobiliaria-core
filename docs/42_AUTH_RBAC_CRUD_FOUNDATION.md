@@ -128,3 +128,7 @@ Al ser una rama funcional no integrada a `main`, el rollback inmediato es no mer
 ## Recomendacion
 
 Pasar a QA Codex funcional con usuarios fixture sanitizados para validar login/logout real, RLS por rol y operaciones CRUD permitidas/denegadas contra Supabase local o DEV. No mergear a `main` hasta completar ese QA.
+
+## Nota QA Codex
+
+El QA funcional posterior endurecio rutas frontend para `owner_readonly` y agrego validacion de montos/secret scan. La recomendacion actual es no mergear a `main` hasta implementar RLS acotado por propietario; las politicas actuales permiten lectura por membresia de organizacion completa. Ver `docs/43_CODEX_QA_AUTH_RBAC_CRUD_FOUNDATION.md`.
