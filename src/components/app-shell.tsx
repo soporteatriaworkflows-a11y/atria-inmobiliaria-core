@@ -28,17 +28,17 @@ export function AppShell({
   return (
     <main className="min-h-screen px-3 py-3 text-atria-fog sm:px-5 sm:py-5 lg:px-6">
       <div className="mx-auto grid w-full max-w-[78rem] gap-4 lg:grid-cols-[15.5rem_1fr]">
-        <aside className="scroll-slim rounded-2xl border border-atria-edge bg-gradient-to-b from-atria-carbon via-atria-indigo/80 to-atria-carbon p-3.5 text-atria-fog shadow-sidebar ring-1 ring-atria-violet/15 lg:sticky lg:top-5 lg:h-[calc(100vh-2.5rem)] lg:overflow-y-auto">
+        <aside className="atria-sidebar scroll-slim rounded-2xl border border-white/15 p-3.5 shadow-sidebar ring-1 ring-white/10 lg:sticky lg:top-5 lg:h-[calc(100vh-2.5rem)] lg:overflow-y-auto">
           <div className="flex h-full flex-col gap-5">
             <div className="flex items-center gap-2.5 px-1 pt-1">
               <span className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-atria-violet to-atria-lavender font-display text-lg font-bold text-white shadow-glow ring-1 ring-white/20">
                 A
               </span>
               <span className="leading-tight">
-                <span className="block font-display text-base font-semibold text-atria-fog">
+                <span className="block font-display text-base font-semibold text-white">
                   ATRIA
                 </span>
-                <span className="block text-2xs font-medium uppercase tracking-[0.18em] text-atria-lavender/80">
+                <span className="atria-sidebar-muted block text-2xs font-medium uppercase tracking-[0.18em]">
                   Inmobiliaria
                 </span>
               </span>
@@ -48,13 +48,13 @@ export function AppShell({
 
             <div className="mt-auto grid gap-2.5">
               <ThemeToggle />
-              <div className="atria-panel flex items-start gap-2.5 p-3">
-                <ShieldIcon className="mt-0.5 h-4 w-4 shrink-0 text-atria-lavender" />
+              <div className="atria-sidebar-panel flex items-start gap-2.5 rounded-xl border p-3">
+                <ShieldIcon className="atria-sidebar-muted mt-0.5 h-4 w-4 shrink-0" />
                 <div>
-                  <p className="text-xs font-semibold text-atria-fog">
+                  <p className="text-xs font-semibold text-white">
                     Informacion protegida
                   </p>
-                  <p className="mt-0.5 text-2xs leading-relaxed text-atria-mist">
+                  <p className="atria-sidebar-muted mt-0.5 text-2xs leading-relaxed">
                     Sin datos reales. Los cambios financieros pasan por
                     revision.
                   </p>

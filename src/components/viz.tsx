@@ -10,12 +10,12 @@ export type VizTone =
   | "neutral";
 
 const barColor: Record<VizTone, string> = {
-  primary: "from-atria-violet to-atria-lavender",
-  lavender: "from-atria-lavender to-atria-violet",
-  success: "from-atria-emerald to-atria-violet",
-  warning: "from-atria-amber to-atria-violet",
-  danger: "from-atria-rose to-atria-violet",
-  neutral: "from-atria-mist to-atria-lavender",
+  primary: "from-atria-violet to-atria-violet",
+  lavender: "from-atria-lavender to-atria-lavender",
+  success: "from-atria-emerald to-atria-emerald",
+  warning: "from-atria-amber to-atria-amber",
+  danger: "from-atria-rose to-atria-rose",
+  neutral: "from-atria-mist to-atria-mist",
 };
 
 const strokeColor: Record<VizTone, string> = {
@@ -52,16 +52,12 @@ export function ProgressBar({
       aria-valuemax={max}
       aria-valuemin={0}
       aria-valuenow={Math.max(0, Math.min(value, max))}
-      className={`relative h-2 w-full overflow-hidden rounded-full border border-atria-edge/70 bg-atria-elevated shadow-[inset_0_1px_2px_rgba(0,0,0,0.08)] ${className}`}
+      className={`h-2 w-full overflow-hidden rounded-full border border-atria-edge/70 bg-atria-elevated/75 ${className}`}
       role="progressbar"
     >
       <div
-        className={`h-full rounded-full bg-gradient-to-r ${barColor[tone]} shadow-[0_0_18px_rgba(124,58,237,0.22)] transition-all`}
+        className={`h-full rounded-full bg-gradient-to-r ${barColor[tone]} transition-all`}
         style={{ width: `${p}%` }}
-      />
-      <span
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-px bg-white/35"
       />
     </div>
   );
@@ -120,7 +116,7 @@ export function Donut({
   return (
     <div className="flex flex-col items-center gap-1.5">
       <div
-        className="relative rounded-full bg-atria-elevated/55 p-1 ring-1 ring-atria-edge"
+        className="relative rounded-full bg-atria-elevated/65 p-1 ring-1 ring-atria-edge"
         style={{ width: size, height: size }}
       >
         <svg

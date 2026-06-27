@@ -3,15 +3,15 @@ import { type ModuleIconName, ModuleIcon } from "@/components/icons";
 
 const toneClasses = {
   primary:
-    "border-atria-violet/25 bg-atria-violet/[0.08] text-atria-lavender shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]",
+    "border-atria-violet/25 bg-atria-violet/[0.06] text-atria-lavender shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]",
   danger:
-    "border-atria-rose/25 bg-atria-rose/[0.08] text-atria-rose shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]",
+    "border-atria-rose/25 bg-transparent text-atria-rose shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]",
   neutral:
     "border-atria-edge bg-atria-elevated/55 text-atria-mist shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]",
   success:
-    "border-atria-emerald/20 bg-atria-emerald/[0.07] text-atria-emerald shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]",
+    "border-atria-emerald/20 bg-transparent text-atria-emerald shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]",
   warning:
-    "border-atria-amber/20 bg-atria-amber/[0.07] text-atria-amber shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]",
+    "border-atria-amber/20 bg-transparent text-atria-amber shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]",
 } as const;
 
 const toneDot = {
@@ -200,7 +200,7 @@ export function EmptyState({
 }) {
   return (
     <div className="atria-panel atria-panel-accent p-6 text-center">
-      <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border border-dashed border-atria-violet/30 bg-atria-violet/[0.08] text-atria-lavender">
+      <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border border-dashed border-atria-violet/30 bg-atria-violet/[0.06] text-atria-lavender">
         <svg
           aria-hidden="true"
           className="h-5 w-5"

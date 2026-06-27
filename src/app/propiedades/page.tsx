@@ -1,5 +1,5 @@
 import { AppShell } from "@/components/app-shell";
-import { Badge, EmptyState, MetricCard, AtriaIconTile } from "@/components/ui";
+import { Badge, EmptyState, MetricCard } from "@/components/ui";
 import { demoLiquidationInput } from "@/lib/demo-data";
 import { formatCop } from "@/lib/money";
 
@@ -48,10 +48,9 @@ export default function PropertiesPage() {
       <section className="grid gap-3 md:grid-cols-2">
         {demoLiquidationInput.properties.map((property) => (
           <article
-            className="atria-panel flex items-start gap-3 p-4 transition hover:-translate-y-0.5 hover:border-atria-violet/35 hover:shadow-panel"
+            className="atria-panel atria-panel-accent flex items-start gap-3 p-4 transition hover:-translate-y-0.5 hover:border-atria-violet/35 hover:shadow-panel"
             key={property.id}
           >
-            <AtriaIconTile icon="propiedades" />
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
                 <h2 className="text-base font-semibold text-atria-fog">

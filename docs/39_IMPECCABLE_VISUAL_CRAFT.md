@@ -149,6 +149,72 @@ Smoke cubrio:
 - estructura de base de datos
 - `VIDEOS DE PROCESO/`
 
+## Correcci�n visual solicitada despu�s de revisi�n
+
+Despu�s de la primera iteraci�n se aplic� un patch de sobriedad visual sobre la misma rama.
+
+### Barras antes/despu�s
+
+Antes: `ProgressBar`, `LabeledBar`, barras de propietarios y distribuci�n usaban glow, sombra y highlight superior. El resultado se percib�a m�s cercano a un efecto ne�n que a una interfaz financiera profesional.
+
+Despu�s: las barras quedan m�s limpias y planas:
+
+- track neutro con borde suave;
+- progreso s�lido o con gradiente m�nimo del mismo tono;
+- sin bloom ni sombra luminosa;
+- sin hairline brillante superior;
+- contraste suficiente en claro y oscuro;
+- radio redondeado conservado.
+
+### Criterio para quitar iconos innecesarios
+
+Se mantuvieron iconos donde aportan lectura r�pida o jerarqu�a: KPI principales, headers y acciones r�pidas. En cards repetitivas o de contenido, se prefiri� usar acento lateral, badges y estructura de texto.
+
+Cambio aplicado: las tarjetas repetitivas de propiedades dejaron de usar un icono grande por card y ahora descansan en `atria-panel-accent`. Esto reduce ruido sin perder jerarqu�a visual.
+
+### Sidebar morada/invertida en modo claro
+
+La navegaci�n lateral en modo claro pas� a ser la pieza de contraste fuerte de identidad ATRIA:
+
+- fondo violeta/�ndigo profundo;
+- texto claro;
+- navegaci�n activa con blanco transl�cido;
+- grupos e iconos en lavanda tenue;
+- toggle y panel de informaci�n adaptados al fondo invertido;
+- contenido principal se mantiene claro, blanco y limpio.
+
+En modo oscuro se conserva una sidebar coherente con el dark premium, evitando brillos excesivos.
+
+### Chips y estados
+
+Se redujo el relleno fuerte en estados sem�nticos. Verde, �mbar y rose quedan m�s outline/neutros y no compiten con la identidad violeta/lavanda.
+
+### Qu� se mantuvo
+
+- modo claro default;
+- modo oscuro con toggle;
+- persistencia `localStorage['atria-theme']`;
+- navegaci�n y rutas existentes;
+- lenguaje profesional;
+- identidad violeta/lavanda;
+- componentes creados en la primera iteraci�n;
+- sin dependencias nuevas.
+
+### Qu� no se toc�
+
+No se tocaron Supabase, migraciones, RLS, `supabase/tests`, `src/lib/finance/`, Auth real, `src/lib/supabase/`, Vercel, `.env*`, `.vercel`, tokens, claves, datos reales, OCR, n8n, estructura de base de datos ni `VIDEOS DE PROCESO/`.
+
+### Validaci�n del patch
+
+- `pnpm format`: PASS
+- `pnpm lint`: PASS
+- `pnpm typecheck`: PASS
+- `pnpm test`: PASS, 6/6
+- `pnpm build`: PASS
+- Smoke local: PASS, 48/48 vistas
+
+El smoke adicional confirm� sidebar invertida en modo claro y barras sin sombra/glow fuerte.
+
 ## Riesgos pendientes
 
 - Auditoria visual humana en navegador real recomendada antes de merge, especialmente en pantallas de baja altura.
