@@ -1,4 +1,5 @@
 import { AppShell } from "@/components/app-shell";
+import { ParticipantsCrudPanel } from "@/components/crud/live-crud-panels";
 import { Badge } from "@/components/ui";
 import { ProgressBar } from "@/components/viz";
 import { demoLiquidation, demoLiquidationInput } from "@/lib/demo-data";
@@ -95,6 +96,8 @@ export default function OwnersPage() {
           );
         })}
       </section>
+
+      <ParticipantsCrudPanel />
     </AppShell>
   );
 }

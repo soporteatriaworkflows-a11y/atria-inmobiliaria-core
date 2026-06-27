@@ -1,4 +1,5 @@
-import { AppShell } from "@/components/app-shell";
+﻿import { AppShell } from "@/components/app-shell";
+import { CollectionsCrudPanel } from "@/components/crud/live-crud-panels";
 import { Badge, MetricCard } from "@/components/ui";
 import { demoLiquidationInput } from "@/lib/demo-data";
 import { formatCop } from "@/lib/money";
@@ -30,7 +31,7 @@ export default function CollectionsPage() {
           icon="recaudos"
         />
         <MetricCard
-          label="Propiedades al día"
+          label="Propiedades al dÃ­a"
           value={`${pagadas}/${totalProps}`}
           helper="Con pago registrado."
           tone="primary"
@@ -68,6 +69,7 @@ export default function CollectionsPage() {
           </article>
         ))}
       </section>
+      <CollectionsCrudPanel />
     </AppShell>
   );
 }

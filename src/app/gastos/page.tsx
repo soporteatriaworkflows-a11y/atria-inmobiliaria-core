@@ -1,4 +1,5 @@
-import { AppShell } from "@/components/app-shell";
+﻿import { AppShell } from "@/components/app-shell";
+import { ExpensesCrudPanel } from "@/components/crud/live-crud-panels";
 import { Badge, MetricCard, type Tone } from "@/components/ui";
 import { demoLiquidationInput } from "@/lib/demo-data";
 import { formatCop } from "@/lib/money";
@@ -7,7 +8,7 @@ const propertyName = new Map(
   demoLiquidationInput.properties.map((p) => [p.id, p.name]),
 );
 
-// Estado de revisión contable (demo): los globales requieren más control.
+// Estado de revisiÃ³n contable (demo): los globales requieren mÃ¡s control.
 function reviewState(category: string): { label: string; tone: Tone } {
   return category === "global"
     ? { label: "Por revisar", tone: "warning" }
@@ -27,7 +28,7 @@ export default function ExpensesPage() {
   return (
     <AppShell
       title="Gastos"
-      description="Egresos del periodo por categoría, con su estado de revisión contable."
+      description="Egresos del periodo por categorÃ­a, con su estado de revisiÃ³n contable."
       icon="gastos"
     >
       <section className="grid gap-3 sm:grid-cols-3">
@@ -48,7 +49,7 @@ export default function ExpensesPage() {
         <MetricCard
           label="Globales"
           value={formatCop(globales)}
-          helper="Administración y contador."
+          helper="AdministraciÃ³n y contador."
           tone="neutral"
           icon="admin"
         />
@@ -57,9 +58,9 @@ export default function ExpensesPage() {
       <section className="atria-panel overflow-hidden">
         <div className="hidden grid-cols-[1.4fr_auto_auto_auto] gap-3 border-b border-atria-edge bg-atria-elevated px-4 py-2 text-2xs font-semibold uppercase tracking-wide text-atria-mist sm:grid">
           <span>Referencia</span>
-          <span>Categoría</span>
+          <span>CategorÃ­a</span>
           <span>Monto</span>
-          <span className="text-right">Revisión</span>
+          <span className="text-right">RevisiÃ³n</span>
         </div>
         {demoLiquidationInput.expenses.map((expense) => {
           const state = reviewState(expense.category);
@@ -71,7 +72,7 @@ export default function ExpensesPage() {
               <p className="text-sm font-semibold text-atria-fog">
                 {expense.propertyId
                   ? propertyName.get(expense.propertyId)
-                  : "Administración general"}
+                  : "AdministraciÃ³n general"}
               </p>
               <span className="sm:justify-self-start">
                 <Badge
@@ -90,6 +91,7 @@ export default function ExpensesPage() {
           );
         })}
       </section>
+      <ExpensesCrudPanel />
     </AppShell>
   );
 }

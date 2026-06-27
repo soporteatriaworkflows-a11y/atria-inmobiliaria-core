@@ -1,4 +1,5 @@
-import { AppShell } from "@/components/app-shell";
+﻿import { AppShell } from "@/components/app-shell";
+import { ChangeRequestsCrudPanel } from "@/components/crud/live-crud-panels";
 import {
   EmptyState,
   QuickAction,
@@ -9,19 +10,19 @@ import {
 const requests: { title: string; meta: string; state: string; tone: Tone }[] = [
   {
     title: "Actualizar participacion desde el proximo periodo",
-    meta: "Propietario · hoy",
+    meta: "Propietario Â· hoy",
     state: "En revision",
     tone: "warning",
   },
   {
     title: "Revisar el soporte de un gasto",
-    meta: "Contador · ayer",
+    meta: "Contador Â· ayer",
     state: "Recibida",
     tone: "neutral",
   },
   {
     title: "Cambiar acceso de lectura a una propiedad",
-    meta: "Administrador · esta semana",
+    meta: "Administrador Â· esta semana",
     state: "Aprobada",
     tone: "success",
   },
@@ -52,6 +53,8 @@ export default function RequestsPage() {
           </article>
         ))}
       </section>
+
+      <ChangeRequestsCrudPanel />
 
       <EmptyState
         title="Flujo completo pendiente"

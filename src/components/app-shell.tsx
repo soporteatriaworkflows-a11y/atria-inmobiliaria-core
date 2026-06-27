@@ -6,16 +6,19 @@ import {
 import { type ModuleIconName, ShieldIcon } from "@/components/icons";
 import { SidebarNav } from "@/components/sidebar-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { AuthGate } from "@/components/auth/auth-provider";
 import { AtriaIconTile } from "@/components/ui";
 export function AppShell({
   title,
   description,
   icon,
+  requireAuth = true,
   children,
 }: {
   title: string;
   description: string;
   icon?: ModuleIconName;
+  requireAuth?: boolean;
   children: React.ReactNode;
 }) {
   const supabaseConfig = getSupabasePublicConfig();
@@ -109,7 +112,9 @@ export function AppShell({
             ) : null}
           </header>
 
-          <div className="grid gap-4">{children}</div>
+          <AuthGate requireAuth={requireAuth}>
+            <div className="grid gap-4">{children}</div>
+          </AuthGate>
 
           <footer className="px-1 pb-4 pt-1 text-2xs leading-relaxed text-atria-mist">
             ATRIA Inmobiliaria · Administracion de patrimonios · Version tecnica
