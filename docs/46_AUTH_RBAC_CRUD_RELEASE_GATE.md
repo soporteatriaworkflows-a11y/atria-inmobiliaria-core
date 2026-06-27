@@ -186,3 +186,10 @@ Preparar una compuerta especifica de Supabase Cloud DEV/Production:
 3. Aplicar migracion RLS con backup/rollback documentado.
 4. Ejecutar tests RLS equivalentes o pruebas manuales con usuarios fixture sanitizados.
 5. Reintentar release merge a `main`.
+
+## Actualizacion 2026-06-27
+
+Se ejecuto la compuerta Cloud en `docs/48_SUPABASE_CLOUD_ACTIVATION_GATE.md`.
+Resultado: Cloud no quedo listo para merge. La migracion RLS sigue sin aplicarse
+en Cloud y el proceso debe retomarse despues de rotar las API keys expuestas por
+salida del CLI durante la verificacion.
