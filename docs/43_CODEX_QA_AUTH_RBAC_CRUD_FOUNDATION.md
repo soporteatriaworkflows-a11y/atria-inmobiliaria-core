@@ -137,4 +137,8 @@ No se tocaron produccion, Vercel config, variables, secretos, `.env*`, `.vercel/
 
 ## Recomendacion final
 
-Ajustar mas antes de merge. La capa frontend queda mas segura y los checks pasan, pero el gate funcional Auth/RBAC/CRUD no debe aprobarse para `main` hasta corregir RLS de owner-scope con migracion y tests.
+Pasar a QA final antes de merge. El bloqueo RLS owner-scope fue corregido con migracion y tests locales; falta validar login/logout real con fixtures sanitizados y repetir smoke/checks finales antes de integrar a `main`.
+
+## Actualizacion RLS owner-scope
+
+El bloqueo reportado en este QA fue corregido en la misma rama mediante `supabase/migrations/202606270001_owner_scope_rls.sql`. Los tests RLS ahora validan 27 casos, incluyendo que `owner_readonly` no lee ingresos/gastos de propiedades ajenas, no lee gastos globales, no lee cierres org-wide, no lee audit log y solo ve solicitudes/liquidaciones propias. Ver `docs/44_RLS_OWNER_SCOPE_HARDENING.md`.

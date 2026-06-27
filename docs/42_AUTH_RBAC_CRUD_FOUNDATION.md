@@ -131,4 +131,8 @@ Pasar a QA Codex funcional con usuarios fixture sanitizados para validar login/l
 
 ## Nota QA Codex
 
-El QA funcional posterior endurecio rutas frontend para `owner_readonly` y agrego validacion de montos/secret scan. La recomendacion actual es no mergear a `main` hasta implementar RLS acotado por propietario; las politicas actuales permiten lectura por membresia de organizacion completa. Ver `docs/43_CODEX_QA_AUTH_RBAC_CRUD_FOUNDATION.md`.
+El QA funcional posterior endurecio rutas frontend para `owner_readonly` y agrego validacion de montos/secret scan. La recomendacion de QA cambio despues del hardening RLS: ya existe una migracion local con tests para impedir lectura org-wide por propietario. Aun requiere QA final de login/logout con fixtures antes de merge a `main`. Ver `docs/43_CODEX_QA_AUTH_RBAC_CRUD_FOUNDATION.md`.
+
+## RLS owner-scope hardening
+
+La fase de seguridad posterior agrego `supabase/migrations/202606270001_owner_scope_rls.sql` y actualizo `supabase/tests/database/rls.sql` para impedir lectura org-wide por `owner_readonly`. Owner queda acotado por `property_access`, `participation_rules` y solicitudes propias. Ver `docs/44_RLS_OWNER_SCOPE_HARDENING.md`.
