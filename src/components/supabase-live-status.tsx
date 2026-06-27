@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { getSupabasePublicConfig, isLiveMode } from "@/lib/app-config";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
-import { type Tone } from "@/components/ui";
+import { type Tone, StatusPill } from "@/components/ui";
 
 type Status =
   | { kind: "idle"; message: string }
@@ -22,7 +22,7 @@ const dotByTone: Record<Tone, string> = {
 const labelByKind: Record<Status["kind"], string> = {
   idle: "Verificando",
   ok: "Conectado",
-  warning: "Atencion",
+  warning: "En revision",
   error: "Sin conexion",
 };
 
@@ -32,7 +32,7 @@ export function SupabaseLiveStatus() {
     kind: "idle",
     message: isLiveMode
       ? "Verificando la conexion del sistema."
-      : "Puedes revisar la interfaz sin conexion.",
+      : "Vista segura con datos de prueba y sin informacion real.",
   });
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export function SupabaseLiveStatus() {
         if (!error) {
           setStatus({
             kind: "ok",
-            message: "Sistema conectado. La informacion sigue protegida.",
+            message: "Conexion activa. La informacion sigue protegida.",
           });
           return;
         }
@@ -77,7 +77,7 @@ export function SupabaseLiveStatus() {
           setStatus({
             kind: "ok",
             message:
-              "Sistema conectado. La informacion esta protegida hasta iniciar sesion.",
+              "Conexion activa. La informacion se habilita al iniciar sesion.",
           });
           return;
         }
@@ -85,7 +85,7 @@ export function SupabaseLiveStatus() {
         setStatus({
           kind: "warning",
           message:
-            "El sistema respondio, pero esta vista aun no muestra registros.",
+            "El sistema respondio; esta vista aun trabaja con datos de prueba.",
         });
       } catch {
         if (!cancelled) {
@@ -114,40 +114,30 @@ export function SupabaseLiveStatus() {
   const tone = toneByStatus[status.kind];
 
   return (
-    <section className="flex items-center gap-3 rounded-xl border border-atria-edge bg-atria-graphite px-4 py-3 shadow-card">
-      <span className="relative flex h-2.5 w-2.5 shrink-0">
+    <section className="atria-panel atria-panel-accent flex items-center gap-3 px-4 py-3.5">
+      <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-atria-violet/20 bg-atria-violet/[0.08]">
         {status.kind === "ok" ? (
           <span
             aria-hidden="true"
-            className={`absolute inline-flex h-full w-full animate-ping rounded-full ${dotByTone[tone]} opacity-60`}
+            className={`absolute h-2.5 w-2.5 animate-ping rounded-full ${dotByTone[tone]} opacity-45`}
           />
         ) : null}
         <span
           aria-hidden="true"
-          className={`relative inline-flex h-2.5 w-2.5 rounded-full ${dotByTone[tone]}`}
+          className={`relative h-2.5 w-2.5 rounded-full ${dotByTone[tone]}`}
         />
       </span>
       <div className="min-w-0 flex-1">
-        <p className="text-2xs font-semibold uppercase tracking-[0.12em] text-atria-mist">
-          Estado del sistema
+        <p className="text-2xs font-semibold uppercase tracking-[0.12em] text-atria-lavender">
+          Estado del entorno
         </p>
-        <p className="mt-0.5 truncate text-sm font-medium text-atria-fog">
+        <p className="mt-0.5 text-sm font-medium leading-relaxed text-atria-fog">
           {status.message}
         </p>
       </div>
-      <span
-        className={`hidden shrink-0 rounded-full border px-2.5 py-0.5 text-2xs font-semibold uppercase tracking-wide sm:inline-flex ${
-          tone === "success"
-            ? "border-atria-emerald/30 bg-atria-emerald/10 text-atria-emerald"
-            : tone === "warning"
-              ? "border-atria-amber/30 bg-atria-amber/10 text-atria-amber"
-              : tone === "danger"
-                ? "border-atria-rose/30 bg-atria-rose/10 text-atria-rose"
-                : "border-atria-edge bg-atria-elevated text-atria-mist"
-        }`}
-      >
-        {labelByKind[status.kind]}
-      </span>
+      <div className="hidden shrink-0 sm:block">
+        <StatusPill tone={tone}>{labelByKind[status.kind]}</StatusPill>
+      </div>
     </section>
   );
 }

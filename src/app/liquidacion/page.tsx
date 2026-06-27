@@ -61,8 +61,8 @@ export default function LiquidationPage() {
         />
       </section>
 
-      <section className="overflow-hidden rounded-xl border border-atria-edge bg-atria-graphite shadow-card">
-        <div className="flex items-center justify-between gap-3 border-b border-atria-edge px-4 py-3">
+      <section className="atria-panel overflow-hidden">
+        <div className="flex items-center justify-between gap-3 border-b border-atria-edge/80 px-4 py-3.5">
           <div>
             <h2 className="text-sm font-semibold text-atria-fog">
               Distribución por propietario
@@ -77,7 +77,7 @@ export default function LiquidationPage() {
         <div>
           {demoLiquidation.participants.map((participant) => (
             <article
-              className="grid gap-2 border-b border-atria-edge px-4 py-3.5 last:border-b-0 sm:grid-cols-[1.2fr_2fr] sm:items-center sm:gap-4"
+              className="grid gap-2 border-b border-atria-edge/70 px-4 py-3.5 transition hover:bg-atria-elevated/45 last:border-b-0 sm:grid-cols-[1.2fr_2fr] sm:items-center sm:gap-4"
               key={participant.participantId}
             >
               <div className="min-w-0">
@@ -113,10 +113,10 @@ export default function LiquidationPage() {
             Revisa la distribución antes de preparar el cierre.
           </p>
           <div className="flex gap-2">
-            <span className="inline-flex items-center rounded-lg border border-atria-edge bg-atria-elevated px-3.5 py-2 text-sm font-semibold text-atria-mist">
+            <span className="inline-flex items-center rounded-full border border-atria-edge bg-atria-elevated/70 px-3.5 py-2 text-sm font-semibold text-atria-mist">
               Revisar distribución
             </span>
-            <span className="inline-flex items-center rounded-lg bg-atria-violet px-3.5 py-2 text-sm font-semibold text-white shadow-glow">
+            <span className="inline-flex items-center rounded-full bg-atria-violet px-3.5 py-2 text-sm font-semibold text-white shadow-glow">
               Preparar cierre
             </span>
           </div>
@@ -130,7 +130,7 @@ export default function LiquidationPage() {
         <ul className="mt-3 grid gap-2">
           {demoLiquidation.assumptions.map((assumption) => (
             <li
-              className="rounded-lg bg-atria-elevated px-3.5 py-2.5 text-xs leading-relaxed text-atria-mist"
+              className="rounded-lg border border-atria-edge bg-atria-elevated/65 px-3.5 py-2.5 text-xs leading-relaxed text-atria-mist"
               key={humanizeAssumption(assumption)}
             >
               {humanizeAssumption(assumption)}

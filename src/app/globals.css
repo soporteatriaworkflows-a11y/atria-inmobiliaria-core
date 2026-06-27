@@ -153,3 +153,68 @@ textarea {
   background: rgba(124, 58, 237, 0.25);
   border-radius: 9999px;
 }
+
+@layer components {
+  .atria-panel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.875rem;
+    border: 1px solid rgb(var(--c-edge));
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0))
+        top / 100% 1px no-repeat,
+      radial-gradient(
+        circle at 100% 0%,
+        rgba(124, 58, 237, 0.055),
+        transparent 34%
+      ),
+      rgb(var(--c-graphite));
+    box-shadow: var(--shadow-card);
+  }
+
+  html.dark .atria-panel {
+    background:
+      linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.055),
+          rgba(255, 255, 255, 0)
+        )
+        top / 100% 1px no-repeat,
+      radial-gradient(
+        circle at 100% 0%,
+        rgba(124, 58, 237, 0.13),
+        transparent 36%
+      ),
+      rgb(var(--c-graphite));
+  }
+
+  .atria-panel-accent::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: linear-gradient(
+      180deg,
+      rgb(var(--c-lavender)),
+      rgba(124, 58, 237, 0.1)
+    );
+    opacity: 0.8;
+  }
+
+  .atria-hairline {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(var(--c-edge)),
+      transparent
+    );
+    height: 1px;
+  }
+
+  .atria-pattern {
+    background-image:
+      linear-gradient(rgba(124, 58, 237, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124, 58, 237, 0.055) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+}

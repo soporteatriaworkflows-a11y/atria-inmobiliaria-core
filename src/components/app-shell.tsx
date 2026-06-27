@@ -3,14 +3,10 @@ import {
   isDevMode,
   isLiveMode,
 } from "@/lib/app-config";
-import {
-  ModuleIcon,
-  type ModuleIconName,
-  ShieldIcon,
-} from "@/components/icons";
+import { type ModuleIconName, ShieldIcon } from "@/components/icons";
 import { SidebarNav } from "@/components/sidebar-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
-
+import { AtriaIconTile } from "@/components/ui";
 export function AppShell({
   title,
   description,
@@ -32,10 +28,10 @@ export function AppShell({
   return (
     <main className="min-h-screen px-3 py-3 text-atria-fog sm:px-5 sm:py-5 lg:px-6">
       <div className="mx-auto grid w-full max-w-[78rem] gap-4 lg:grid-cols-[15.5rem_1fr]">
-        <aside className="scroll-slim rounded-2xl bg-gradient-to-b from-atria-carbon via-atria-indigo to-atria-carbon p-3.5 text-atria-fog shadow-sidebar ring-1 ring-atria-violet/15 lg:sticky lg:top-5 lg:h-[calc(100vh-2.5rem)] lg:overflow-y-auto">
+        <aside className="scroll-slim rounded-2xl border border-atria-edge bg-gradient-to-b from-atria-carbon via-atria-indigo/80 to-atria-carbon p-3.5 text-atria-fog shadow-sidebar ring-1 ring-atria-violet/15 lg:sticky lg:top-5 lg:h-[calc(100vh-2.5rem)] lg:overflow-y-auto">
           <div className="flex h-full flex-col gap-5">
             <div className="flex items-center gap-2.5 px-1 pt-1">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-atria-violet to-atria-lavender font-display text-lg font-bold text-white shadow-glow">
+              <span className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-atria-violet to-atria-lavender font-display text-lg font-bold text-white shadow-glow ring-1 ring-white/20">
                 A
               </span>
               <span className="leading-tight">
@@ -52,7 +48,7 @@ export function AppShell({
 
             <div className="mt-auto grid gap-2.5">
               <ThemeToggle />
-              <div className="flex items-start gap-2.5 rounded-xl border border-atria-violet/20 bg-atria-violet/[0.08] p-3">
+              <div className="atria-panel flex items-start gap-2.5 p-3">
                 <ShieldIcon className="mt-0.5 h-4 w-4 shrink-0 text-atria-lavender" />
                 <div>
                   <p className="text-xs font-semibold text-atria-fog">
@@ -69,14 +65,10 @@ export function AppShell({
         </aside>
 
         <div className="flex min-w-0 flex-col gap-4">
-          <header className="rounded-2xl border border-atria-edge bg-atria-graphite/80 px-4 py-3.5 shadow-soft backdrop-blur-sm sm:px-5">
+          <header className="atria-panel atria-panel-accent px-4 py-3.5 shadow-soft backdrop-blur-sm sm:px-5">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div className="flex items-start gap-3">
-                {icon ? (
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-atria-violet/15 text-atria-lavender ring-1 ring-atria-violet/30">
-                    <ModuleIcon className="h-6 w-6" name={icon} />
-                  </span>
-                ) : null}
+                {icon ? <AtriaIconTile icon={icon} size="lg" /> : null}
                 <div className="min-w-0">
                   <h2 className="text-xl font-semibold leading-tight tracking-tight text-atria-fog sm:text-2xl">
                     {title}
@@ -87,7 +79,7 @@ export function AppShell({
                 </div>
               </div>
 
-              <div className="flex items-center gap-2.5 self-start rounded-full border border-atria-edge bg-atria-elevated px-3 py-1.5 lg:self-auto">
+              <div className="flex items-center gap-2.5 self-start rounded-full border border-atria-edge bg-atria-elevated/70 px-3 py-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] lg:self-auto">
                 <span className="relative flex h-2 w-2 shrink-0">
                   {isLiveMode ? (
                     <span

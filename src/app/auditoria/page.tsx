@@ -56,7 +56,7 @@ export default function AuditPage() {
       description="Registro de actividad: quién hizo qué y cuándo. La información no se modifica ni se borra."
       icon="auditoria"
     >
-      <section className="rounded-xl border border-atria-edge bg-atria-graphite p-4 shadow-card sm:p-5">
+      <section className="atria-panel p-4 sm:p-5">
         <div className="flex items-center justify-between border-b border-atria-edge pb-3">
           <h2 className="text-sm font-semibold text-atria-fog">
             Actividad reciente

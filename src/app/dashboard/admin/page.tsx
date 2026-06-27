@@ -34,7 +34,7 @@ export default function AdminDashboardPage() {
         />
       </section>
 
-      <div className="rounded-xl border border-atria-edge bg-atria-graphite p-4 shadow-card">
+      <div className="atria-panel p-4">
         <h3 className="mb-3 text-sm font-semibold text-atria-fog">
           Pasos para el cierre
         </h3>

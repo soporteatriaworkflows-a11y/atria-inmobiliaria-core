@@ -39,11 +39,11 @@ export default function OwnersPage() {
           const result = resultByParticipant.get(participant.id);
           return (
             <article
-              className="flex flex-col gap-3 rounded-xl border border-atria-edge bg-atria-graphite p-4 shadow-card transition hover:border-atria-violet/40 hover:shadow-glow"
+              className="atria-panel flex flex-col gap-3 p-4 transition hover:-translate-y-0.5 hover:border-atria-violet/35 hover:shadow-panel"
               key={participant.id}
             >
               <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-atria-violet to-atria-lavender text-sm font-semibold text-white">
+                <span className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-atria-violet to-atria-lavender text-sm font-semibold text-white shadow-glow ring-1 ring-white/20">
                   {initials(participant.displayName)}
                 </span>
                 <div className="min-w-0 flex-1">
@@ -71,7 +71,7 @@ export default function OwnersPage() {
                 />
               </div>
 
-              <div className="flex items-center justify-between rounded-lg bg-atria-elevated px-3 py-2">
+              <div className="flex items-center justify-between rounded-lg border border-atria-edge bg-atria-elevated/65 px-3 py-2">
                 <span className="text-2xs uppercase tracking-wide text-atria-mist">
                   Valor del periodo
                 </span>
@@ -85,7 +85,7 @@ export default function OwnersPage() {
                   Actualizado {lastUpdate[index] ?? "esta semana"}
                 </span>
                 <a
-                  className="focus-ring rounded-md border border-atria-violet/30 bg-atria-violet/10 px-2.5 py-1 text-xs font-semibold text-atria-lavender transition hover:bg-atria-violet hover:text-white"
+                  className="focus-ring rounded-full border border-atria-violet/25 bg-atria-violet/[0.08] px-3 py-1 text-xs font-semibold text-atria-lavender transition hover:bg-atria-violet hover:text-white"
                   href="/liquidacion"
                 >
                   Ver resumen

@@ -1,6 +1,5 @@
 import { AppShell } from "@/components/app-shell";
-import { ModuleIcon } from "@/components/icons";
-import { Badge, EmptyState, MetricCard } from "@/components/ui";
+import { Badge, EmptyState, MetricCard, AtriaIconTile } from "@/components/ui";
 import { demoLiquidationInput } from "@/lib/demo-data";
 import { formatCop } from "@/lib/money";
 
@@ -49,12 +48,10 @@ export default function PropertiesPage() {
       <section className="grid gap-3 md:grid-cols-2">
         {demoLiquidationInput.properties.map((property) => (
           <article
-            className="flex items-start gap-3 rounded-xl border border-atria-edge bg-atria-graphite p-4 shadow-card transition hover:border-atria-violet/40 hover:shadow-glow"
+            className="atria-panel flex items-start gap-3 p-4 transition hover:-translate-y-0.5 hover:border-atria-violet/35 hover:shadow-panel"
             key={property.id}
           >
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-atria-violet/15 text-atria-lavender ring-1 ring-atria-violet/25">
-              <ModuleIcon className="h-5 w-5" name="propiedades" />
-            </span>
+            <AtriaIconTile icon="propiedades" />
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
                 <h2 className="text-base font-semibold text-atria-fog">
@@ -66,7 +63,7 @@ export default function PropertiesPage() {
                 En administración para el cierre del periodo. La dirección real
                 no se guarda aquí.
               </p>
-              <div className="mt-3 flex items-center justify-between rounded-lg bg-atria-elevated px-3 py-2">
+              <div className="mt-3 flex items-center justify-between rounded-lg border border-atria-edge bg-atria-elevated/65 px-3 py-2">
                 <span className="text-2xs uppercase tracking-wide text-atria-mist">
                   Ingreso del periodo
                 </span>
