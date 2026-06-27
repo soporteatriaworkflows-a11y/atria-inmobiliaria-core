@@ -1,5 +1,5 @@
-// Primitivas visuales ATRIA (dark tech). SVG/CSS puro, sin dependencias.
-// No son graficos enganosos: representan los valores demo de forma proporcional.
+// Primitivas visuales ATRIA. SVG/CSS puro, sin dependencias.
+// Representan valores demo de forma proporcional y no exponen backend.
 
 export type VizTone =
   | "primary"
@@ -10,15 +10,14 @@ export type VizTone =
   | "neutral";
 
 const barColor: Record<VizTone, string> = {
-  primary: "bg-atria-violet",
-  lavender: "bg-atria-lavender",
-  success: "bg-atria-emerald",
-  warning: "bg-atria-amber",
-  danger: "bg-atria-rose",
-  neutral: "bg-atria-mist",
+  primary: "from-atria-violet to-atria-violet",
+  lavender: "from-atria-lavender to-atria-lavender",
+  success: "from-atria-emerald to-atria-emerald",
+  warning: "from-atria-amber to-atria-amber",
+  danger: "from-atria-rose to-atria-rose",
+  neutral: "from-atria-mist to-atria-mist",
 };
 
-// CSS vars theme-aware (definidas en globals.css por :root / html.dark).
 const strokeColor: Record<VizTone, string> = {
   primary: "var(--viz-primary)",
   lavender: "var(--viz-lavender)",
@@ -53,11 +52,11 @@ export function ProgressBar({
       aria-valuemax={max}
       aria-valuemin={0}
       aria-valuenow={Math.max(0, Math.min(value, max))}
-      className={`h-1.5 w-full overflow-hidden rounded-full bg-atria-edge ${className}`}
+      className={`h-2 w-full overflow-hidden rounded-full border border-atria-edge/70 bg-atria-elevated/75 ${className}`}
       role="progressbar"
     >
       <div
-        className={`h-full rounded-full ${barColor[tone]} transition-all`}
+        className={`h-full rounded-full bg-gradient-to-r ${barColor[tone]} transition-all`}
         style={{ width: `${p}%` }}
       />
     </div>
@@ -78,7 +77,7 @@ export function LabeledBar({
   tone?: VizTone;
 }) {
   return (
-    <div className="grid gap-1.5">
+    <div className="grid gap-2">
       <div className="flex items-baseline justify-between gap-3">
         <span className="text-xs font-medium text-atria-fog">{label}</span>
         <span className="text-xs font-semibold text-atria-mist">{caption}</span>
@@ -111,30 +110,34 @@ export function Donut({
   const p = pct(value, max);
   const stroke = 8;
   const r = (size - stroke) / 2;
-  const c = 2 * Math.PI * r;
+  const visualRadius = r - 4;
+  const c = 2 * Math.PI * visualRadius;
   const offset = c - (p / 100) * c;
   return (
     <div className="flex flex-col items-center gap-1.5">
-      <div className="relative" style={{ width: size, height: size }}>
+      <div
+        className="relative rounded-full bg-atria-elevated/65 p-1 ring-1 ring-atria-edge"
+        style={{ width: size, height: size }}
+      >
         <svg
           aria-hidden="true"
           className="-rotate-90"
-          height={size}
-          width={size}
+          height={size - 8}
+          width={size - 8}
         >
           <circle
-            cx={size / 2}
-            cy={size / 2}
+            cx={(size - 8) / 2}
+            cy={(size - 8) / 2}
             fill="none"
-            r={r}
+            r={visualRadius}
             stroke="rgb(var(--c-edge))"
             strokeWidth={stroke}
           />
           <circle
-            cx={size / 2}
-            cy={size / 2}
+            cx={(size - 8) / 2}
+            cy={(size - 8) / 2}
             fill="none"
-            r={r}
+            r={visualRadius}
             stroke={strokeColor[tone]}
             strokeDasharray={c}
             strokeDashoffset={offset}
@@ -175,13 +178,13 @@ export function TimelineItem({
       <div className="flex flex-col items-center">
         <span
           aria-hidden="true"
-          className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full ring-4 ring-atria-edge"
+          className="mt-1 h-3 w-3 shrink-0 rounded-full border-2 border-atria-graphite ring-4 ring-atria-edge"
           style={{ backgroundColor: strokeColor[tone] }}
         />
         {!last ? (
           <span
             aria-hidden="true"
-            className="mt-1 w-px flex-1 bg-atria-elevated"
+            className="mt-1 w-px flex-1 bg-gradient-to-b from-atria-edge to-transparent"
           />
         ) : null}
       </div>

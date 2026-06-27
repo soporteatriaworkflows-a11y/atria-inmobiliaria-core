@@ -1,19 +1,18 @@
 import Link from "next/link";
 import { type ModuleIconName, ModuleIcon } from "@/components/icons";
 
-// Identidad ATRIA: violeta/lavanda. Verde/ámbar/rose SOLO como estado semántico,
-// con tratamiento sobrio (chips outline, sin uppercase ruidoso).
 const toneClasses = {
-  primary: "border-atria-violet/25 bg-atria-violet/10 text-atria-lavender",
-  danger: "border-atria-rose/25 bg-atria-rose/10 text-atria-rose",
-  neutral: "border-atria-edge bg-transparent text-atria-mist",
-  success: "border-atria-emerald/25 bg-atria-emerald/10 text-atria-emerald",
-  warning: "border-atria-amber/25 bg-atria-amber/10 text-atria-amber",
+  primary:
+    "border-atria-violet/25 bg-atria-violet/[0.06] text-atria-lavender shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]",
+  danger:
+    "border-atria-rose/25 bg-transparent text-atria-rose shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]",
+  neutral:
+    "border-atria-edge bg-atria-elevated/55 text-atria-mist shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]",
+  success:
+    "border-atria-emerald/20 bg-transparent text-atria-emerald shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]",
+  warning:
+    "border-atria-amber/20 bg-transparent text-atria-amber shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]",
 } as const;
-
-// Acento monocromo violeta para iconos (mismo para todas las métricas).
-const iconAccent =
-  "bg-atria-violet/12 text-atria-lavender ring-1 ring-atria-violet/20";
 
 const toneDot = {
   primary: "bg-atria-violet",
@@ -25,6 +24,40 @@ const toneDot = {
 
 export type Tone = keyof typeof toneClasses;
 
+export function AtriaIconTile({
+  icon,
+  size = "md",
+  className = "",
+}: {
+  icon: ModuleIconName;
+  size?: "sm" | "md" | "lg";
+  className?: string;
+}) {
+  const sizeClass =
+    size === "sm"
+      ? "h-8 w-8 rounded-lg"
+      : size === "lg"
+        ? "h-11 w-11 rounded-xl"
+        : "h-10 w-10 rounded-xl";
+  const iconSize = size === "sm" ? "h-4 w-4" : "h-5 w-5";
+
+  return (
+    <span
+      className={`relative flex shrink-0 items-center justify-center overflow-hidden ${sizeClass} bg-gradient-to-br from-atria-violet/18 via-atria-lavender/10 to-atria-elevated text-atria-lavender ring-1 ring-atria-violet/25 ${className}`}
+    >
+      <span
+        aria-hidden="true"
+        className="absolute inset-x-1 top-0 h-px bg-atria-lavender/45"
+      />
+      <span
+        aria-hidden="true"
+        className="absolute -right-2 -top-2 h-5 w-5 rounded-full bg-atria-violet/15 blur-md"
+      />
+      <ModuleIcon className={iconSize} name={icon} />
+    </span>
+  );
+}
+
 export function StatusPill({
   children,
   tone = "neutral",
@@ -34,11 +67,11 @@ export function StatusPill({
 }) {
   return (
     <span
-      className={`inline-flex w-fit items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-2xs font-medium tracking-tight ${toneClasses[tone]}`}
+      className={`inline-flex w-fit items-center gap-1.5 rounded-full border px-2.5 py-1 text-2xs font-medium leading-none tracking-tight ${toneClasses[tone]}`}
     >
       <span
         aria-hidden="true"
-        className={`h-1.5 w-1.5 rounded-full ${toneDot[tone]}`}
+        className={`h-1.5 w-1.5 rounded-full ${toneDot[tone]} shadow-[0_0_0_3px_rgba(124,58,237,0.08)]`}
       />
       {children}
     </span>
@@ -54,7 +87,7 @@ export function Badge({
 }) {
   return (
     <span
-      className={`inline-flex w-fit items-center rounded-md border px-2.5 py-1 text-xs font-medium ${toneClasses[tone]}`}
+      className={`inline-flex w-fit items-center rounded-full border px-2.5 py-1 text-xs font-medium leading-none ${toneClasses[tone]}`}
     >
       {children}
     </span>
@@ -69,9 +102,7 @@ export function SectionPanel({
   className?: string;
 }) {
   return (
-    <section
-      className={`rounded-xl border border-atria-edge bg-atria-graphite p-4 shadow-card sm:p-5 ${className}`}
-    >
+    <section className={`atria-panel p-4 sm:p-5 ${className}`}>
       {children}
     </section>
   );
@@ -91,13 +122,9 @@ export function ModuleHeader({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-3 rounded-xl border border-atria-edge bg-gradient-to-br from-atria-indigo/50 to-atria-graphite p-4 shadow-soft sm:p-5 lg:flex-row lg:items-center lg:justify-between">
+    <div className="atria-panel atria-panel-accent flex flex-col gap-3 p-4 sm:p-5 lg:flex-row lg:items-center lg:justify-between">
       <div className="flex max-w-3xl items-start gap-3">
-        {icon ? (
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-atria-violet/15 text-atria-lavender ring-1 ring-atria-violet/30">
-            <ModuleIcon className="h-5 w-5" name={icon} />
-          </span>
-        ) : null}
+        {icon ? <AtriaIconTile icon={icon} size="lg" /> : null}
         <div>
           {eyebrow ? (
             <p className="text-2xs font-semibold uppercase tracking-[0.14em] text-atria-lavender">
@@ -133,15 +160,11 @@ export function MetricCard({
   icon?: ModuleIconName;
 }) {
   return (
-    <section className="group rounded-xl border border-atria-edge bg-atria-graphite p-4 shadow-card transition hover:border-atria-violet/40 hover:shadow-glow">
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
+    <section className="atria-panel group p-4 transition hover:-translate-y-0.5 hover:border-atria-violet/35 hover:shadow-panel">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex min-w-0 items-center gap-2.5">
           {icon ? (
-            <span
-              className={`flex h-8 w-8 items-center justify-center rounded-lg ${iconAccent}`}
-            >
-              <ModuleIcon className="h-4 w-4" name={icon} />
-            </span>
+            <AtriaIconTile icon={icon} size="sm" />
           ) : (
             <span
               aria-hidden="true"
@@ -154,10 +177,14 @@ export function MetricCard({
         </div>
         {badge ? <StatusPill tone={tone}>{badge}</StatusPill> : null}
       </div>
-      <p className="mt-3 text-2xl font-semibold tracking-tight text-atria-fog">
-        {value}
-      </p>
-      <p className="mt-1.5 text-xs leading-relaxed text-atria-mist">{helper}</p>
+      <div className="mt-4 border-t border-atria-edge/70 pt-3">
+        <p className="text-2xl font-semibold tracking-tight text-atria-fog">
+          {value}
+        </p>
+        <p className="mt-1.5 text-xs leading-relaxed text-atria-mist">
+          {helper}
+        </p>
+      </div>
     </section>
   );
 }
@@ -172,8 +199,8 @@ export function EmptyState({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="rounded-xl border border-dashed border-atria-edge bg-atria-elevated p-6 text-center">
-      <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-lg bg-atria-violet/15 text-atria-lavender ring-1 ring-atria-violet/25">
+    <div className="atria-panel atria-panel-accent p-6 text-center">
+      <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border border-dashed border-atria-violet/30 bg-atria-violet/[0.06] text-atria-lavender">
         <svg
           aria-hidden="true"
           className="h-5 w-5"
@@ -211,14 +238,10 @@ export function QuickAction({
 }) {
   return (
     <Link
-      className="focus-ring group flex items-center gap-3 rounded-xl border border-atria-edge bg-atria-graphite p-3.5 shadow-card transition hover:-translate-y-0.5 hover:border-atria-violet/50 hover:shadow-glow"
+      className="focus-ring atria-panel group flex items-center gap-3 p-3.5 transition hover:-translate-y-0.5 hover:border-atria-violet/40 hover:shadow-panel"
       href={href}
     >
-      {icon ? (
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-atria-violet/15 text-atria-lavender ring-1 ring-atria-violet/25 transition group-hover:bg-atria-violet group-hover:text-white group-hover:ring-atria-violet">
-          <ModuleIcon className="h-5 w-5" name={icon} />
-        </span>
-      ) : null}
+      {icon ? <AtriaIconTile icon={icon} size="sm" /> : null}
       <span className="min-w-0 flex-1">
         <span className="block text-sm font-semibold text-atria-fog group-hover:text-atria-lavender">
           {label}
@@ -227,19 +250,23 @@ export function QuickAction({
           {helper}
         </span>
       </span>
-      <svg
+      <span
         aria-hidden="true"
-        className="h-4 w-4 shrink-0 text-atria-mist/50 transition group-hover:translate-x-0.5 group-hover:text-atria-lavender"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        viewBox="0 0 24 24"
+        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-atria-edge bg-atria-elevated text-atria-mist/70 transition group-hover:border-atria-violet/35 group-hover:text-atria-lavender"
       >
-        <path d="M5 12h14" />
-        <path d="M13 6l6 6-6 6" />
-      </svg>
+        <svg
+          className="h-3.5 w-3.5 transition group-hover:translate-x-0.5"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          viewBox="0 0 24 24"
+        >
+          <path d="M5 12h14" />
+          <path d="M13 6l6 6-6 6" />
+        </svg>
+      </span>
     </Link>
   );
 }

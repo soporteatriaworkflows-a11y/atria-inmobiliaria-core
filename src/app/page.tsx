@@ -75,7 +75,7 @@ export default function HomePage() {
       </section>
 
       <section className="grid gap-3 lg:grid-cols-3">
-        <div className="flex flex-col gap-4 rounded-xl border border-atria-edge bg-atria-graphite p-4 shadow-card sm:p-5 lg:col-span-2">
+        <div className="atria-panel atria-panel-accent flex flex-col gap-4 p-4 sm:p-5 lg:col-span-2">
           <div className="flex items-center justify-between gap-3">
             <div>
               <h3 className="text-sm font-semibold text-atria-fog">
@@ -122,14 +122,14 @@ export default function HomePage() {
           </div>
 
           <a
-            className="focus-ring mt-auto inline-flex w-fit items-center gap-2 rounded-lg bg-atria-violet px-3.5 py-2 text-sm font-semibold text-white shadow-glow transition hover:bg-atria-lavender hover:text-atria-carbon"
+            className="focus-ring mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-atria-violet px-4 py-2 text-sm font-semibold text-white shadow-glow transition hover:bg-atria-lavender hover:text-atria-carbon"
             href="/liquidacion"
           >
             Revisar distribución
           </a>
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-atria-edge bg-gradient-to-br from-atria-indigo/50 to-atria-graphite p-4 shadow-card sm:p-5">
+        <div className="atria-panel flex flex-col items-center justify-center gap-3 p-4 sm:p-5">
           <h3 className="self-start text-sm font-semibold text-atria-fog">
             Saldo estimado
           </h3>
@@ -150,7 +150,7 @@ export default function HomePage() {
       </section>
 
       <section className="grid gap-3 lg:grid-cols-3">
-        <div className="rounded-xl border border-atria-edge bg-atria-graphite p-4 shadow-card sm:p-5 lg:col-span-2">
+        <div className="atria-panel p-4 sm:p-5 lg:col-span-2">
           <div className="mb-3 flex items-center justify-between">
             <h3 className="text-sm font-semibold text-atria-fog">
               Accesos rápidos
@@ -187,7 +187,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="rounded-xl border border-atria-edge bg-atria-graphite p-4 shadow-card sm:p-5">
+        <div className="atria-panel p-4 sm:p-5">
           <h3 className="mb-3 text-sm font-semibold text-atria-fog">
             Actividad reciente
           </h3>

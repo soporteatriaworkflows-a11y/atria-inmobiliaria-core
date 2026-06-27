@@ -54,7 +54,7 @@ export default function ExpensesPage() {
         />
       </section>
 
-      <section className="overflow-hidden rounded-xl border border-atria-edge bg-atria-graphite shadow-card">
+      <section className="atria-panel overflow-hidden">
         <div className="hidden grid-cols-[1.4fr_auto_auto_auto] gap-3 border-b border-atria-edge bg-atria-elevated px-4 py-2 text-2xs font-semibold uppercase tracking-wide text-atria-mist sm:grid">
           <span>Referencia</span>
           <span>Categoría</span>
