@@ -6,6 +6,7 @@ import { canRole } from "@/lib/auth/rbac";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { Badge, SectionPanel } from "@/components/ui";
 import { formatCop } from "@/lib/money";
+import { isPositiveCopAmount } from "@/lib/auth/crud-validation";
 
 type PropertyRow = {
   id: string;
@@ -64,6 +65,7 @@ function useLiveCrud() {
 
   const enabled =
     auth.isAuthEnabled && Boolean(auth.session && auth.organizationId);
+  const isOwner = auth.role === "owner_readonly";
 
   async function reload() {
     if (!enabled || !auth.organizationId) return;
@@ -71,6 +73,18 @@ function useLiveCrud() {
     setError(null);
     try {
       const supabase = createSupabaseBrowserClient();
+      const emptyResult = { data: [], error: null };
+      let requestsQuery = supabase
+        .from("change_requests")
+        .select("id, request_type, status, details, created_at")
+        .eq("organization_id", auth.organizationId)
+        .order("created_at", { ascending: false })
+        .limit(20);
+
+      if (isOwner && auth.user) {
+        requestsQuery = requestsQuery.eq("requested_by", auth.user.id);
+      }
+
       const [
         propertiesResult,
         participantsResult,
@@ -78,41 +92,44 @@ function useLiveCrud() {
         expensesResult,
         requestsResult,
       ] = await Promise.all([
-        supabase
-          .from("properties")
-          .select("id, code, display_name, status")
-          .eq("organization_id", auth.organizationId)
-          .order("display_name"),
-        supabase
-          .from("participation_rules")
-          .select(
-            "id, basis_points, effective_from, effective_to, profiles(display_name), properties(display_name)",
-          )
-          .eq("organization_id", auth.organizationId)
-          .order("effective_from", { ascending: false })
-          .limit(30),
-        supabase
-          .from("rent_collections")
-          .select(
-            "id, property_id, period_month, amount_cop, status, properties(display_name)",
-          )
-          .eq("organization_id", auth.organizationId)
-          .order("period_month", { ascending: false })
-          .limit(20),
-        supabase
-          .from("expenses")
-          .select(
-            "id, property_id, period_month, category, description, amount_cop, status, properties(display_name)",
-          )
-          .eq("organization_id", auth.organizationId)
-          .order("period_month", { ascending: false })
-          .limit(20),
-        supabase
-          .from("change_requests")
-          .select("id, request_type, status, details, created_at")
-          .eq("organization_id", auth.organizationId)
-          .order("created_at", { ascending: false })
-          .limit(20),
+        isOwner
+          ? Promise.resolve(emptyResult)
+          : supabase
+              .from("properties")
+              .select("id, code, display_name, status")
+              .eq("organization_id", auth.organizationId)
+              .order("display_name"),
+        isOwner
+          ? Promise.resolve(emptyResult)
+          : supabase
+              .from("participation_rules")
+              .select(
+                "id, basis_points, effective_from, effective_to, profiles(display_name), properties(display_name)",
+              )
+              .eq("organization_id", auth.organizationId)
+              .order("effective_from", { ascending: false })
+              .limit(30),
+        isOwner
+          ? Promise.resolve(emptyResult)
+          : supabase
+              .from("rent_collections")
+              .select(
+                "id, property_id, period_month, amount_cop, status, properties(display_name)",
+              )
+              .eq("organization_id", auth.organizationId)
+              .order("period_month", { ascending: false })
+              .limit(20),
+        isOwner
+          ? Promise.resolve(emptyResult)
+          : supabase
+              .from("expenses")
+              .select(
+                "id, property_id, period_month, category, description, amount_cop, status, properties(display_name)",
+              )
+              .eq("organization_id", auth.organizationId)
+              .order("period_month", { ascending: false })
+              .limit(20),
+        requestsQuery,
       ]);
 
       for (const result of [
@@ -280,7 +297,8 @@ export function PropertiesCrudPanel() {
 
   async function createProperty(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!crud.auth.organizationId || !canWrite) return;
+    if (!crud.auth.organizationId || !canWrite || !name.trim() || !code.trim())
+      return;
     const supabase = createSupabaseBrowserClient();
     await crud.write(
       () =>
@@ -376,7 +394,8 @@ export function CollectionsCrudPanel() {
 
   async function createCollection(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!crud.auth.organizationId || !canWrite) return;
+    if (!crud.auth.organizationId || !canWrite || !isPositiveCopAmount(amount))
+      return;
     const supabase = createSupabaseBrowserClient();
     await crud.write(
       () =>
@@ -447,7 +466,9 @@ export function CollectionsCrudPanel() {
             className="focus-ring rounded-lg border border-atria-edge bg-atria-elevated px-3 py-2 text-sm"
             disabled={!crud.enabled || !canWrite}
             onChange={(e) => setAmount(e.target.value)}
+            min="1"
             placeholder="Monto COP"
+            step="1"
             type="number"
             value={amount}
           />
@@ -456,7 +477,7 @@ export function CollectionsCrudPanel() {
             disabled={
               !crud.enabled ||
               !canWrite ||
-              !amount ||
+              !isPositiveCopAmount(amount) ||
               !(propertyId || firstProperty)
             }
             type="submit"
@@ -478,7 +499,8 @@ export function ExpensesCrudPanel() {
 
   async function createExpense(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!crud.auth.organizationId || !canWrite) return;
+    if (!crud.auth.organizationId || !canWrite || !isPositiveCopAmount(amount))
+      return;
     const supabase = createSupabaseBrowserClient();
     await crud.write(
       () =>
@@ -544,13 +566,20 @@ export function ExpensesCrudPanel() {
             className="focus-ring rounded-lg border border-atria-edge bg-atria-elevated px-3 py-2 text-sm"
             disabled={!crud.enabled || !canWrite}
             onChange={(e) => setAmount(e.target.value)}
+            min="1"
             placeholder="Monto COP"
+            step="1"
             type="number"
             value={amount}
           />
           <button
             className="focus-ring rounded-full bg-atria-violet px-3 py-2 text-sm font-semibold text-white disabled:opacity-50"
-            disabled={!crud.enabled || !canWrite || !description || !amount}
+            disabled={
+              !crud.enabled ||
+              !canWrite ||
+              !description.trim() ||
+              !isPositiveCopAmount(amount)
+            }
             type="submit"
           >
             Registrar gasto
@@ -568,7 +597,13 @@ export function ChangeRequestsCrudPanel() {
 
   async function createRequest(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!crud.auth.organizationId || !crud.auth.user || !canCreate) return;
+    if (
+      !crud.auth.organizationId ||
+      !crud.auth.user ||
+      !canCreate ||
+      !detail.trim()
+    )
+      return;
     const supabase = createSupabaseBrowserClient();
     const userId = crud.auth.user.id;
     await crud.write(
@@ -620,7 +655,7 @@ export function ChangeRequestsCrudPanel() {
           />
           <button
             className="focus-ring rounded-full bg-atria-violet px-3 py-2 text-sm font-semibold text-white disabled:opacity-50"
-            disabled={!crud.enabled || !canCreate || !detail}
+            disabled={!crud.enabled || !canCreate || !detail.trim()}
             type="submit"
           >
             Crear solicitud

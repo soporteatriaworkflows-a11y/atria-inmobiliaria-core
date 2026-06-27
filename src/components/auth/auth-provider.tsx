@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import type { Session, User } from "@supabase/supabase-js";
 import { getSupabasePublicConfig, isLiveMode } from "@/lib/app-config";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
-import { canAccessRoute } from "@/lib/auth/routes";
+import { canAccessRoute, getDefaultRouteForRole } from "@/lib/auth/routes";
 import { type AppRole, roleLabels } from "@/lib/auth/rbac";
 
 type Membership = {
@@ -169,6 +169,10 @@ export function AuthGate({
     if (!auth.isAuthEnabled || auth.loading || !requireAuth) return;
     if (!auth.session) {
       router.replace("/login");
+      return;
+    }
+    if (pathname === "/" && auth.role) {
+      router.replace(getDefaultRouteForRole(auth.role));
       return;
     }
     if (!canAccessRoute(auth.role, pathname)) {
