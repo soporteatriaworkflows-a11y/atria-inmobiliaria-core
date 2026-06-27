@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { CheckIcon, LockIcon } from "@/components/icons";
 import { useAuth } from "@/components/auth/auth-provider";
+import { getDefaultRouteForRole } from "@/lib/auth/routes";
 import { Badge, SectionPanel } from "@/components/ui";
 
 const trustPoints = [
@@ -14,7 +14,6 @@ const trustPoints = [
 
 export function LoginForm() {
   const auth = useAuth();
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -26,8 +25,8 @@ export function LoginForm() {
     setSubmitting(true);
     setLocalError(null);
     try {
-      await auth.signIn(email, password);
-      router.replace("/");
+      const nextRole = await auth.signIn(email, password);
+      window.location.assign(getDefaultRouteForRole(nextRole));
     } catch (err) {
       setLocalError(
         err instanceof Error ? err.message : "No se pudo iniciar sesion.",
@@ -80,7 +79,9 @@ export function LoginForm() {
             <div className="flex flex-wrap gap-2">
               <button
                 className="focus-ring rounded-full bg-atria-violet px-4 py-2 text-sm font-semibold text-white transition hover:bg-atria-lavender hover:text-atria-carbon"
-                onClick={() => router.push("/")}
+                onClick={() =>
+                  window.location.assign(getDefaultRouteForRole(auth.role))
+                }
                 type="button"
               >
                 Ir al dashboard

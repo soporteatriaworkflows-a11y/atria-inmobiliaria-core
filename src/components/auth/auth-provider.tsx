@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import type { Session, User } from "@supabase/supabase-js";
 import { getSupabasePublicConfig, isLiveMode } from "@/lib/app-config";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
@@ -22,9 +22,9 @@ type AuthState = {
   organizationId: string | null;
   roleLabel: string;
   error: string | null;
-  signIn: (email: string, password: string) => Promise<void>;
+  signIn: (email: string, password: string) => Promise<AppRole | null>;
   signOut: () => Promise<void>;
-  refreshMembership: () => Promise<void>;
+  refreshMembership: () => Promise<AppRole | null>;
 };
 
 const AuthContext = createContext<AuthState | null>(null);
@@ -53,7 +53,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [error, setError] = useState<string | null>(null);
 
   async function refreshMembership() {
-    if (!isAuthEnabled) return;
+    if (!isAuthEnabled) return null;
     try {
       const supabase = createSupabaseBrowserClient();
       const { data, error: membershipError } = await supabase
@@ -65,12 +65,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const primary = pickPrimaryMembership((data ?? []) as Membership[]);
       setRole(primary?.role ?? null);
       setOrganizationId(primary?.organization_id ?? null);
+      return primary?.role ?? null;
     } catch (err) {
       setRole(null);
       setOrganizationId(null);
       setError(
         err instanceof Error ? err.message : "No se pudo cargar el rol.",
       );
+      return null;
     }
   }
 
@@ -129,7 +131,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           throw signInError;
         }
         setSession(data.session ?? null);
-        await refreshMembership();
+        return await refreshMembership();
       },
       async signOut() {
         const supabase = createSupabaseBrowserClient();
@@ -163,20 +165,19 @@ export function AuthGate({
 }) {
   const auth = useAuth();
   const pathname = usePathname() ?? "/";
-  const router = useRouter();
 
   useEffect(() => {
     if (!auth.isAuthEnabled || auth.loading || !requireAuth) return;
     if (!auth.session) {
-      router.replace("/login");
+      window.location.replace("/login");
       return;
     }
     if (pathname === "/" && auth.role) {
-      router.replace(getDefaultRouteForRole(auth.role));
+      window.location.replace(getDefaultRouteForRole(auth.role));
       return;
     }
     if (!canAccessRoute(auth.role, pathname)) {
-      router.replace("/dashboard/propietario");
+      window.location.replace(getDefaultRouteForRole(auth.role));
     }
   }, [
     auth.isAuthEnabled,
@@ -185,7 +186,6 @@ export function AuthGate({
     auth.session,
     pathname,
     requireAuth,
-    router,
   ]);
 
   if (!auth.isAuthEnabled || !requireAuth) return <>{children}</>;
