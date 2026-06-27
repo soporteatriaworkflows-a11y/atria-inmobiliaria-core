@@ -110,14 +110,14 @@ export default function HomePage() {
               caption={formatCop(ingresos)}
               value={ingresos}
               max={maxBar}
-              tone="success"
+              tone="primary"
             />
             <LabeledBar
               label="Gastos"
               caption={formatCop(gastos)}
               value={gastos}
               max={maxBar}
-              tone="warning"
+              tone="lavender"
             />
           </div>
 

@@ -1,23 +1,19 @@
 import Link from "next/link";
 import { type ModuleIconName, ModuleIcon } from "@/components/icons";
 
-// Tema dark ATRIA. Violeta/lavanda como identidad; verde solo para success.
+// Identidad ATRIA: violeta/lavanda. Verde/ámbar/rose SOLO como estado semántico,
+// con tratamiento sobrio (chips outline, sin uppercase ruidoso).
 const toneClasses = {
-  primary: "border-atria-violet/40 bg-atria-violet/15 text-atria-lavender",
-  danger: "border-atria-rose/30 bg-atria-rose/10 text-atria-rose",
-  neutral: "border-atria-edge bg-atria-elevated text-atria-mist",
-  success: "border-atria-emerald/30 bg-atria-emerald/10 text-atria-emerald",
-  warning: "border-atria-amber/30 bg-atria-amber/10 text-atria-amber",
+  primary: "border-atria-violet/25 bg-atria-violet/10 text-atria-lavender",
+  danger: "border-atria-rose/25 bg-atria-rose/10 text-atria-rose",
+  neutral: "border-atria-edge bg-transparent text-atria-mist",
+  success: "border-atria-emerald/25 bg-atria-emerald/10 text-atria-emerald",
+  warning: "border-atria-amber/25 bg-atria-amber/10 text-atria-amber",
 } as const;
 
-// Tinte suave para iconos/acentos por tono.
-const toneSoft = {
-  primary: "bg-atria-violet/15 text-atria-lavender",
-  danger: "bg-atria-rose/12 text-atria-rose",
-  neutral: "bg-atria-violet/12 text-atria-lavender",
-  success: "bg-atria-emerald/12 text-atria-emerald",
-  warning: "bg-atria-amber/12 text-atria-amber",
-} as const;
+// Acento monocromo violeta para iconos (mismo para todas las métricas).
+const iconAccent =
+  "bg-atria-violet/12 text-atria-lavender ring-1 ring-atria-violet/20";
 
 const toneDot = {
   primary: "bg-atria-violet",
@@ -38,7 +34,7 @@ export function StatusPill({
 }) {
   return (
     <span
-      className={`inline-flex w-fit items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-2xs font-semibold uppercase tracking-wide ${toneClasses[tone]}`}
+      className={`inline-flex w-fit items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-2xs font-medium tracking-tight ${toneClasses[tone]}`}
     >
       <span
         aria-hidden="true"
@@ -58,7 +54,7 @@ export function Badge({
 }) {
   return (
     <span
-      className={`inline-flex w-fit items-center rounded-md border px-2.5 py-1 text-xs font-semibold ${toneClasses[tone]}`}
+      className={`inline-flex w-fit items-center rounded-md border px-2.5 py-1 text-xs font-medium ${toneClasses[tone]}`}
     >
       {children}
     </span>
@@ -142,7 +138,7 @@ export function MetricCard({
         <div className="flex items-center gap-2.5">
           {icon ? (
             <span
-              className={`flex h-8 w-8 items-center justify-center rounded-lg ${toneSoft[tone]}`}
+              className={`flex h-8 w-8 items-center justify-center rounded-lg ${iconAccent}`}
             >
               <ModuleIcon className="h-4 w-4" name={icon} />
             </span>

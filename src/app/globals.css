@@ -7,11 +7,11 @@
   color-scheme: light;
 
   /* Tripletes RGB para tokens theme-aware (usados por Tailwind con /opacidad). */
-  --c-carbon: 244 240 255; /* base sidebar clara (#F4F0FF) */
+  --c-carbon: 251 250 255; /* base sidebar casi blanca (#FBFAFF) */
   --c-graphite: 255 255 255; /* superficies / cards */
-  --c-indigo: 239 231 255; /* capa de acento clara (#EFE7FF) */
-  --c-elevated: 244 240 255; /* superficie elevada / tracks (#F4F0FF) */
-  --c-edge: 229 221 248; /* bordes (#E5DDF8) */
+  --c-indigo: 242 236 252; /* capa de acento clara y sutil (#F2ECFC) */
+  --c-elevated: 246 243 252; /* superficie elevada / tracks (#F6F3FC) */
+  --c-edge: 232 227 244; /* bordes frios suaves (#E8E3F4) */
   --c-fog: 21 18 31; /* texto principal (#15121F) */
   --c-mist: 110 102 130; /* texto secundario (#6E6682) */
   --c-lavender: 124 58 237; /* acento texto (violeta para contraste en claro) */
@@ -82,39 +82,34 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* Fondo CLARO: blanco cálido con glow lavanda muy sutil. */
+  /* Fondo CLARO: blanco limpio con glow violeta muy sutil en esquinas. */
   background:
     radial-gradient(
-      1000px circle at 8% -10%,
-      rgba(124, 58, 237, 0.06),
-      transparent 55%
+      900px circle at 6% -12%,
+      rgba(124, 58, 237, 0.05),
+      transparent 50%
     ),
     radial-gradient(
-      900px circle at 100% 0%,
-      rgba(182, 140, 255, 0.08),
-      transparent 55%
+      800px circle at 100% -4%,
+      rgba(124, 58, 237, 0.04),
+      transparent 50%
     ),
-    linear-gradient(180deg, #f8f6ff 0%, #fbfaff 60%, #f6f3ff 100%);
+    linear-gradient(180deg, #fdfcff 0%, #fbfaff 100%);
   background-attachment: fixed;
 }
 
 html.dark body {
-  /* Fondo OSCURO: carbon con glows violeta/indigo. */
+  /* Fondo OSCURO: carbon sobrio con glow violeta sutil. */
   background:
     radial-gradient(
       1000px circle at 8% -10%,
-      rgba(124, 58, 237, 0.16),
+      rgba(124, 58, 237, 0.12),
       transparent 55%
     ),
     radial-gradient(
       900px circle at 100% 0%,
-      rgba(27, 18, 64, 0.55),
+      rgba(27, 18, 64, 0.4),
       transparent 55%
-    ),
-    radial-gradient(
-      700px circle at 50% 120%,
-      rgba(182, 140, 255, 0.08),
-      transparent 60%
     ),
     linear-gradient(180deg, #0a0a0f 0%, #0c0c14 60%, #0a0a0f 100%);
   background-attachment: fixed;

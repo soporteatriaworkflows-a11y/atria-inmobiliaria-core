@@ -1,6 +1,5 @@
 import {
   getSupabasePublicConfig,
-  isDemoMode,
   isDevMode,
   isLiveMode,
 } from "@/lib/app-config";
@@ -11,7 +10,6 @@ import {
 } from "@/components/icons";
 import { SidebarNav } from "@/components/sidebar-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { StatusPill } from "@/components/ui";
 
 export function AppShell({
   title,
@@ -25,6 +23,11 @@ export function AppShell({
   children: React.ReactNode;
 }) {
   const supabaseConfig = getSupabasePublicConfig();
+  const modeLabel = isLiveMode
+    ? "Producción activa"
+    : isDevMode
+      ? "Entorno de pruebas"
+      : "Vista de demostración";
 
   return (
     <main className="min-h-screen px-3 py-3 text-atria-fog sm:px-5 sm:py-5 lg:px-6">
@@ -84,17 +87,20 @@ export function AppShell({
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-1.5 lg:justify-end">
-                {isDemoMode ? (
-                  <StatusPill tone="warning">Modo demostracion</StatusPill>
-                ) : null}
-                {isDevMode ? (
-                  <StatusPill tone="warning">Entorno de pruebas</StatusPill>
-                ) : null}
-                {isLiveMode ? (
-                  <StatusPill tone="success">Produccion activa</StatusPill>
-                ) : null}
-                <StatusPill tone="neutral">Datos de prueba</StatusPill>
+              <div className="flex items-center gap-2.5 self-start rounded-full border border-atria-edge bg-atria-elevated px-3 py-1.5 lg:self-auto">
+                <span className="relative flex h-2 w-2 shrink-0">
+                  {isLiveMode ? (
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-atria-violet opacity-60" />
+                  ) : null}
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-atria-violet" />
+                </span>
+                <span className="text-2xs font-medium text-atria-fog">
+                  {modeLabel}
+                </span>
+                <span aria-hidden="true" className="h-3 w-px bg-atria-edge" />
+                <span className="text-2xs text-atria-mist">
+                  Datos de prueba
+                </span>
               </div>
             </div>
 
