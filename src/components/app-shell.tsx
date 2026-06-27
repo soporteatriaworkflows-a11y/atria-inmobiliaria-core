@@ -90,9 +90,15 @@ export function AppShell({
               <div className="flex items-center gap-2.5 self-start rounded-full border border-atria-edge bg-atria-elevated px-3 py-1.5 lg:self-auto">
                 <span className="relative flex h-2 w-2 shrink-0">
                   {isLiveMode ? (
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-atria-violet opacity-60" />
+                    <span
+                      aria-hidden="true"
+                      className="absolute inline-flex h-full w-full animate-ping rounded-full bg-atria-violet opacity-60"
+                    />
                   ) : null}
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-atria-violet" />
+                  <span
+                    aria-hidden="true"
+                    className="relative inline-flex h-2 w-2 rounded-full bg-atria-violet"
+                  />
                 </span>
                 <span className="text-2xs font-medium text-atria-fog">
                   {modeLabel}

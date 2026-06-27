@@ -96,15 +96,15 @@ jerga técnica interna en la UI.
 
 ## Validaciones
 
-| Verificación | Resultado |
-| --- | --- |
-| `pnpm format` | PASS (global) |
-| `pnpm lint` | PASS |
-| `pnpm typecheck` | PASS |
-| `pnpm test` | PASS (6/6) |
-| `pnpm build` | PASS (12 rutas) |
+| Verificación                              | Resultado        |
+| ----------------------------------------- | ---------------- |
+| `pnpm format`                             | PASS (global)    |
+| `pnpm lint`                               | PASS             |
+| `pnpm typecheck`                          | PASS             |
+| `pnpm test`                               | PASS (6/6)       |
+| `pnpm build`                              | PASS (12 rutas)  |
 | Smoke local (claro+oscuro, desktop+móvil) | PASS (48 vistas) |
-| Toggle + persistencia | PASS |
+| Toggle + persistencia                     | PASS             |
 
 Smoke: HTTP 200, 0 overflow, navegación visible, estado activo, 0 errores de
 consola, tema correcto por contexto, sin pérdida del toggle. Sin datos reales ni
