@@ -174,3 +174,78 @@ Despues de rotar:
 5. Aplicar `202606270001_owner_scope_rls.sql`.
 6. Ejecutar smoke Cloud Auth/RLS.
 7. Repetir release gate completo antes de mergear.
+
+## Actualizacion 2026-07-06 — bloqueo real: proyecto Cloud pausado
+
+Hallazgo principal: el bloqueo operativo real de la compuerta anterior incluia
+que el proyecto Supabase Cloud `atria-inmobiliaria` (`bzoqbjcktoyngvszcwhl`)
+estaba **pausado**. Con la base pausada, la verificacion de migracion, el admin
+fixture y el smoke Cloud no podian completar. El usuario reactivo el proyecto
+manualmente desde el dashboard y confirmo estado **activo**, y el `supabase link`
+quedo completado en el PC nuevo.
+
+Nota sobre claves: la exposicion previa de una key en consola del CLI se mantiene
+como registro historico. El usuario decidio no tratar la rotacion como bloqueante
+para continuar, dado que el bloqueo principal era el pause. Regla vigente: si
+reaparece cualquier key/secreto/DB URL completa en consola o logs, detenerse y
+recomendar rotacion.
+
+### Cloud read gate post-activacion (no destructivo)
+
+Ejecutado con `scripts/supabase-cloud-gate.sh --confirm-cloud` (sin imprimir
+secretos):
+
+- Project linked al ref esperado: PASS.
+- Auditoria RLS local de `202606270001`: PASS (sin `DROP TABLE`/`DROP SCHEMA`/
+  `TRUNCATE`/`DELETE FROM`/disable RLS; idempotente).
+- `supabase migration list --linked`:
+  - `202606240001`: aplicada Local y Remote.
+  - `202606270001`: presente Local, **pendiente en Remote**.
+- Unica migracion pendiente en Cloud: `202606270001_owner_scope_rls.sql`.
+- Smoke agregado: saltado con WARN (`SUPABASE_DB_URL` no configurada, por decision
+  de minimizar exposicion). Documentado.
+- No se imprimieron keys, DB URL ni secretos.
+
+### Snapshot de rollback pre-apply (solo metadata, sin datos)
+
+Fuente autoritativa del estado actual de policies en Cloud: la migracion aplicada
+`supabase/migrations/202606240001_initial_schema.sql` (Cloud esta exactamente en
+esa version). No se consulto la DB directamente para evitar manejar el connection
+string; el snapshot es fiel porque Cloud no tiene ninguna otra migracion aplicada.
+
+La migracion `202606270001` reemplaza (drop + recreate) las siguientes policies.
+Para rollback manual, re-crear las definiciones ORIGINALES desde
+`202606240001_initial_schema.sql` (commit del schema inicial). Resumen por
+tabla → policy original → comando → condicion:
+
+- `profiles` → "users can view own profile" → SELECT → `id = auth.uid()`.
+- `memberships` → "members can view memberships" → SELECT → `is_member(org)`;
+  "staff can manage memberships" → ALL → `current_user_role in (platform_admin,estate_admin)`.
+- `properties` → "members can view properties" → SELECT → `is_member(org)`;
+  "staff can manage properties" → ALL → `is_staff(org)`.
+- `participation_rules` → "members can view participation rules" → SELECT → `is_member(org)`;
+  "staff can manage participation rules" → ALL → `is_staff(org)`.
+- `property_access` → "members can view property access" → SELECT → `is_member(org)`;
+  "staff can manage property access" → ALL → `is_staff(org)`.
+- `rent_collections` → "members can view rent collections" → SELECT → `is_member(org)`;
+  "staff can manage rent collections" → ALL → `is_staff(org)`.
+- `expenses` → "members can view expenses" → SELECT → `is_member(org)`;
+  "staff can manage expenses" → ALL → `is_staff(org)`.
+- `recurring_expenses` → "members can view recurring expenses" → SELECT → `is_member(org)`;
+  "staff can manage recurring expenses" → ALL → `is_staff(org)`.
+- `ledger_entries` → "members can view ledger entries" → SELECT → `is_member(org)`;
+  "staff can insert ledger entries" → INSERT → `is_staff(org)`.
+- `monthly_closings` → "members can view monthly closings" → SELECT → `is_member(org)`;
+  "staff can manage draft monthly closings" → ALL → `is_staff(org) and status <> 'published'`.
+- `heir_liquidations` → "members can view heir liquidations" → SELECT → `is_member(org)`;
+  "staff can insert heir liquidations" → INSERT → `is_staff(org)`.
+- `change_requests` → "members can view change requests" → SELECT → `is_member(org)`;
+  "members can create change requests" → INSERT → `is_member(org) and requested_by = auth.uid()`;
+  "staff can review change requests" → UPDATE → `is_staff(org)`.
+- `attachments` → "members can view attachments" → SELECT → `is_member(org)`;
+  "staff can create attachments" → INSERT → `is_staff(org)`.
+- `audit_log` → "members can view audit log" → SELECT → `organization_id is null or is_member(org)`;
+  "staff can insert audit log" → INSERT → `organization_id is null or is_staff(org)`.
+
+No se incluye ninguna fila de datos, ningun secreto ni ningun valor sensible.
+La policy "members can view organizations" no es afectada por la migracion.
