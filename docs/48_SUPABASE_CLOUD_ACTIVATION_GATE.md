@@ -249,3 +249,81 @@ tabla → policy original → comando → condicion:
 
 No se incluye ninguna fila de datos, ningun secreto ni ningun valor sensible.
 La policy "members can view organizations" no es afectada por la migracion.
+
+## Actualizacion 2026-07-06 — POST-APPLY: migracion RLS aplicada en Cloud
+
+Estado: **migracion RLS aplicada en Cloud / merge aun detenido por verificacion
+de admin**.
+
+### Migracion RLS Cloud: APLICADA
+
+`202606270001_owner_scope_rls.sql` ya quedo aplicada en Supabase Cloud. **No se
+volvio a ejecutar `db push`** en esta compuerta.
+
+Verificado con `scripts/supabase-cloud-gate.sh --confirm-cloud` (salida redactada,
+sin imprimir secretos). `supabase migration list --linked` reporto ambas
+migraciones presentes en Local **y** Remote:
+
+- `202606240001`: Local + Remote (aplicada).
+- `202606270001`: Local + Remote (**aplicada**).
+
+Conclusion: **no hay migraciones pendientes en Cloud.** El riesgo de drift de
+schema por la migracion RLS queda cerrado.
+
+### Verificacion de admin fixture / no lockout: PENDIENTE (accion manual)
+
+El smoke agregado (conteo de `admin_memberships`, `fixture_admin_ready` y
+verificacion de policies/funciones via catalogo) **no pudo ejecutarse** en este
+PC por decision de minimizacion de exposicion:
+
+- `SUPABASE_DB_URL` no esta configurada (ni env var ni `.env.local`).
+- `psql` no esta instalado / no esta en PATH.
+
+Por lo tanto, desde esta maquina **no se puede confirmar**:
+
+1. que exista al menos una membresia admin (`platform_admin`/`estate_admin`) en
+   Cloud (anti-lockout); ni
+2. el login Cloud real de una cuenta admin.
+
+Segun la regla de la compuerta, ante la imposibilidad de verificar login real, el
+proceso se detiene aqui para estos puntos y se documentan los pasos manuales.
+
+### Pasos manuales para cerrar la verificacion de admin (usuario)
+
+Ejecutar cualquiera de las dos vias, sin pegar claves en el repo ni en consola:
+
+**Via A — smoke agregado con el script (recomendada, no imprime secretos):**
+
+1. Instalar el cliente `psql` (PostgreSQL client) y dejarlo en PATH.
+2. Obtener el connection string en Supabase → Project Settings → Database →
+   Connection string (URI); preferir pooler / rol de menor privilegio.
+3. Exportarlo **solo** en la sesion (no commitear): via env var `SUPABASE_DB_URL`
+   o una linea `SUPABASE_DB_URL=` en `.env.local` (git-ignored).
+4. Correr `scripts/supabase-cloud-gate.sh --confirm-cloud`. Debe reportar:
+   - `admin_memberships (platform_admin/estate_admin) >= 1` (anti-lockout);
+   - `rls_functions_present >= 5` y `owner_scope_policies_present >= 5`
+     (confirma que `202606270001` esta efectiva en Cloud).
+
+**Via B — verificar login real del admin:**
+
+5. Con el email admin fixture (`platform.admin@atria.test`) y la credencial
+   generada en `artifacts/supabase-cloud-activation/cloud-admin-credential.local.txt`
+   (git-ignored), iniciar sesion real contra Cloud (app en modo `live` o el
+   endpoint de auth) y confirmar que resuelve rol `platform_admin`.
+6. Si no existe una cuenta admin usable, crear/promover una membresia
+   `platform_admin` o `estate_admin` **antes** de integrar Auth/RBAC/CRUD a `main`
+   con `NEXT_PUBLIC_APP_MODE=live`, para evitar lockout.
+
+Hasta completar A o B, el estado anti-lockout sigue **no verificado al 100%** y el
+merge permanece detenido.
+
+### Reglas respetadas en esta actualizacion
+
+- No se ejecuto `db push` (la migracion ya estaba aplicada).
+- No se mergeo a `main`. No se desplego produccion.
+- No se imprimieron ni commitearon secretos, API keys, DB URL, service role ni
+  contrasenas.
+- No se uso service role en frontend. No se tocaron datos reales.
+- No hubo force push ni borrado de ramas.
+- Se removio un archivo basura no versionado (un volcado de `git diff` creado por
+  una redireccion accidental de shell); no contenia informacion unica.

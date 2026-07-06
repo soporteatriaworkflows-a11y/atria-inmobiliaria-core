@@ -4,7 +4,11 @@ Fecha: 2026-07-05
 
 Rama: `feature/auth-rbac-crud-foundation`
 
-Estado: **tooling preparado / gate aún detenido por rotación de claves**
+Estado: **migración RLS aplicada en Cloud (2026-07-06) / gate aún detenido por
+verificación de admin no-lockout**. Ver el post-apply en
+`docs/48_SUPABASE_CLOUD_ACTIVATION_GATE.md` (sección "Actualizacion 2026-07-06 —
+POST-APPLY"). El paso 6 de esta lista (aplicar RLS) ya está hecho; quedan
+pendientes los pasos 7–9 (admin fixture / login real / release gate).
 
 ## Contexto
 
