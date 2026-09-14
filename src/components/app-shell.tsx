@@ -8,6 +8,7 @@ import { SidebarNav } from "@/components/sidebar-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AuthGate } from "@/components/auth/auth-provider";
 import { AtriaIconTile } from "@/components/ui";
+
 export function AppShell({
   title,
   description,
@@ -27,6 +28,7 @@ export function AppShell({
     : isDevMode
       ? "Entorno de pruebas"
       : "Vista de demostración";
+  const dataModeLabel = isLiveMode ? "Datos protegidos" : "Datos de prueba";
 
   return (
     <main className="min-h-screen px-3 py-3 text-atria-fog sm:px-5 sm:py-5 lg:px-6">
@@ -55,11 +57,10 @@ export function AppShell({
                 <ShieldIcon className="atria-sidebar-muted mt-0.5 h-4 w-4 shrink-0" />
                 <div>
                   <p className="text-xs font-semibold text-white">
-                    Informacion protegida
+                    Información protegida
                   </p>
                   <p className="atria-sidebar-muted mt-0.5 text-2xs leading-relaxed">
-                    Sin datos reales. Los cambios financieros pasan por
-                    revision.
+                    Los cambios financieros pasan por revisión y trazabilidad.
                   </p>
                 </div>
               </div>
@@ -100,14 +101,14 @@ export function AppShell({
                 </span>
                 <span aria-hidden="true" className="h-3 w-px bg-atria-edge" />
                 <span className="text-2xs text-atria-mist">
-                  Datos de prueba
+                  {dataModeLabel}
                 </span>
               </div>
             </div>
 
             {isLiveMode && !supabaseConfig.isConfigured ? (
               <div className="mt-3 rounded-lg border border-atria-rose/30 bg-atria-rose/10 px-3 py-2 text-xs font-semibold text-atria-rose">
-                Falta configurar la conexion segura del sistema.
+                Falta configurar la conexión segura del sistema.
               </div>
             ) : null}
           </header>
@@ -117,8 +118,8 @@ export function AppShell({
           </AuthGate>
 
           <footer className="px-1 pb-4 pt-1 text-2xs leading-relaxed text-atria-mist">
-            ATRIA Inmobiliaria · Administracion de patrimonios · Version tecnica
-            con datos de prueba.
+            ATRIA Inmobiliaria · Administración de patrimonios · Versión técnica
+            {isLiveMode ? " con datos protegidos." : " con datos de prueba."}
           </footer>
         </div>
       </div>

@@ -10,19 +10,19 @@ import {
 const requests: { title: string; meta: string; state: string; tone: Tone }[] = [
   {
     title: "Actualizar participacion desde el proximo periodo",
-    meta: "Propietario Â· hoy",
-    state: "En revision",
+    meta: "Propietario · hoy",
+    state: "En revisión",
     tone: "warning",
   },
   {
     title: "Revisar el soporte de un gasto",
-    meta: "Contador Â· ayer",
+    meta: "Contador · ayer",
     state: "Recibida",
     tone: "neutral",
   },
   {
     title: "Cambiar acceso de lectura a una propiedad",
-    meta: "Administrador Â· esta semana",
+    meta: "Administrador · esta semana",
     state: "Aprobada",
     tone: "success",
   },

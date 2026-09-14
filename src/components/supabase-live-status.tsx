@@ -22,8 +22,8 @@ const dotByTone: Record<Tone, string> = {
 const labelByKind: Record<Status["kind"], string> = {
   idle: "Verificando",
   ok: "Conectado",
-  warning: "En revision",
-  error: "Sin conexion",
+  warning: "En revisión",
+  error: "Sin conexión",
 };
 
 export function SupabaseLiveStatus() {
@@ -31,8 +31,8 @@ export function SupabaseLiveStatus() {
   const [status, setStatus] = useState<Status>({
     kind: "idle",
     message: isLiveMode
-      ? "Verificando la conexion del sistema."
-      : "Vista segura con datos de prueba y sin informacion real.",
+      ? "Verificando la conexión del sistema."
+      : "Vista segura con datos de prueba y sin información real.",
   });
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export function SupabaseLiveStatus() {
       if (!config.isConfigured) {
         setStatus({
           kind: "error",
-          message: "Falta configurar la conexion del sistema.",
+          message: "Falta configurar la conexión del sistema.",
         });
         return;
       }
@@ -65,7 +65,7 @@ export function SupabaseLiveStatus() {
         if (!error) {
           setStatus({
             kind: "ok",
-            message: "Conexion activa. La informacion sigue protegida.",
+            message: "Conexión activa. La información sigue protegida.",
           });
           return;
         }
@@ -77,7 +77,7 @@ export function SupabaseLiveStatus() {
           setStatus({
             kind: "ok",
             message:
-              "Conexion activa. La informacion se habilita al iniciar sesion.",
+              "Conexión activa. La información se habilita al iniciar sesión.",
           });
           return;
         }
@@ -85,13 +85,13 @@ export function SupabaseLiveStatus() {
         setStatus({
           kind: "warning",
           message:
-            "El sistema respondio; esta vista aun trabaja con datos de prueba.",
+            "El sistema respondió; inicia sesión para ver datos protegidos.",
         });
       } catch {
         if (!cancelled) {
           setStatus({
             kind: "error",
-            message: "No se pudo verificar la conexion en este momento.",
+            message: "No se pudo verificar la conexión en este momento.",
           });
         }
       }

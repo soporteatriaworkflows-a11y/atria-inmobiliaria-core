@@ -8,7 +8,7 @@ const propertyName = new Map(
   demoLiquidationInput.properties.map((p) => [p.id, p.name]),
 );
 
-// Estado de revisiÃ³n contable (demo): los globales requieren mÃ¡s control.
+// Estado de revisión contable (demo): los globales requieren más control.
 function reviewState(category: string): { label: string; tone: Tone } {
   return category === "global"
     ? { label: "Por revisar", tone: "warning" }
@@ -28,7 +28,7 @@ export default function ExpensesPage() {
   return (
     <AppShell
       title="Gastos"
-      description="Egresos del periodo por categorÃ­a, con su estado de revisiÃ³n contable."
+      description="Egresos del periodo por categoría, con su estado de revisión contable."
       icon="gastos"
     >
       <section className="grid gap-3 sm:grid-cols-3">
@@ -49,7 +49,7 @@ export default function ExpensesPage() {
         <MetricCard
           label="Globales"
           value={formatCop(globales)}
-          helper="AdministraciÃ³n y contador."
+          helper="Administración y contador."
           tone="neutral"
           icon="admin"
         />
@@ -58,9 +58,9 @@ export default function ExpensesPage() {
       <section className="atria-panel overflow-hidden">
         <div className="hidden grid-cols-[1.4fr_auto_auto_auto] gap-3 border-b border-atria-edge bg-atria-elevated px-4 py-2 text-2xs font-semibold uppercase tracking-wide text-atria-mist sm:grid">
           <span>Referencia</span>
-          <span>CategorÃ­a</span>
+          <span>Categoría</span>
           <span>Monto</span>
-          <span className="text-right">RevisiÃ³n</span>
+          <span className="text-right">Revisión</span>
         </div>
         {demoLiquidationInput.expenses.map((expense) => {
           const state = reviewState(expense.category);
@@ -72,7 +72,7 @@ export default function ExpensesPage() {
               <p className="text-sm font-semibold text-atria-fog">
                 {expense.propertyId
                   ? propertyName.get(expense.propertyId)
-                  : "AdministraciÃ³n general"}
+                  : "Administración general"}
               </p>
               <span className="sm:justify-self-start">
                 <Badge

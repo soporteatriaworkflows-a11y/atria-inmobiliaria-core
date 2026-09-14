@@ -7,9 +7,9 @@ import { getDefaultRouteForRole } from "@/lib/auth/routes";
 import { Badge, SectionPanel } from "@/components/ui";
 
 const trustPoints = [
-  "No pedimos claves, cuentas bancarias ni documentos reales en esta version.",
-  "El ingreso real usa Supabase Auth y respeta roles por organizacion.",
-  "Cada cambio operativo queda preparado para trazabilidad y auditoria.",
+  "No pedimos claves, cuentas bancarias ni documentos reales en esta versión.",
+  "El ingreso real usa Supabase Auth y respeta roles por organización.",
+  "Cada cambio operativo queda preparado para trazabilidad y auditoría.",
 ];
 
 export function LoginForm() {
@@ -29,7 +29,7 @@ export function LoginForm() {
       window.location.assign(getDefaultRouteForRole(nextRole));
     } catch (err) {
       setLocalError(
-        err instanceof Error ? err.message : "No se pudo iniciar sesion.",
+        err instanceof Error ? err.message : "No se pudo iniciar sesión.",
       );
     } finally {
       setSubmitting(false);
@@ -58,7 +58,7 @@ export function LoginForm() {
             <p className="text-xs text-atria-mist">
               {auth.isAuthEnabled
                 ? "Ingreso seguro activo"
-                : "Vista de prueba sin sesion real"}
+                : "Vista de prueba sin sesión real"}
             </p>
           </div>
           <span className="ml-auto">
@@ -71,10 +71,10 @@ export function LoginForm() {
         {auth.session ? (
           <div className="mt-4 grid gap-3">
             <p className="text-sm font-medium text-atria-fog">
-              Sesion iniciada
+              Sesión iniciada
             </p>
             <p className="text-xs leading-relaxed text-atria-mist">
-              {auth.user?.email ?? "Usuario autenticado"} � {auth.roleLabel}
+              {auth.user?.email ?? "Usuario autenticado"} · {auth.roleLabel}
             </p>
             <div className="flex flex-wrap gap-2">
               <button
@@ -92,7 +92,7 @@ export function LoginForm() {
                 onClick={onSignOut}
                 type="button"
               >
-                Cerrar sesion
+                Cerrar sesión
               </button>
             </div>
           </div>
@@ -122,7 +122,7 @@ export function LoginForm() {
                 className="block text-xs font-semibold text-atria-fog"
                 htmlFor="password"
               >
-                Contrasena
+                Contraseña
               </label>
               <input
                 autoComplete="current-password"
@@ -131,7 +131,7 @@ export function LoginForm() {
                 id="password"
                 onChange={(event) => setPassword(event.target.value)}
                 placeholder={
-                  auth.isAuthEnabled ? "Contrasena" : "Disponible en modo live"
+                  auth.isAuthEnabled ? "Contraseña" : "Disponible en modo live"
                 }
                 type="password"
                 value={password}
@@ -157,8 +157,8 @@ export function LoginForm() {
             </button>
             <p className="text-xs leading-relaxed text-atria-mist">
               {auth.isAuthEnabled
-                ? "El acceso usa la sesion de Supabase y aplica permisos por rol."
-                : "Activa modo live y variables publicas de Supabase para usar Auth real."}
+                ? "El acceso usa la sesión de Supabase y aplica permisos por rol."
+                : "Activa modo live y variables públicas de Supabase para usar Auth real."}
             </p>
           </form>
         )}

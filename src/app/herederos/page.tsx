@@ -66,7 +66,7 @@ export default function OwnersPage() {
                   </span>
                 </div>
                 <ProgressBar
-                  ariaLabel={`Participacion de ${participant.displayName}: ${pct}%`}
+                  ariaLabel={`Participación de ${participant.displayName}: ${pct}%`}
                   value={pct}
                   tone="primary"
                 />

@@ -11,7 +11,7 @@ export type NavGroup = {
   items: NavItem[];
 };
 
-// Agrupamos la navegacion por intencion para que cada rol encuentre su zona rapido.
+// Agrupamos la navegación por intención para que cada rol encuentre su zona rápido.
 export const navigationGroups: NavGroup[] = [
   {
     title: "Paneles",
@@ -27,7 +27,7 @@ export const navigationGroups: NavGroup[] = [
     ],
   },
   {
-    title: "Operacion",
+    title: "Operación",
     items: [
       { href: "/propiedades", label: "Propiedades", icon: "propiedades" },
       { href: "/herederos", label: "Propietarios", icon: "participantes" },

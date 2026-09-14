@@ -213,7 +213,7 @@ function LiveState({
   if (!enabled) {
     return (
       <p className="text-xs text-atria-mist">
-        CRUD real disponible al iniciar sesion en modo live. Esta vista conserva
+        CRUD real disponible al iniciar sesión en modo live. Esta vista conserva
         datos de prueba.
       </p>
     );
@@ -248,8 +248,8 @@ export function ParticipantsCrudPanel() {
             Consulta real de propietarios
           </h2>
           <p className="mt-1 text-xs text-atria-mist">
-            Lee participaciones y perfiles con RLS. La creacion de propietarios
-            queda pendiente de invitacion segura.
+            Lee participaciones y perfiles con RLS. La creación de propietarios
+            queda pendiente de invitación segura.
           </p>
         </div>
         <Badge tone={crud.enabled ? "success" : "neutral"}>
@@ -267,7 +267,7 @@ export function ParticipantsCrudPanel() {
                 {row.profiles?.display_name ?? "Propietario"}
               </p>
               <p className="text-2xs text-atria-mist">
-                {row.properties?.display_name ?? "Participacion general"}
+                {row.properties?.display_name ?? "Participación general"}
               </p>
             </div>
             <span className="text-sm font-semibold text-atria-lavender">
@@ -308,7 +308,7 @@ export function PropertiesCrudPanel() {
           display_name: name.trim(),
           status: "active",
         }),
-      "Propiedad guardada en datos de prueba.",
+      "Propiedad guardada.",
     );
     setName("");
     setCode("");
@@ -322,7 +322,7 @@ export function PropertiesCrudPanel() {
             CRUD base de propiedades
           </h2>
           <p className="mt-1 text-xs text-atria-mist">
-            Lee y crea propiedades mediante RLS, sin datos reales.
+            Lee y crea propiedades mediante RLS.
           </p>
         </div>
         <Badge tone={crud.enabled ? "success" : "neutral"}>
@@ -340,7 +340,7 @@ export function PropertiesCrudPanel() {
                 {property.display_name}
               </p>
               <p className="text-2xs text-atria-mist">
-                Codigo {property.code} - {property.status}
+                Código {property.code} - {property.status}
               </p>
             </div>
           ))}
@@ -353,7 +353,7 @@ export function PropertiesCrudPanel() {
         </div>
         <form className="grid gap-2" onSubmit={createProperty}>
           <input
-            aria-label="Nombre de propiedad de prueba"
+            aria-label="Nombre de propiedad"
             className="focus-ring rounded-lg border border-atria-edge bg-atria-elevated px-3 py-2 text-sm"
             disabled={!crud.enabled || !canWrite}
             onChange={(e) => setName(e.target.value)}
@@ -361,7 +361,7 @@ export function PropertiesCrudPanel() {
             value={name}
           />
           <input
-            aria-label="Codigo de propiedad de prueba"
+            aria-label="Código de propiedad"
             className="focus-ring rounded-lg border border-atria-edge bg-atria-elevated px-3 py-2 text-sm"
             disabled={!crud.enabled || !canWrite}
             onChange={(e) => setCode(e.target.value)}
@@ -546,7 +546,7 @@ export function ExpensesCrudPanel() {
         </div>
         <form className="grid gap-2" onSubmit={createExpense}>
           <input
-            aria-label="Descripcion del gasto de prueba"
+            aria-label="Descripción del gasto"
             className="focus-ring rounded-lg border border-atria-edge bg-atria-elevated px-3 py-2 text-sm"
             disabled={!crud.enabled || !canWrite}
             onChange={(e) => setDescription(e.target.value)}
@@ -614,7 +614,7 @@ export function ChangeRequestsCrudPanel() {
           request_type: "adjustment",
           details: { resumen: detail.trim(), origen: "ui_base" },
         }),
-      "Solicitud enviada a revision.",
+      "Solicitud enviada a revisión.",
     );
     setDetail("");
   }

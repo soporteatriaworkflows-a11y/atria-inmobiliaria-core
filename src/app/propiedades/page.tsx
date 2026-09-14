@@ -18,14 +18,14 @@ export default function PropertiesPage() {
   return (
     <AppShell
       title="Propiedades"
-      description="Inventario en administraciÃ³n, sin direcciones reales ni informaciÃ³n personal."
+      description="Inventario en administración, sin direcciones reales ni información personal."
       icon="propiedades"
     >
       <section className="grid gap-3 sm:grid-cols-3">
         <MetricCard
           label="Propiedades activas"
           value={String(total)}
-          helper="En administraciÃ³n este periodo."
+          helper="En administración este periodo."
           tone="primary"
           icon="propiedades"
         />
@@ -41,7 +41,7 @@ export default function PropertiesPage() {
           value="Pendiente"
           helper="Soportes por conectar."
           tone="neutral"
-          badge="PrÃ³ximo"
+          badge="Próximo"
           icon="auditoria"
         />
       </section>
@@ -60,8 +60,8 @@ export default function PropertiesPage() {
                 <Badge tone="success">Activa</Badge>
               </div>
               <p className="mt-1 text-xs leading-relaxed text-atria-mist">
-                En administraciÃ³n para el cierre del periodo. La direcciÃ³n
-                real no se guarda aquÃ­.
+                En administración para el cierre del periodo. La dirección real
+                no se guarda aquí.
               </p>
               <div className="mt-3 flex items-center justify-between rounded-lg border border-atria-edge bg-atria-elevated/65 px-3 py-2">
                 <span className="text-2xs uppercase tracking-wide text-atria-mist">
@@ -80,7 +80,7 @@ export default function PropertiesPage() {
 
       <EmptyState
         title="Documentos pendientes"
-        description="Los soportes y documentos se conectarÃ¡n despuÃ©s, con almacenamiento seguro y revisiÃ³n."
+        description="Los soportes y documentos se conectarán después, con almacenamiento seguro y revisión."
       />
     </AppShell>
   );

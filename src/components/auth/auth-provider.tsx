@@ -193,7 +193,7 @@ export function AuthGate({
   if (auth.loading) {
     return (
       <div className="atria-panel p-5 text-sm text-atria-mist">
-        Verificando sesion segura...
+        Verificando sesión segura...
       </div>
     );
   }

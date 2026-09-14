@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/components/auth/auth-provider";
 import { ModuleIcon } from "@/components/icons";
 import { navigationGroups } from "@/lib/navigation";
+import { canAccessRoute } from "@/lib/auth/routes";
 
 function isActive(pathname: string, href: string) {
   if (href === "/") {
@@ -14,10 +16,21 @@ function isActive(pathname: string, href: string) {
 
 export function SidebarNav() {
   const pathname = usePathname() ?? "/";
+  const auth = useAuth();
+  const visibleGroups = auth.isAuthEnabled
+    ? navigationGroups
+        .map((group) => ({
+          ...group,
+          items: group.items.filter((item) =>
+            canAccessRoute(auth.role, item.href),
+          ),
+        }))
+        .filter((group) => group.items.length > 0)
+    : navigationGroups;
 
   return (
     <nav aria-label="Rutas principales" className="grid gap-4">
-      {navigationGroups.map((group) => (
+      {visibleGroups.map((group) => (
         <div className="grid gap-1" key={group.title}>
           <p className="px-2 pb-0.5 text-2xs font-semibold uppercase tracking-[0.16em] text-white/55">
             {group.title}

@@ -31,7 +31,7 @@ export default function CollectionsPage() {
           icon="recaudos"
         />
         <MetricCard
-          label="Propiedades al dÃ­a"
+          label="Propiedades al día"
           value={`${pagadas}/${totalProps}`}
           helper="Con pago registrado."
           tone="primary"
