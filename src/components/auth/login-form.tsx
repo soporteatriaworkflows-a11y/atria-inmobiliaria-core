@@ -4,6 +4,11 @@ import { useState } from "react";
 import { CheckIcon, LockIcon } from "@/components/icons";
 import { useAuth } from "@/components/auth/auth-provider";
 import { getDefaultRouteForRole } from "@/lib/auth/routes";
+import {
+  getPasswordRecoveryRedirect,
+  requestPasswordReset,
+} from "@/lib/auth/password-recovery";
+import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { Badge, SectionPanel } from "@/components/ui";
 
 const trustPoints = [
@@ -15,9 +20,13 @@ const trustPoints = [
 export function LoginForm() {
   const auth = useAuth();
   const [email, setEmail] = useState("");
+  const [resetEmail, setResetEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [resetSubmitting, setResetSubmitting] = useState(false);
+  const [showRecovery, setShowRecovery] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
+  const [resetMessage, setResetMessage] = useState<string | null>(null);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -42,7 +51,36 @@ export function LoginForm() {
     setSubmitting(false);
   }
 
+  async function onRequestPasswordReset(
+    event: React.FormEvent<HTMLFormElement>,
+  ) {
+    event.preventDefault();
+    if (!auth.isAuthEnabled) return;
+    setResetSubmitting(true);
+    setLocalError(null);
+    setResetMessage(null);
+    try {
+      await requestPasswordReset(
+        createSupabaseBrowserClient(),
+        resetEmail,
+        getPasswordRecoveryRedirect(window.location.origin),
+      );
+      setResetMessage(
+        "Te enviamos un enlace para restablecer la contraseña si el correo está registrado.",
+      );
+    } catch (err) {
+      setLocalError(
+        err instanceof Error
+          ? err.message
+          : "No se pudo enviar el correo de recuperación.",
+      );
+    } finally {
+      setResetSubmitting(false);
+    }
+  }
+
   const disabled = !auth.isAuthEnabled || submitting;
+  const recoveryDisabled = !auth.isAuthEnabled || resetSubmitting;
 
   return (
     <section className="grid gap-3 lg:grid-cols-[1fr_20rem]">
@@ -96,6 +134,58 @@ export function LoginForm() {
               </button>
             </div>
           </div>
+        ) : showRecovery ? (
+          <form className="mt-4 grid gap-4" onSubmit={onRequestPasswordReset}>
+            <div>
+              <label
+                className="block text-xs font-semibold text-atria-fog"
+                htmlFor="reset-email"
+              >
+                Correo de acceso
+              </label>
+              <input
+                autoComplete="email"
+                className="focus-ring mt-1.5 w-full rounded-lg border border-atria-edge bg-atria-elevated px-3.5 py-2.5 text-sm text-atria-fog placeholder:text-atria-mist/70 disabled:cursor-not-allowed disabled:opacity-60"
+                disabled={recoveryDisabled}
+                id="reset-email"
+                onChange={(event) => setResetEmail(event.target.value)}
+                placeholder="usuario@atria.local"
+                type="email"
+                value={resetEmail}
+              />
+            </div>
+
+            {localError || auth.error ? (
+              <p className="rounded-lg border border-atria-rose/25 bg-atria-rose/10 px-3 py-2 text-xs font-medium text-atria-rose">
+                {localError ?? auth.error}
+              </p>
+            ) : null}
+            {resetMessage ? (
+              <p className="rounded-lg border border-atria-emerald/25 bg-atria-emerald/10 px-3 py-2 text-xs font-medium text-atria-emerald">
+                {resetMessage}
+              </p>
+            ) : null}
+
+            <button
+              className="focus-ring mt-1 w-full rounded-full bg-atria-violet px-4 py-2.5 text-sm font-semibold text-white shadow-glow transition hover:bg-atria-lavender hover:text-atria-carbon disabled:cursor-not-allowed disabled:opacity-60"
+              disabled={recoveryDisabled || !resetEmail}
+              type="submit"
+            >
+              {resetSubmitting ? "Enviando..." : "Enviar enlace"}
+            </button>
+            <button
+              className="focus-ring w-full rounded-full border border-atria-edge bg-atria-elevated px-4 py-2.5 text-sm font-semibold text-atria-mist transition hover:text-atria-fog"
+              disabled={resetSubmitting}
+              onClick={() => {
+                setShowRecovery(false);
+                setLocalError(null);
+                setResetMessage(null);
+              }}
+              type="button"
+            >
+              Volver al ingreso
+            </button>
+          </form>
         ) : (
           <form className="mt-4 grid gap-4" onSubmit={onSubmit}>
             <div>
@@ -154,6 +244,19 @@ export function LoginForm() {
                   ? "Ingresando..."
                   : "Ingresar"
                 : "Ingreso real no activo"}
+            </button>
+            <button
+              className="focus-ring w-fit text-xs font-semibold text-atria-lavender transition hover:text-atria-fog disabled:cursor-not-allowed disabled:opacity-60"
+              disabled={!auth.isAuthEnabled || submitting}
+              onClick={() => {
+                setShowRecovery(true);
+                setResetEmail(email);
+                setLocalError(null);
+                setResetMessage(null);
+              }}
+              type="button"
+            >
+              Olvidé mi contraseña
             </button>
             <p className="text-xs leading-relaxed text-atria-mist">
               {auth.isAuthEnabled
