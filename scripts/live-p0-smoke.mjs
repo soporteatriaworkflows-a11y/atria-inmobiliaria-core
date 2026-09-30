@@ -229,8 +229,139 @@ async function properties() {
   checks++;
 }
 
+async function finance() {
+  const { page, context, state } = await setup("accountant");
+  stage = "income requires property and hides demo metrics";
+  await visit(page, "/recaudos");
+  await expect(
+    page.getByText("No hay ingresos registrados en esta organización."),
+  ).toBeVisible();
+  await expect(page.getByText("Total cobrado", { exact: true })).toHaveCount(0);
+  await expect(
+    page.getByText(
+      "No hay propiedades disponibles. Solicita a administración crear una propiedad.",
+    ),
+  ).toBeVisible();
+  await page.getByLabel("Monto en COP", { exact: true }).fill("10000");
+  await expect(
+    page.getByRole("button", { name: "Registrar ingreso", exact: true }),
+  ).toBeDisabled();
+  state.properties.push({
+    id: "qa-property",
+    code: "QA-P0",
+    display_name: "QA propiedad",
+    status: "active",
+  });
+  await page
+    .getByRole("button", { name: "Actualizar propiedades", exact: true })
+    .click();
+  await page
+    .getByLabel("Propiedad del ingreso", { exact: true })
+    .selectOption("qa-property");
+  await page.getByLabel("Periodo", { exact: true }).fill("2026-09");
+  for (const amount of ["0", "-1", "1.5", "1e3"]) {
+    await page.getByLabel("Monto en COP", { exact: true }).fill(amount);
+    await expect(
+      page.getByRole("button", { name: "Registrar ingreso", exact: true }),
+    ).toBeDisabled();
+  }
+  assert.equal(state.posts.length, 0);
+  checks++;
+  stage = "income persists draft, scoped property, reload";
+  await page.getByLabel("Monto en COP", { exact: true }).fill("10000");
+  await page
+    .getByRole("button", { name: "Registrar ingreso", exact: true })
+    .click();
+  await expect(page.getByText("Ingreso guardado como borrador.")).toBeVisible();
+  assert.equal(state.posts[0].body.status, "draft");
+  assert.equal(state.posts[0].body.property_id, "qa-property");
+  assert.equal(state.posts[0].body.amount_cop, 10000);
+  await page.reload();
+  await expect(page.getByText("Borrador", { exact: true })).toBeVisible();
+  checks++;
+  stage = "income permission error preserves amount";
+  state.failWrite = true;
+  await page
+    .getByLabel("Propiedad del ingreso", { exact: true })
+    .selectOption("qa-property");
+  await page.getByLabel("Monto en COP", { exact: true }).fill("20000");
+  await page
+    .getByRole("button", { name: "Registrar ingreso", exact: true })
+    .click();
+  await expect(
+    page.getByRole("alert").filter({ hasText: "permiso" }),
+  ).toBeVisible();
+  await expect(page.getByLabel("Monto en COP", { exact: true })).toHaveValue(
+    "20000",
+  );
+  checks++;
+  stage = "expense global validation and persistence";
+  state.failWrite = false;
+  await visit(page, "/gastos");
+  await expect(
+    page.getByText("No hay gastos registrados en esta organización."),
+  ).toBeVisible();
+  await expect(page.getByText("Total gastos", { exact: true })).toHaveCount(0);
+  await page.getByLabel("Monto en COP", { exact: true }).fill("10000");
+  await expect(
+    page.getByRole("button", { name: "Registrar gasto", exact: true }),
+  ).toBeDisabled();
+  await page
+    .getByLabel("Descripción del gasto", { exact: true })
+    .fill("QA gasto global");
+  await page
+    .getByRole("button", { name: "Registrar gasto", exact: true })
+    .click();
+  await expect(page.getByText("Gasto guardado como borrador.")).toBeVisible();
+  await expect(
+    page.getByText("QA gasto global", { exact: true }),
+  ).toBeVisible();
+  assert.equal(state.posts.at(-1).body.property_id, null);
+  assert.equal(state.posts.at(-1).body.category, "global");
+  checks++;
+  stage = "expense associated with property";
+  await page
+    .getByLabel("Alcance del gasto", { exact: true })
+    .selectOption("property");
+  await page
+    .getByLabel("Descripción del gasto", { exact: true })
+    .fill("QA gasto propiedad");
+  await page.getByLabel("Monto en COP", { exact: true }).fill("20000");
+  await expect(
+    page.getByRole("button", { name: "Registrar gasto", exact: true }),
+  ).toBeDisabled();
+  await page
+    .getByLabel("Propiedad del gasto", { exact: true })
+    .selectOption("qa-property");
+  await page
+    .getByRole("button", { name: "Registrar gasto", exact: true })
+    .click();
+  await expect(
+    page.getByText("QA gasto propiedad", { exact: true }),
+  ).toBeVisible();
+  assert.equal(state.posts.at(-1).body.property_id, "qa-property");
+  assert.equal(state.posts.at(-1).body.category, "property");
+  assert.equal(state.posts.at(-1).body.status, "draft");
+  await page.reload();
+  await expect(
+    page.getByText("QA gasto global", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("QA gasto propiedad", { exact: true }),
+  ).toBeVisible();
+  assert.ok(
+    state.reads.every((read) =>
+      ["properties", "rent_collections", "expenses"].includes(read.table),
+    ),
+  );
+  assert.equal(state.pageErrors, 0);
+  checks++;
+  await context.close();
+}
+
 try {
-  await properties();
+  if (!process.argv[2] || process.argv[2] === "properties") await properties();
+  if (!process.argv[2] || process.argv[2] === "finance") await finance();
   console.log("LIVE P0 browser fixtures: " + checks + " scenarios PASS");
 } catch (error) {
   console.error("LIVE P0 failed at: " + stage);

@@ -1,5 +1,7 @@
 ﻿import { AppShell } from "@/components/app-shell";
 import { ExpensesCrudPanel } from "@/components/crud/live-crud-panels";
+import { isLiveMode } from "@/lib/app-config";
+import { FinanceLivePanel } from "@/components/crud/finance-live";
 import { Badge, MetricCard, type Tone } from "@/components/ui";
 import { demoLiquidationInput } from "@/lib/demo-data";
 import { formatCop } from "@/lib/money";
@@ -16,6 +18,16 @@ function reviewState(category: string): { label: string; tone: Tone } {
 }
 
 export default function ExpensesPage() {
+  if (isLiveMode)
+    return (
+      <AppShell
+        title="Gastos"
+        description="Gastos globales o por propiedad de la organización activa. Los nuevos registros se guardan como borradores."
+        icon="gastos"
+      >
+        <FinanceLivePanel kind="expenses" />
+      </AppShell>
+    );
   const total = demoLiquidationInput.expenses.reduce(
     (s, e) => s + e.amountCop,
     0,

@@ -1,5 +1,7 @@
 ﻿import { AppShell } from "@/components/app-shell";
 import { CollectionsCrudPanel } from "@/components/crud/live-crud-panels";
+import { isLiveMode } from "@/lib/app-config";
+import { FinanceLivePanel } from "@/components/crud/finance-live";
 import { Badge, MetricCard } from "@/components/ui";
 import { demoLiquidationInput } from "@/lib/demo-data";
 import { formatCop } from "@/lib/money";
@@ -9,6 +11,16 @@ const propertyName = new Map(
 );
 
 export default function CollectionsPage() {
+  if (isLiveMode)
+    return (
+      <AppShell
+        title="Ingresos"
+        description="Ingresos de la organización activa. Los nuevos registros se guardan como borradores."
+        icon="recaudos"
+      >
+        <FinanceLivePanel kind="income" />
+      </AppShell>
+    );
   const total = demoLiquidationInput.collections.reduce(
     (sum, c) => sum + c.amountCop,
     0,
