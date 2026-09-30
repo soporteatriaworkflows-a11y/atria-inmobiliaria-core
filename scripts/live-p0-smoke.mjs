@@ -359,9 +359,94 @@ async function finance() {
   await context.close();
 }
 
+async function requests() {
+  for (const role of ["platform_admin", "owner_readonly", "accountant"]) {
+    const { page, context, state } = await setup(role);
+    stage = role + " request visibility and permissions";
+    state.change_requests.push({
+      id: "qa-other",
+      requested_by: "qa-other-user",
+      request_type: "adjustment",
+      status: "pending_review",
+      details: { resumen: "QA otra solicitud" },
+      created_at: "2026-09-01T12:00:00Z",
+    });
+    await visit(page, "/solicitudes");
+    if (role === "owner_readonly") {
+      await expect(
+        page.getByText(
+          "No hay solicitudes disponibles para tu acceso en esta organización.",
+        ),
+      ).toBeVisible();
+      await expect(
+        page.getByText("QA otra solicitud", { exact: true }),
+      ).toHaveCount(0);
+      assert.ok(state.reads.every((read) => read.requestedBy === "eq." + uid));
+    } else {
+      await expect(
+        page.getByText("QA otra solicitud", { exact: true }),
+      ).toBeVisible();
+    }
+    await expect(
+      page.getByText("Actualizar participacion desde el proximo periodo", {
+        exact: true,
+      }),
+    ).toHaveCount(0);
+    checks++;
+    if (role === "accountant") {
+      await expect(
+        page.getByRole("button", { name: "Crear solicitud", exact: true }),
+      ).toHaveCount(0);
+      await expect(
+        page.getByText("Tu acceso permite consultar solicitudes."),
+      ).toBeVisible();
+      assert.equal(state.posts.length, 0);
+      checks++;
+    } else {
+      stage = role + " request validation, create, persistence";
+      const detail = page.getByLabel("Detalle de la solicitud de ajuste", {
+        exact: true,
+      });
+      await detail.fill("   ");
+      await expect(
+        page.getByRole("button", { name: "Crear solicitud", exact: true }),
+      ).toBeDisabled();
+      await detail.fill("QA solicitud propia");
+      await page
+        .getByRole("button", { name: "Crear solicitud", exact: true })
+        .click();
+      await expect(
+        page.getByText("Solicitud guardada, pendiente de revisión."),
+      ).toBeVisible();
+      assert.equal(state.posts.at(-1).body.requested_by, uid);
+      assert.equal(state.posts.at(-1).body.status, "pending_review");
+      await page.reload();
+      await expect(
+        page.getByText("QA solicitud propia", { exact: true }),
+      ).toBeVisible();
+      checks++;
+      stage = role + " request rejection preserves text";
+      state.failWrite = true;
+      await detail.fill("QA conservar solicitud");
+      await page
+        .getByRole("button", { name: "Crear solicitud", exact: true })
+        .click();
+      await expect(
+        page.getByRole("alert").filter({ hasText: "permiso" }),
+      ).toBeVisible();
+      await expect(detail).toHaveValue("QA conservar solicitud");
+      checks++;
+    }
+    assert.equal(state.pageErrors, 0);
+    assert.ok(state.reads.every((read) => read.table === "change_requests"));
+    await context.close();
+  }
+}
+
 try {
   if (!process.argv[2] || process.argv[2] === "properties") await properties();
   if (!process.argv[2] || process.argv[2] === "finance") await finance();
+  if (!process.argv[2] || process.argv[2] === "requests") await requests();
   console.log("LIVE P0 browser fixtures: " + checks + " scenarios PASS");
 } catch (error) {
   console.error("LIVE P0 failed at: " + stage);

@@ -1,5 +1,7 @@
 ﻿import { AppShell } from "@/components/app-shell";
 import { ChangeRequestsCrudPanel } from "@/components/crud/live-crud-panels";
+import { isLiveMode } from "@/lib/app-config";
+import { RequestsLivePanel } from "@/components/crud/requests-live";
 import {
   EmptyState,
   QuickAction,
@@ -29,6 +31,16 @@ const requests: { title: string; meta: string; state: string; tone: Tone }[] = [
 ];
 
 export default function RequestsPage() {
+  if (isLiveMode)
+    return (
+      <AppShell
+        title="Solicitudes de ajuste"
+        description="Solicitudes disponibles según tu acceso en la organización activa."
+        icon="solicitudes"
+      >
+        <RequestsLivePanel />
+      </AppShell>
+    );
   return (
     <AppShell
       title="Solicitudes de ajuste"
