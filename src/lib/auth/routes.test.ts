@@ -4,8 +4,62 @@ import {
   getDefaultRouteForRole,
   isProtectedRoute,
 } from "./routes";
+import { navigationGroups } from "@/lib/navigation";
+import type { AppRole } from "./rbac";
+
+// Expected access is explicit: adding an administrative route must not expand
+// accountant or owner access as a side effect.
+const routeMatrix: Array<[string, boolean, boolean, boolean, boolean]> = [
+  ["/dashboard/admin", true, true, false, false],
+  ["/dashboard/contador", true, true, true, false],
+  ["/dashboard/propietario", true, true, true, true],
+  ["/propiedades", true, true, true, false],
+  ["/herederos", true, true, true, false],
+  ["/recaudos", true, true, true, false],
+  ["/gastos", true, true, true, false],
+  ["/solicitudes", true, true, true, true],
+  ["/liquidacion", true, true, true, false],
+  ["/auditoria", true, true, true, false],
+];
+
+const matrixRoles: AppRole[] = [
+  "platform_admin",
+  "estate_admin",
+  "accountant",
+  "owner_readonly",
+];
 
 describe("protected route policy", () => {
+  it.each(routeMatrix)(
+    "keeps the complete role matrix for %s",
+    (route, ...allowedRoles) => {
+      for (const [index, role] of matrixRoles.entries()) {
+        expect(canAccessRoute(role, route), `${role}: ${route}`).toBe(
+          allowedRoles[index],
+        );
+      }
+      expect(canAccessRoute(null, route)).toBe(false);
+    },
+  );
+
+  it.each(matrixRoles)(
+    "uses route access as the only permission filter for the %s sidebar",
+    (role) => {
+      const visibleRoutes = navigationGroups.flatMap((group) =>
+        group.items
+          .filter((item) => canAccessRoute(role, item.href))
+          .map((item) => item.href),
+      );
+      const roleIndex = matrixRoles.indexOf(role);
+      for (const [route, ...allowedRoles] of routeMatrix) {
+        expect(visibleRoutes.includes(route), `${role}: ${route}`).toBe(
+          allowedRoles[roleIndex],
+        );
+      }
+      expect(canAccessRoute(role, getDefaultRouteForRole(role))).toBe(true);
+    },
+  );
+
   it("leaves login public and protects product routes", () => {
     expect(isProtectedRoute("/login")).toBe(false);
     expect(isProtectedRoute("/dashboard/admin")).toBe(true);

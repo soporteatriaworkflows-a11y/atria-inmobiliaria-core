@@ -1,6 +1,14 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { usePathname } from "next/navigation";
 import type { Session, User } from "@supabase/supabase-js";
 import { getSupabasePublicConfig, isLiveMode } from "@/lib/app-config";
@@ -51,30 +59,42 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [role, setRole] = useState<AppRole | null>(null);
   const [organizationId, setOrganizationId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const currentSession = useRef<Session | null>(null);
+  const membershipRequest = useRef(0);
 
-  async function refreshMembership() {
-    if (!isAuthEnabled) return null;
-    try {
-      const supabase = createSupabaseBrowserClient();
-      const { data, error: membershipError } = await supabase
-        .from("memberships")
-        .select("organization_id, role")
-        .limit(20);
+  const refreshMembership = useCallback(
+    async (userId = currentSession.current?.user.id) => {
+      const request = ++membershipRequest.current;
+      if (!isAuthEnabled || !userId) return null;
+      setLoading(true);
+      setError(null);
+      try {
+        const supabase = createSupabaseBrowserClient();
+        const { data, error: membershipError } = await supabase
+          .from("memberships")
+          .select("organization_id, role")
+          .eq("profile_id", userId);
 
-      if (membershipError) throw membershipError;
-      const primary = pickPrimaryMembership((data ?? []) as Membership[]);
-      setRole(primary?.role ?? null);
-      setOrganizationId(primary?.organization_id ?? null);
-      return primary?.role ?? null;
-    } catch (err) {
-      setRole(null);
-      setOrganizationId(null);
-      setError(
-        err instanceof Error ? err.message : "No se pudo cargar el rol.",
-      );
-      return null;
-    }
-  }
+        if (request !== membershipRequest.current) return null;
+        if (membershipError) throw membershipError;
+        const primary = pickPrimaryMembership((data ?? []) as Membership[]);
+        setRole(primary?.role ?? null);
+        setOrganizationId(primary?.organization_id ?? null);
+        return primary?.role ?? null;
+      } catch (err) {
+        if (request !== membershipRequest.current) return null;
+        setRole(null);
+        setOrganizationId(null);
+        setError(
+          err instanceof Error ? err.message : "No se pudo cargar el rol.",
+        );
+        return null;
+      } finally {
+        if (request === membershipRequest.current) setLoading(false);
+      }
+    },
+    [isAuthEnabled],
+  );
 
   useEffect(() => {
     if (!isAuthEnabled) {
@@ -84,32 +104,45 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const supabase = createSupabaseBrowserClient();
     let mounted = true;
+    let authEventReceived = false;
 
-    supabase.auth.getSession().then(async ({ data, error: sessionError }) => {
-      if (!mounted) return;
+    function applySession(nextSession: Session | null) {
+      if (currentSession.current?.user.id !== nextSession?.user.id) {
+        setRole(null);
+        setOrganizationId(null);
+      }
+      currentSession.current = nextSession;
+      setSession(nextSession);
+      if (nextSession) {
+        void refreshMembership(nextSession.user.id);
+      } else {
+        ++membershipRequest.current;
+        setRole(null);
+        setOrganizationId(null);
+        setLoading(false);
+      }
+    }
+
+    supabase.auth.getSession().then(({ data, error: sessionError }) => {
+      if (!mounted || authEventReceived) return;
       if (sessionError) setError(sessionError.message);
-      setSession(data.session ?? null);
-      if (data.session) await refreshMembership();
-      setLoading(false);
+      applySession(data.session ?? null);
     });
 
     const { data: listener } = supabase.auth.onAuthStateChange(
       (_event, nextSession) => {
-        setSession(nextSession);
-        if (nextSession) {
-          void refreshMembership();
-        } else {
-          setRole(null);
-          setOrganizationId(null);
-        }
+        if (!mounted) return;
+        authEventReceived = true;
+        applySession(nextSession);
       },
     );
 
     return () => {
       mounted = false;
+      ++membershipRequest.current;
       listener.subscription.unsubscribe();
     };
-  }, [isAuthEnabled]);
+  }, [isAuthEnabled, refreshMembership]);
 
   const value = useMemo<AuthState>(
     () => ({
@@ -130,19 +163,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setError(signInError.message);
           throw signInError;
         }
-        setSession(data.session ?? null);
-        return await refreshMembership();
+        currentSession.current = data.session ?? null;
+        setSession(currentSession.current);
+        return await refreshMembership(currentSession.current?.user.id);
       },
       async signOut() {
         const supabase = createSupabaseBrowserClient();
         await supabase.auth.signOut();
+        ++membershipRequest.current;
+        currentSession.current = null;
         setSession(null);
         setRole(null);
         setOrganizationId(null);
+        setLoading(false);
       },
       refreshMembership,
     }),
-    [error, isAuthEnabled, loading, organizationId, role, session],
+    [
+      error,
+      isAuthEnabled,
+      loading,
+      organizationId,
+      refreshMembership,
+      role,
+      session,
+    ],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -1,5 +1,7 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { getSupabasePublicConfig } from "@/lib/app-config";
+
+let browserClient: SupabaseClient | undefined;
 
 export function createSupabaseBrowserClient() {
   const config = getSupabasePublicConfig();
@@ -10,5 +12,11 @@ export function createSupabaseBrowserClient() {
     );
   }
 
-  return createClient(config.url, config.publishableKey);
+  // Share Auth state and its subscription channel within this browser only.
+  // Server renders must never share an authenticated client across requests.
+  if (typeof window !== "undefined" && browserClient) return browserClient;
+
+  const client = createClient(config.url, config.publishableKey);
+  if (typeof window !== "undefined") browserClient = client;
+  return client;
 }
