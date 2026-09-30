@@ -3,6 +3,8 @@ import { PropertiesCrudPanel } from "@/components/crud/live-crud-panels";
 import { Badge, EmptyState, MetricCard } from "@/components/ui";
 import { demoLiquidationInput } from "@/lib/demo-data";
 import { formatCop } from "@/lib/money";
+import { isLiveMode } from "@/lib/app-config";
+import { PropertiesLivePanel } from "@/components/crud/properties-live";
 
 const incomeByProperty = new Map<string, number>();
 for (const c of demoLiquidationInput.collections) {
@@ -13,6 +15,16 @@ for (const c of demoLiquidationInput.collections) {
 }
 
 export default function PropertiesPage() {
+  if (isLiveMode)
+    return (
+      <AppShell
+        title="Propiedades"
+        description="Propiedades registradas en la organización activa."
+        icon="propiedades"
+      >
+        <PropertiesLivePanel />
+      </AppShell>
+    );
   const total = demoLiquidationInput.properties.length;
 
   return (

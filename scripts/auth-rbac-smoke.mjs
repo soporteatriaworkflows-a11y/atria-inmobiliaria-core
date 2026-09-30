@@ -224,7 +224,9 @@ try {
       await expect(page.getByText(deniedText, { exact: true })).toBeHidden();
       releaseMemberships(state);
       await expect(page.getByText(loadingText, { exact: true })).toBeHidden();
-      await expect(page.getByText("CRUD base de propiedades")).toBeVisible();
+      await expect(
+        page.getByText("Propiedades registradas", { exact: true }),
+      ).toBeVisible();
       checks++;
 
       activeCheck = "logout ignores a late membership response";
